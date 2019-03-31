@@ -1,2 +1,9 @@
-- name: "Installing Tmux"
-  apt: pkg:tmux state=installed
+- name: "Installing Packages"
+  apt: pkg={{item}} state=present
+  with_items:
+          - tmux
+          - tmuxinator
+          - xclip
+          - ack
+          - python-pip
+
