@@ -1,0 +1,9 @@
+- name: "Installing Packages"
+  apt: 
+    name:
+      - tmux
+      - tmuxinator
+      - xclip
+      - ack
+      - python-pip
+
