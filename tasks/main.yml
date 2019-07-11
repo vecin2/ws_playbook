@@ -1,9 +1,13 @@
 - name: "Installing Packages"
+  become: true
+  become_user: root
   apt: 
     name:
+      - git
       - tmux
       - tmuxinator
       - xclip
       - ack
-      - python-pip
+      - python3-pip
+      - cmake
 

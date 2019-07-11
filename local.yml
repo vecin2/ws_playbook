@@ -1,9 +1,12 @@
 - hosts: localhost
-  become: true
+  become: yes
   pre_tasks:
     - name: update repositories
       apt: update_cache=yes
       changed_when: False
   tasks:
           - include: tasks/main.yml
+- hosts: localhost
+  tasks:
+          - include: tasks/dotfiles.yml
             
