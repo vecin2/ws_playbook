@@ -1,12 +1,17 @@
-- hosts: localhost
+- hosts: windows
+  tasks:
+     - include: tasks/packages.yml
+
+- hosts: wsl
   become: yes
   pre_tasks:
     - name: update repositories
       apt: update_cache=yes
       changed_when: False
   tasks:
-          - include: tasks/main.yml
-- hosts: localhost
+     - include: tasks/main.yml
+      
+- hosts: wsl
   tasks:
-          - include: tasks/dotfiles.yml
+     - include: tasks/dotfiles.yml
             

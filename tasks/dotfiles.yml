@@ -1,6 +1,4 @@
 - name: "Downloading dot files"
-  become: yes
-  become_user: dgarcia
   git: repo="https://github.com/vecin2/dotfiles.git" dest={{ansible_env.HOME}}/.dotfiles update=no
   
 - name: "Link Dotfiles"
@@ -15,6 +13,7 @@
           - "gvimrc"
           - "fzf.bash"
           - "gitconfig"
+          - "dir_colors"
 
 - name: "Create .vim folder"
   file:
@@ -28,8 +27,6 @@
           - "config"
 
 - name: "Downloading Vundle for Vim"
-  become: yes
-  become_user: dgarcia
   git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
 
 - name: "Installing Vim Plugins"
@@ -53,8 +50,26 @@
   git: repo="https://github.com/vecin2/bashmarks.git" dest={{ansible_env.HOME}}/.local/bashmarks update=no
 - name: "Installing bashmarks"
   shell: chdir={{ansible_env.HOME}}/.local/bashmarks make install
+  args:
+   creates: "{{ansible_env.HOME}}/.local/bin/bashmarks.sh"
  
 - name: "Installing python3 virtualenvwrapper"
-  pip:
-    executable=pip3
-    name=virtualenvwrapper
+  shell: pip3 install virtualenvwrapper
+  args:
+    creates: "{{ansible_env.HOME}}/.local/bin/virtualenvwrapper.sh"
+
+- pip:
+    name: pywinrm
+
+- name: "Downloading Base16 shell"
+  git: repo="https://github.com/chriskempson/base16-shell.git" dest={{ansible_env.HOME}}/.config/base16-shell update=no
+
+- name: "Add base16 to bashrc" 
+  blockinfile: |
+     dest=~/.bashrc
+     content="# Base16 Shell
+        BASE16_SHELL=\"$HOME/.config/base16-shell/\"
+        [ -n \"$PS1\" ] && \
+        [ -s \"$BASE16_SHELL/profile_helper.sh\" ] && \
+        eval \"$(\"$BASE16_SHELL/profile_helper.sh\")\""
+

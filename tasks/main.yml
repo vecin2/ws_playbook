@@ -10,4 +10,5 @@
       - ack
       - python3-pip
       - cmake
+      - vim-gtk
 
