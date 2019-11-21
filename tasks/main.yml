@@ -11,4 +11,5 @@
       - python3-pip
       - cmake
       - vim-gtk
+      - silversearcher-ag
 
