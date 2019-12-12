@@ -58,7 +58,8 @@
   args:
     creates: "{{ansible_env.HOME}}/.local/bin/virtualenvwrapper.sh"
 
-- pip:
+- name: "Installing pywinrm"
+  pip:
     name: pywinrm
 
 - name: "Downloading Base16 shell"

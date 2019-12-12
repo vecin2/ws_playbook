@@ -1,0 +1,4 @@
+- hosts: windows
+  tasks:
+     - include: tasks/packages.yml
+

@@ -1,8 +1,5 @@
-- hosts: windows
-  tasks:
-     - include: tasks/packages.yml
-
-- hosts: wsl
+- hosts: localhost
+  connection: local
   become: yes
   pre_tasks:
     - name: update repositories
@@ -11,7 +8,7 @@
   tasks:
      - include: tasks/main.yml
       
-- hosts: wsl
+- hosts: localhost
   tasks:
      - include: tasks/dotfiles.yml
             

@@ -5,3 +5,8 @@
     state: present
   loop:
   - 'git'
+  - 'vim'
+  - 'googlechrome'
+- name: Installing virtualenvwrapper-win
+  pip:
+    name: Numpy
