@@ -7,6 +7,6 @@
   - 'git'
   - 'vim'
   - 'googlechrome'
-- name: Installing virtualenvwrapper-win
-  pip:
-    name: Numpy
+    #- name: Installing virtualenvwrapper-win
+    #  pip:
+    #    name: Numpy

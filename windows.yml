@@ -1,4 +1,10 @@
 - hosts: windows
+  connection: winrm
+  vars:
+    ansible_port: 5985
+    ansible_wirm_transport: basic
+    ansible_user: ansible_user
+
   tasks:
      - include: tasks/packages.yml
 
