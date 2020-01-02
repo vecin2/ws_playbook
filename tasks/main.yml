@@ -1,6 +1,5 @@
 - name: "Installing Packages"
-  become: true
-  become_user: root
+  become: yes
   apt: 
     name:
       - git
