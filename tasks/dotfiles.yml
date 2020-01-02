@@ -34,10 +34,14 @@
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe"
 
+- name: "Patching nerdtree-git-plugin"
+  copy:
+    src: "{{ansible_env.HOME}}/dev/ansible/ws_playbook/tasks/git_status.vim"
+    dest: "{{ansible_env.HOME}}/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim"
 - name: "Installing Vim Plugin: YouCompleteMe"
-  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.py"
+  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.sh"
   args:
-    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/"
+    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/_regex.so"
 
 - name: "Downloading fzf"
   git: repo="https://github.com/junegunn/fzf.git" dest={{ansible_env.HOME}}/.fzf update=no
