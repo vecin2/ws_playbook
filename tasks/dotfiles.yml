@@ -57,24 +57,47 @@
   args:
    creates: "{{ansible_env.HOME}}/.local/bin/bashmarks.sh"
  
-- name: "Installing python3 virtualenvwrapper"
-  shell: pip3 install virtualenvwrapper
+- name: "Installing python3 virtualenvwrapper for user"
+  shell: pip3 install virtualenvwrapper --user
   args:
     creates: "{{ansible_env.HOME}}/.local/bin/virtualenvwrapper.sh"
 
-- name: "Installing pywinrm"
-  pip:
-    name: pywinrm
+- name: "Configuring virtualenvwrapper in bash_ansible"
+  blockinfile: 
+    path : "{{ansible_env.HOME}}/.bash_ansible"
+    marker: ""
+    create: yes
+    block: |
+      #setup python virtualenvwrapper
+      export WORKON_HOME=$HOME/.virtualenvs
+      export PROJECT_HOME=$HOME/dev/python
+      export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6
+      source $HOME/.local/bin/virtualenvwrapper.sh
+
+- name: "Check if pywinrm is installed"
+  find:
+    path: "/usr/local/lib/python2.7/dist-packages"
+    patterns: "pywinrm*"
+    file_type: directory
+  register: pywinrm_files
+
+- name: "pip install pywinrm if is not installed"
+  become: yes
+  shell: pip install pywinrm
+  when: pywinrm_files.matched ==0
 
 - name: "Downloading Base16 shell"
   git: repo="https://github.com/chriskempson/base16-shell.git" dest={{ansible_env.HOME}}/.config/base16-shell update=no
 
-- name: "Add base16 to bashrc" 
-  blockinfile: |
-     dest=~/.bashrc
-     content="# Base16 Shell
-        BASE16_SHELL=\"$HOME/.config/base16-shell/\"
-        [ -n \"$PS1\" ] && \
-        [ -s \"$BASE16_SHELL/profile_helper.sh\" ] && \
-        eval \"$(\"$BASE16_SHELL/profile_helper.sh\")\""
+- name: "Add base16 to bash_ansible" 
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.bash_ansible"
+    create: yes
+    marker: ""
+    block: |
+     # Base16 Shell
+     BASE16_SHELL="$HOME/.config/base16-shell/"
+        [ -n "$PS1\\" ] && 
+        [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
