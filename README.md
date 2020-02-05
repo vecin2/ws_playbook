@@ -30,6 +30,11 @@ copy text from tmux ctrl [ and then paste in vim
 paste in vim with "+ not working
 
 
+### EM Machina
+choco install virtualbox
+choco install vagrant
+
+
 Vim
 Syntastic and Nerdtree git failed when saving python files if the file was not open with nerdtree
 In case this issue has not been fixed, there is a workaround:
