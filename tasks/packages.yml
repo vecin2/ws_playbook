@@ -1,4 +1,6 @@
 ---
+- debug:
+    var: ansible_connection
 - name: Install packages
   win_chocolatey:
     name: "{{ item }}"
@@ -6,7 +8,13 @@
   loop:
   - 'git'
   - 'vim'
-  - 'googlechrome'
-    #- name: Installing virtualenvwrapper-win
-    #  pip:
-    #    name: Numpy
+  - 'skype'
+  - 'google-backup-and-sync'
+  - '7zip'
+  - 'python3'
+  - 'VcXsrv'
+- name: Install python virtualenvwrapper-win
+  win_command: python -m pip install virtualenvwrapper-win
+- name: Install python Cython
+  win_command: python -m pip install Cython
+

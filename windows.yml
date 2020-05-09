@@ -1,9 +1,12 @@
-- hosts: windows
+- hosts: localhost
   connection: winrm
   vars:
+    ansible_connection: winrm
     ansible_port: 5985
     ansible_wirm_transport: basic
-    ansible_user: ansible_user
+    ansible_winrm_server_cert_validation: ignore
+    ansible_user: winrm_user
+    ansible_password: Ans1ble123!
 
   tasks:
      - include: tasks/packages.yml

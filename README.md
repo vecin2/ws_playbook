@@ -34,6 +34,9 @@ paste in vim with "+ not working
 choco install virtualbox
 choco install vagrant
 
+##in wsl run
+sudo apt-get install  subversion
+
 
 Vim
 Syntastic and Nerdtree git failed when saving python files if the file was not open with nerdtree
@@ -47,4 +50,13 @@ augroup END
 Before:
 " FUNCTION: s:FileUpdate(fname) {{{2
 function! s:FileUpdate(fname)
+
+
+
+##EM_AUTOMATION
+Running in wsl/ubuntu need libaio1 package and oracle instant client
+Then set env var:
+export LD_LIBRARY_PATH=/usr/lib/oracle/<version>/client(64)/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+
+
 
