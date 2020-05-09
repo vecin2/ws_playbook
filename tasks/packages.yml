@@ -1,0 +1,21 @@
+---
+- debug:
+    var: ansible_connection
+- debug: var=hostvars[inventory_hostname]['ansible_python_interpreter']
+- name: Install packages
+  win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - 'git'
+  - 'vim'
+  - 'skype'
+  - 'google-backup-and-sync'
+  - '7zip'
+  - 'python3'
+  - 'VcXsrv'
+- name: Install python virtualenvwrapper-win
+  win_command: python -m pip install virtualenvwrapper-win
+- name: Install python Cython
+  win_command: python -m pip install Cython
+

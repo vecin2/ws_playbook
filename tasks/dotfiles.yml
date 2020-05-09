@@ -1,0 +1,104 @@
+- name: "Downloading dot files"
+  git: repo="https://github.com/vecin2/dotfiles.git" dest={{ansible_env.HOME}}/.dotfiles update=no
+
+- name: "Downloading tmux plugin manager"
+  git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm update=no
+
+- name: "Link Dotfiles"
+  file: src="{{ ansible_env.HOME }}/.dotfiles/{{ item }}" dest="{{ ansible_env.HOME }}/.{{ item }}" state=link force=yes
+  with_items:
+    - "bashrc"
+    - "bash_aliases"
+    - "bash_profile"
+    - "dir_colors"
+    - "flake8"
+    - "fzf.bash"
+    - "gitconfig"
+    - "vimrc"
+    - "profile"
+    - "pylintrc"
+    - "tmux.conf"
+
+- name: "Create .vim folder"
+  file:
+    path: "{{ ansible_env.HOME}}/.vim"
+    state: directory
+
+- name: "Link Vim files"
+  file: src="{{ ansible_env.HOME }}/.dotfiles/vim/{{ item }}.vim" dest="{{ ansible_env.HOME }}/.vim/{{ item }}.vim" state=link force=yes
+  with_items:
+    - "plugins"
+    - "config"
+
+- name: "Downloading Vundle for Vim"
+  git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
+
+- name: "Installing Vim Plugins"
+  shell: vim -E -s -c "source ~/.vimrc" -c PluginInstall -c qa
+  args:
+    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe"
+
+- name: "Installing Vim Plugin: YouCompleteMe"
+  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.sh"
+  args:
+    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/_regex.so"
+
+- name: "Downloading fzf"
+  git: repo="https://github.com/junegunn/fzf.git" dest={{ansible_env.HOME}}/.fzf update=no
+
+- name: "Installing fzf"
+  shell: "{{ansible_env.HOME}}/.fzf/install"
+  args:
+   creates: "{{ansible_env.HOME}}/.fzf/bin/fzf"
+
+- name: "Downloading Bashmarks"
+  git: repo="https://github.com/vecin2/bashmarks.git" dest={{ansible_env.HOME}}/.local/bashmarks update=no
+
+- name: "Installing bashmarks"
+  shell: chdir={{ansible_env.HOME}}/.local/bashmarks make install
+  args:
+   creates: "{{ansible_env.HOME}}/.local/bin/bashmarks.sh"
+
+- name: "Installing python3 virtualenvwrapper for user"
+  shell: pip3 install virtualenvwrapper --user
+  args:
+    creates: "{{ansible_env.HOME}}/.local/bin/virtualenvwrapper.sh"
+
+- name: "Configuring virtualenvwrapper in bash_ansible"
+  blockinfile:
+    path : "{{ansible_env.HOME}}/.bash_ansible"
+    marker: ""
+    create: yes
+    block: |
+      #setup python virtualenvwrapper
+      export WORKON_HOME=$HOME/.virtualenvs
+      export PROJECT_HOME=$HOME/dev/python
+      export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6
+      source $HOME/.local/bin/virtualenvwrapper.sh
+
+- name: "Check if pywinrm is installed"
+  find:
+    path: "/usr/local/lib/python2.7/dist-packages"
+    patterns: "pywinrm*"
+    file_type: directory
+  register: pywinrm_files
+
+- name: "pip install pywinrm if is not installed"
+  become: yes
+  shell: pip install pywinrm
+  when: pywinrm_files.matched ==0
+
+- name: "Downloading Base16 shell"
+  git: repo="https://github.com/chriskempson/base16-shell.git" dest={{ansible_env.HOME}}/.config/base16-shell update=no
+
+- name: "Add base16 to bash_ansible"
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.bash_ansible"
+    create: yes
+    marker: ""
+    block: |
+     # Base16 Shell
+     BASE16_SHELL="$HOME/.config/base16-shell/"
+        [ -n "$PS1\\" ] &&
+        [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
+        eval "$("$BASE16_SHELL/profile_helper.sh")"

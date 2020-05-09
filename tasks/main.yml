@@ -1,0 +1,18 @@
+#fixing ALE cursor issue:
+#sudo apt-get install software-properties-common
+#sudo add-apt-repository ppa:jonathonf/vim
+#sudo apt install vim
+- name: "Installing Packages"
+  become: yes
+  apt:
+    name:
+      - git
+      - tmux
+      - tmuxinator
+      - xclip
+      - ack
+      - python3-pip
+      - cmake
+      - vim-gtk
+      - silversearcher-ag
+      - software-properties-common # Part of the fix for ALE not highlighting cursor when error line
