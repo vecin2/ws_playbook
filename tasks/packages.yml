@@ -1,6 +1,10 @@
 ---
 - debug:
     var: ansible_connection
+<<<<<<< HEAD
+=======
+- debug: var=hostvars[inventory_hostname]['ansible_python_interpreter']
+>>>>>>> 5d10504249aa5209335d42e7c08405e76c31e35d
 - name: Install packages
   win_chocolatey:
     name: "{{ item }}"
