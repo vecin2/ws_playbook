@@ -1,23 +1,23 @@
 - name: "Downloading dot files"
-  git: repo="https://github.com/vecin2/dotfiles.git" dest={{ansible_env.HOME}}/.dotfiles update=no
+  git: repo="https://github.com/vecin2/dotfiles.git" dest={{ansible_env.HOME}}/dotfiles update=no
 
 - name: "Downloading tmux plugin manager"
   git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm update=no
 
 - name: "Link Dotfiles"
-  file: src="{{ ansible_env.HOME }}/.dotfiles/{{ item }}" dest="{{ ansible_env.HOME }}/.{{ item }}" state=link force=yes
+  file: src="{{ ansible_env.HOME }}/dotfiles/{{ item }}" dest="{{ ansible_env.HOME }}/.{{ item }}" state=link force=yes
   with_items:
-    - "bashrc"
-    - "bash_aliases"
-    - "bash_profile"
-    - "dir_colors"
-    - "flake8"
-    - "fzf.bash"
-    - "gitconfig"
-    - "vimrc"
-    - "profile"
-    - "pylintrc"
-    - "tmux.conf"
+          - "bashrc"
+          - "bash_aliases"
+          - "bash_profile"
+          - "dir_colors"
+          - "flake8"
+          - "fzf.bash"
+          - "gitconfig"
+          - "vimrc"
+          - "profile"
+          - "pylintrc"
+          - "tmux.conf"
 
 - name: "Create .vim folder"
   file:
@@ -25,10 +25,10 @@
     state: directory
 
 - name: "Link Vim files"
-  file: src="{{ ansible_env.HOME }}/.dotfiles/vim/{{ item }}.vim" dest="{{ ansible_env.HOME }}/.vim/{{ item }}.vim" state=link force=yes
+  file: src="{{ ansible_env.HOME }}/dotfiles/vim/{{ item }}.vim" dest="{{ ansible_env.HOME }}/.vim/{{ item }}.vim" state=link force=yes
   with_items:
-    - "plugins"
-    - "config"
+          - "plugins"
+          - "config"
 
 - name: "Downloading Vundle for Vim"
   git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
@@ -38,6 +38,10 @@
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe"
 
+- name: "Patching nerdtree-git-plugin"
+  copy:
+    src: "{{ansible_env.HOME}}/dev/ansible/ws_playbook/tasks/git_status.vim"
+    dest: "{{ansible_env.HOME}}/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim"
 - name: "Installing Vim Plugin: YouCompleteMe"
   shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.sh"
   args:
@@ -45,7 +49,6 @@
 
 - name: "Downloading fzf"
   git: repo="https://github.com/junegunn/fzf.git" dest={{ansible_env.HOME}}/.fzf update=no
-
 - name: "Installing fzf"
   shell: "{{ansible_env.HOME}}/.fzf/install"
   args:
@@ -53,7 +56,6 @@
 
 - name: "Downloading Bashmarks"
   git: repo="https://github.com/vecin2/bashmarks.git" dest={{ansible_env.HOME}}/.local/bashmarks update=no
-
 - name: "Installing bashmarks"
   shell: chdir={{ansible_env.HOME}}/.local/bashmarks make install
   args:
@@ -67,10 +69,9 @@
 - name: "Configuring virtualenvwrapper in bash_ansible"
   blockinfile:
     path : "{{ansible_env.HOME}}/.bash_ansible"
-    marker: ""
+    marker: "#{mark} virtualwrapper"
     create: yes
     block: |
-      #setup python virtualenvwrapper
       export WORKON_HOME=$HOME/.virtualenvs
       export PROJECT_HOME=$HOME/dev/python
       export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6
@@ -111,9 +112,8 @@
   blockinfile:
     path: "{{ansible_env.HOME}}/.bash_ansible"
     create: yes
-    marker: ""
+    marker: "#{mark} Base16 Shell"
     block: |
-     # Base16 Shell
      BASE16_SHELL="$HOME/.config/base16-shell/"
         [ -n "$PS1\\" ] &&
         [ -s "$BASE16_SHELL/profile_helper.sh" ] &&

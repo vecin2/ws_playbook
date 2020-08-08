@@ -1,0 +1,5 @@
+# Install/uninstall with chocolatey
+- name: Ensure 7-Zip is installed via Chocolatey
+  win_chocolatey:
+      name: 7zip
+      state: present

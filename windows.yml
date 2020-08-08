@@ -1,10 +1,19 @@
 - hosts: localhost
+<<<<<<< HEAD
+  connection: winrm
+=======
+>>>>>>> 5d10504249aa5209335d42e7c08405e76c31e35d
   vars:
     ansible_connection: winrm
     ansible_port: 5985
     ansible_wirm_transport: basic
     ansible_winrm_server_cert_validation: ignore
+<<<<<<< HEAD
+    ansible_user: winrm_user
+    ansible_password: Ans1ble123!
+=======
     ansible_user: ansible_user
+>>>>>>> 5d10504249aa5209335d42e7c08405e76c31e35d
 
   tasks:
      - include: tasks/packages.yml
