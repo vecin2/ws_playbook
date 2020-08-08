@@ -100,6 +100,10 @@
   become: yes
   shell: python3 -m pip install isort
 
+- name: "pip install ropevim"
+  become: yes
+  shell: python3 -m pip install ropevim
+
 - name: "Downloading Base16 shell"
   git: repo="https://github.com/chriskempson/base16-shell.git" dest={{ansible_env.HOME}}/.config/base16-shell update=no
 
