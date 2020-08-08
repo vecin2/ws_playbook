@@ -126,3 +126,28 @@
         [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
         eval "$("$BASE16_SHELL/profile_helper.sh")"
   when: base16
+
+- name: "Add fasd configuration to ~/.bash_ansible"
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.bash_ansible"
+    create: yes
+    marker: "#{mark} fasd config"
+    block: |
+      fasd_cache="$HOME/.fasd-init-bash"
+      if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+        fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+      fi
+      source "$fasd_cache"
+      unset fasd_cache
+
+- name: "Add fasd aliases"
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.bash_ansible"
+    create: yes
+    marker: "#{mark} fasd aliases"
+    block: |
+      alias v='f -e vim' # quick opening files with vim
+      alias o='a -e xdg-open' # quick opening files with xdg-open
+      alias r='fasd -si'
+      alias sd='fasd -sid'
+      alias sf='fasd -sif'
