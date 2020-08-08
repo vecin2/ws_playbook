@@ -1,14 +1,17 @@
 - hosts: localhost
   connection: local
-  become: yes
+  vars:
+    base16: False
   pre_tasks:
-    - apt_repository:
-        repo: ppa:aacebedo/fasd
-        state: present
+    - block:
+      - apt_repository:
+          repo: ppa:aacebedo/fasd
+          state: present
 
-    - name: update repositories
-      apt: update_cache=yes
-      changed_when: False
+      - name: update repositories
+        apt: update_cache=yes
+        changed_when: False
+      become: yes
   tasks:
      - include: tasks/main.yml
      - include: tasks/dotfiles.yml
