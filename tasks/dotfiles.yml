@@ -10,7 +10,6 @@
           - "bashrc"
           - "bash_aliases"
           - "bash_profile"
-          - "dir_colors"
           - "flake8"
           - "fzf.bash"
           - "gitconfig"
@@ -18,6 +17,12 @@
           - "profile"
           - "pylintrc"
           - "tmux.conf"
+
+- name: "Installing nord dircolors"
+  file: src="{{ ansible_env.HOME }}/dotfiles/dircolors/dircolors_nord" dest="{{ ansible_env.HOME }}/.dircolors" state=link force=yes
+  #copy:
+  #  src: "{{ansible_env.HOME}}/dotfiles/dircolors/dircolors_nord"
+  #  dest: "{{ansible_env.HOME}}/.dircolors"
 
 - name: "Create .vim folder"
   file:
