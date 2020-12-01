@@ -7,7 +7,6 @@
   apt:
     name:
       - git
-      - tmux
       - tmuxinator
       - xclip
       - ack

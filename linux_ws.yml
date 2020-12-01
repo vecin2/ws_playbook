@@ -6,3 +6,6 @@
     - include: tasks/fzf.yml
     - include: tasks/fasd.yml
     - include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+    - include: tasks/tmux.yml
+    - include: tasks/tmuxinator.yml
+    - include: tasks/silversearcher.yml

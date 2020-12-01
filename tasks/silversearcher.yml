@@ -1,0 +1,12 @@
+- name: Install ack
+  become: yes
+  apt:
+    name:
+      - ack
+      - silversearcher-ag
+
+- name: "Setting alias for silversearcher"
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.bash_aliases"
+    line: "#alias ag=\"ag --color-path '36;1' --color-line-number '1;35'\""
+    create: yes

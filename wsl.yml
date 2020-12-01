@@ -1,13 +1,6 @@
 - hosts: localhost
   connection: local
-  vars:
-    base16: False
   pre_tasks:
-    - block:
-      - apt_repository:
-          repo: ppa:aacebedo/fasd
-          state: present
-
       - name: update repositories
         apt: update_cache=yes
         changed_when: False

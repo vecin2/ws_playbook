@@ -1,0 +1,17 @@
+- name: "Installing tmux"
+  become: yes
+  apt:
+    name:
+      - tmux
+
+- name: "Downloading tmux plugin manager"
+  git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm update=no
+
+- name: "Link tmux.conf"
+  file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf" state=link force=yes
+
+- name: "Setting alias to allow italic font within tmux and vim"
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.bash_aliases"
+    line: 'alias tmux="env TERM=screen-italics tmux -2"'
+    create: yes

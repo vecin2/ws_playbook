@@ -1,0 +1,12 @@
+- name: "Installing tmuxinator"
+  become: yes
+  apt:
+    name:
+      - git
+      - tmuxinator
+
+- name: "Setting alias for tmuxinator"
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.bash_aliases"
+    line: "alias mux=tmuxinator"
+    create: yes

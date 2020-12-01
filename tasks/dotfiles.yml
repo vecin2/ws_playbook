@@ -1,15 +1,11 @@
 - name: "Downloading dot files"
   git: repo="https://github.com/vecin2/dotfiles.git" dest={{ansible_env.HOME}}/dotfiles update=no
 
-- name: "Downloading tmux plugin manager"
-  git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm update=no
-
 - name: "Link Dotfiles"
   file: src="{{ ansible_env.HOME }}/dotfiles/{{ item }}" dest="{{ ansible_env.HOME }}/.{{ item }}" state=link force=yes
   with_items:
           - "bashrc"
           - "bash_aliases"
-          - "bash_profile"
           - "flake8"
           - "gitconfig"
           - "vimrc"
