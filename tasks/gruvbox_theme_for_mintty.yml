@@ -1,0 +1,9 @@
+- name: "Computing wsltty themes path"
+  shell: >
+     wslpath "{{ansible_env['APPDATA']}}/wsltty/themes"
+  register: themes_path
+
+- name: "Copy gruvbox.minttyrc file to wsltty themes folder"
+  copy:
+     src: "{{ playbook_dir }}/files/gruvbox.minttyrc"
+     dest: "{{ themes_path.stdout }}"

@@ -11,18 +11,11 @@
           - "bash_aliases"
           - "bash_profile"
           - "flake8"
-          - "fzf.bash"
           - "gitconfig"
           - "vimrc"
           - "profile"
           - "pylintrc"
           - "tmux.conf"
-
-- name: "Installing nord dircolors"
-  file: src="{{ ansible_env.HOME }}/dotfiles/dircolors/dircolors_nord" dest="{{ ansible_env.HOME }}/.dircolors" state=link force=yes
-  #copy:
-  #  src: "{{ansible_env.HOME}}/dotfiles/dircolors/dircolors_nord"
-  #  dest: "{{ansible_env.HOME}}/.dircolors"
 
 - name: "Create .vim folder"
   file:
@@ -52,19 +45,6 @@
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/_regex.so"
 
-- name: "Downloading fzf"
-  git: repo="https://github.com/junegunn/fzf.git" dest={{ansible_env.HOME}}/.fzf update=no
-- name: "Installing fzf"
-  shell: "{{ansible_env.HOME}}/.fzf/install"
-  args:
-   creates: "{{ansible_env.HOME}}/.fzf/bin/fzf"
-
-- name: "Downloading Bashmarks"
-  git: repo="https://github.com/vecin2/bashmarks.git" dest={{ansible_env.HOME}}/.local/bashmarks update=no
-- name: "Installing bashmarks"
-  shell: chdir={{ansible_env.HOME}}/.local/bashmarks make install
-  args:
-   creates: "{{ansible_env.HOME}}/.local/bin/bashmarks.sh"
 
 - name: "Installing python3 virtualenvwrapper for user"
   shell: pip3 install virtualenvwrapper --user
@@ -131,28 +111,3 @@
         [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
         eval "$("$BASE16_SHELL/profile_helper.sh")"
   when: base16
-
-- name: "Add fasd configuration to ~/.bash_ansible"
-  blockinfile:
-    path: "{{ansible_env.HOME}}/.bash_ansible"
-    create: yes
-    marker: "#{mark} fasd config"
-    block: |
-      fasd_cache="$HOME/.fasd-init-bash"
-      if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-        fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
-      fi
-      source "$fasd_cache"
-      unset fasd_cache
-
-- name: "Add fasd aliases"
-  blockinfile:
-    path: "{{ansible_env.HOME}}/.bash_ansible"
-    create: yes
-    marker: "#{mark} fasd aliases"
-    block: |
-      alias v='f -e vim' # quick opening files with vim
-      alias o='a -e xdg-open' # quick opening files with xdg-open
-      alias r='fasd -si'
-      alias sd='fasd -sid'
-      alias sf='fasd -sif'

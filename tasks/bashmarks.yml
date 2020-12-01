@@ -1,0 +1,15 @@
+- name: "Downloading Bashmarks"
+  git: repo="https://github.com/vecin2/bashmarks.git" dest={{ansible_env.HOME}}/.local/bashmarks update=no
+
+- name: "Installing bashmarks"
+  shell: chdir={{ansible_env.HOME}}/.local/bashmarks make install
+  args:
+   creates: "{{ansible_env.HOME}}/.local/bin/bashmarks.sh"
+
+- name: "Source bashmarks on rc files"
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.profile"
+    marker: "#{mark} bashmarks configuration"
+    block: |
+        . $HOME/.local/bin/bashmarks.sh
+        . $HOME/.sdirs
