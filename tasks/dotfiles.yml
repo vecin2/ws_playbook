@@ -95,19 +95,3 @@
 - name: "pip install ropevim"
   become: yes
   shell: python3 -m pip install ropevim
-
-- name: "Downloading Base16 shell"
-  git: repo="https://github.com/chriskempson/base16-shell.git" dest={{ansible_env.HOME}}/.config/base16-shell update=no
-  when: base16
-
-- name: "Add base16 to bash_ansible"
-  blockinfile:
-    path: "{{ansible_env.HOME}}/.bash_ansible"
-    create: yes
-    marker: "#{mark} Base16 Shell"
-    block: |
-     BASE16_SHELL="$HOME/.config/base16-shell/"
-        [ -n "$PS1\\" ] &&
-        [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
-  when: base16

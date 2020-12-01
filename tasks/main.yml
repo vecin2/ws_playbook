@@ -11,8 +11,8 @@
       - tmuxinator
       - xclip
       - ack
+      - silversearcher-ag
       - python3-pip
       - cmake
       - vim-gtk
-      - silversearcher-ag
       - software-properties-common # Part of the fix for ALE not highlighting cursor when error line

@@ -5,4 +5,4 @@
     - include: tasks/bashmarks.yml
     - include: tasks/fzf.yml
     - include: tasks/fasd.yml
-    - include: tasks/gruvbox_theme_for_mintty.yml
+    - include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
