@@ -1,7 +1,7 @@
 - name: "Configure bashrc"
   blockinfile:
     path: "{{ansible_env.HOME}}/.bashrc"
-    marker: "#{mark} bashrc customization"
+    marker: "#{mark} Setting bash environment variables"
     block: |
         # After each command, append to the history file and reread it
         export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r; history -n"

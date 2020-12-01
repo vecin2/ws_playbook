@@ -4,8 +4,6 @@
 - name: "Link Dotfiles"
   file: src="{{ ansible_env.HOME }}/dotfiles/{{ item }}" dest="{{ ansible_env.HOME }}/.{{ item }}" state=link force=yes
   with_items:
-          - "bashrc"
-          - "bash_aliases"
           - "flake8"
           - "profile"
           - "pylintrc"

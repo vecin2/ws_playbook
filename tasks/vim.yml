@@ -23,13 +23,15 @@
     - src: plugins.vim
       dest: .vim/plugins.vim
 
-- name: "Setting Vim environment variables"
+- name: "Bash configuration for Vim"
   blockinfile:
     path: "{{ansible_env.HOME}}/.profile"
     marker: "#{mark} Vim vars"
     block: |
         #This var is use in VIM mapping which opens docs in CLOUD folder
         export CLOUD_LOC=$HOME/gdrive
+        #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
+        stty -ixon
 
 - name: "Downloading and Installing Vundle for Vim"
   git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
