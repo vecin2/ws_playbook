@@ -1,0 +1,13 @@
+- name: Configure my bash functions
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.bashrc"
+    marker: "#{mark} mybash functions"
+    content: |
+      google() {
+        search=""
+        echo "Googling: $@"
+        for term in $@; do
+          search="$search%20$term"
+        done
+        firefox "http://www.google.com/search?q=$search"
+      }

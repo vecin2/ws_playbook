@@ -3,7 +3,5 @@
      wslpath "{{ansible_env['APPDATA']}}/wsltty/themes"
   register: themes_path
 
-- name: "Copy gruvbox.minttyrc file to wsltty themes folder"
-  copy:
-     src: "{{ playbook_dir }}/files/gruvbox.minttyrc"
-     dest: "{{ themes_path.stdout }}"
+- name: "Configure gruvbox.minttyrc file in wsltty themes folder"
+  file: src="{{ playbook_dir }}/files/gruvbox.minttyrc" dest="{{ themes_path.stdout}}/.gitconfig" state=link force=yes

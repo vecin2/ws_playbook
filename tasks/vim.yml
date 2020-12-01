@@ -1,0 +1,50 @@
+#fixing ALE cursor issue:
+#sudo apt-get install software-properties-common
+#sudo add-apt-repository ppa:jonathonf/vim
+#sudo apt install vim
+- name: "Installing Vim"
+  become: yes
+  apt:
+    name:
+      - vim-gtk
+
+- name: "Create .vim folder"
+  file:
+    path: "{{ ansible_env.HOME}}/.vim"
+    state: directory
+
+- name: "Link Vim Config files"
+  file: src="{{ playbook_dir }}/files/vim/{{ item.src }}" dest="{{ ansible_env.HOME }}/{{ item.dest }}" state=link force=yes
+  with_items:
+    - src: vimrc
+      dest: .vimrc
+    - src: config.vim
+      dest: .vim/config.vim
+    - src: plugins.vim
+      dest: .vim/plugins.vim
+
+- name: "Setting Vim environment variables"
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.profile"
+    marker: "#{mark} Vim vars"
+    block: |
+        #This var is use in VIM mapping which opens docs in CLOUD folder
+        export CLOUD_LOC=$HOME/gdrive
+
+- name: "Downloading and Installing Vundle for Vim"
+  git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
+
+- name: "Installing Vim Plugins"
+  shell: vim -E -s -c "source ~/.vimrc" -c PluginInstall -c qa
+  args:
+    creates: "{{ansible_env.HOME}}/.vim/bundle/nerdtree"
+
+- name: "Patching nerdtree-git-plugin"
+  copy:
+    src: "{{ansible_env.HOME}}/dev/ansible/ws_playbook/tasks/git_status.vim"
+    dest: "{{ansible_env.HOME}}/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim"
+
+- name: "Installing Vim Plugin: YouCompleteMe"
+  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.sh"
+  args:
+    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/_regex.so"

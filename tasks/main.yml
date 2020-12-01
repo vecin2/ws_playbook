@@ -2,16 +2,9 @@
 #sudo apt-get install software-properties-common
 #sudo add-apt-repository ppa:jonathonf/vim
 #sudo apt install vim
-- name: "Installing Packages"
+- name: "Installing other packages"
   become: yes
   apt:
     name:
-      - git
-      - tmuxinator
-      - xclip
-      - ack
-      - silversearcher-ag
       - python3-pip
-      - cmake
-      - vim-gtk
       - software-properties-common # Part of the fix for ALE not highlighting cursor when error line

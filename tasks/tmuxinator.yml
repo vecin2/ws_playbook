@@ -10,3 +10,13 @@
     path: "{{ansible_env.HOME}}/.bash_aliases"
     line: "alias mux=tmuxinator"
     create: yes
+
+- name: Adding custom tmuxinator functions
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.profile"
+    marker: "#{mark} tmuxinator"
+    content: |
+      muxworkon(){
+        tmux kill-session  -t "dummy"
+        tmuxinator list-sessions || ( tmux new -d -s "dummy" && tmuxinator start $1 )
+      }
