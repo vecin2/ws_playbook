@@ -1,2 +1,0 @@
-- name: "Downloading dot files"
-  git: repo="https://github.com/vecin2/dotfiles.git" dest={{ansible_env.HOME}}/dotfiles update=no
