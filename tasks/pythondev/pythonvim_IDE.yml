@@ -16,4 +16,4 @@
       - black
       - isort
       - ropevim
-      - software-properties-common # Part of the fix for ALE not highlighting cursor when error line
+      #- software-properties-common # Part of the fix for ALE not highlighting cursor when error line
