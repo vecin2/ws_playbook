@@ -1,0 +1,14 @@
+- name: "Installing python3 virtualenvwrapper for user"
+  pip:
+    name: virtualenvwrapper
+    extra_args: --user
+
+- include: tasks/pythondev/flake8.yml
+
+- name: "pip installing packages for VIM python IDE experience"
+  become: yes
+  pip:
+    name:
+      - black
+      - isort
+      - ropevim

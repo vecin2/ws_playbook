@@ -17,3 +17,7 @@
     - include: tasks/tmux.yml
     - include: tasks/tmuxinator.yml
     - include: tasks/verint_em_shell.yml
+    #Python
+    - include: tasks/pythondev.yml
+    #Virtualization server
+    - include: tasks/pywinrm.yml

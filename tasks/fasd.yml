@@ -1,4 +1,5 @@
 - name: "Adding fasd apt repository"
+  become: yes
   apt_repository:
     repo: ppa:aacebedo/fasd
     state: present

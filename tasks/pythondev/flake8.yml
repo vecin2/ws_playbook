@@ -1,0 +1,9 @@
+
+- name: "pip install flake8"
+  become: yes
+  pip:
+    name:
+      - flake8
+
+- name: "Link flake8 file"
+  file: src="{{ playbook_dir }}/files/flake8" dest="{{ ansible_env.HOME }}/.flake8" state=link force=yes

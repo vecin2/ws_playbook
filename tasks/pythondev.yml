@@ -1,0 +1,2 @@
+- include: tasks/pythondev/virtualenvwrapper.yml
+- include: tasks/pythondev/pythonvim_IDE.yml
