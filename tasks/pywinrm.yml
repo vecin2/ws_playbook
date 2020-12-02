@@ -1,4 +1,4 @@
-- name: "pip install pywinrm if is not installed"
+- name: "pip installing pywinrm"
   become: yes
   pip:
     name: pywinrm

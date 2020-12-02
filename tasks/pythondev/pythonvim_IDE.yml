@@ -1,3 +1,7 @@
+#fixing ALE cursor issue:
+#sudo apt-get install software-properties-common
+#sudo add-apt-repository ppa:jonathonf/vim
+#sudo apt install vim
 - name: "Installing python3 virtualenvwrapper for user"
   pip:
     name: virtualenvwrapper
@@ -12,3 +16,4 @@
       - black
       - isort
       - ropevim
+      - software-properties-common # Part of the fix for ALE not highlighting cursor when error line
