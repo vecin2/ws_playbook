@@ -10,6 +10,11 @@
 - name: "Link tmux.conf"
   file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf" state=link force=yes
 
+- name: "Install screen-italics terminal"
+  command:
+    cmd: tic {{playbook_dir}}/files/screen-italics.terminfo
+    creates: "{{ansible_env.HOME}}/.terminfo/**/screen-italics"
+
 - name: "Setting alias to allow italic font within tmux and vim"
   lineinfile:
     path: "{{ansible_env.HOME}}/.bash_aliases"
