@@ -46,7 +46,15 @@
     src: "{{ansible_env.HOME}}/dev/ansible/ws_playbook/tasks/git_status.vim"
     dest: "{{ansible_env.HOME}}/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim"
 
+- name: "Ensure YouCompleteMe dependencies are installed"
+  become: yes
+  apt:
+    name:
+      - build-essential
+      - cmake
+      - python3-dev
+
 - name: "Installing Vim Plugin: YouCompleteMe"
-  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.sh"
+  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.py"
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/_regex.so"
