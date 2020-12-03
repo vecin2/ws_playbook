@@ -9,7 +9,7 @@
     #Basic terminal
     - include: tasks/bashrcs.yml
     - include: tasks/mybash_functions.yml
-    - include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+      #- include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - include: tasks/silversearcher.yml
     - include: tasks/git.yml
     - include: tasks/other_packages.yml
@@ -21,7 +21,7 @@
     #Other apps
     - include: tasks/tmux.yml
     - include: tasks/tmuxinator.yml
-    - include: tasks/verint_em_shell.yml
+      #- include: tasks/verint_em_shell.yml
     #Python
     - include: tasks/pythondev.yml
     #Virtualization server
