@@ -41,11 +41,6 @@
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/nerdtree"
 
-- name: "Patching nerdtree-git-plugin"
-  copy:
-    src: "{{ansible_env.HOME}}/dev/ansible/ws_playbook/files/git_status.vim"
-    dest: "{{ansible_env.HOME}}/.vim/bundle/nerdtree-git-plugin/nerdtree_plugin/git_status.vim"
-
 - name: "Ensure YouCompleteMe dependencies are installed"
   become: yes
   apt:
@@ -55,6 +50,19 @@
       - python3-dev
 
 - name: "Installing Vim Plugin: YouCompleteMe"
-  shell: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.py"
-  args:
-    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex/regex_2/_regex.so"
+  command:
+    cmd: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.py"
+    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/.installed"
+  register: ycm_install
+  tags: ycm_install
+
+- debug:
+    msg: "{{ycm_install}}"
+  tags: ycm_install
+
+- name: "Marked YouCompleteMe is installed"
+  copy:
+    content: ""
+    dest: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/.installed"
+  when: not ycm_install.failed
+  tags: ycm_install

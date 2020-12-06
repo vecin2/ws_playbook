@@ -1,28 +1,38 @@
+---
 - hosts: localhost
   connection: local
   pre_tasks:
       - name: update repositories
         apt: update_cache=yes
-        changed_when: False
-        become: yes
+        changed_when: false
+        become: true
   tasks:
-    #Basic terminal
-    - include: tasks/bashrcs.yml
-    - include: tasks/mybash_functions.yml
-      #- include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
-    - include: tasks/silversearcher.yml
-    - include: tasks/git.yml
-    - include: tasks/other_packages.yml
-    - include: tasks/vim.yml
-    #Cmd line tools
-    - include: tasks/bashmarks.yml
-    - include: tasks/fzf.yml
-    - include: tasks/fasd.yml
-    #Other apps
-    - include: tasks/tmux.yml
-    - include: tasks/tmuxinator.yml
-      #- include: tasks/verint_em_shell.yml
-    #Python
-    - include: tasks/pythondev.yml
-    #Virtualization server
-    - include: tasks/pywinrm.yml
+      # Basic terminal
+      - include: tasks/bashrcs.yml
+      - include: tasks/mybash_functions.yml
+      # - include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+      - include: tasks/silversearcher.yml
+      - include: tasks/git.yml
+      - include: tasks/other_packages.yml
+      - include: tasks/vim.yml
+
+      # Cmd line tools
+      - include: tasks/bashmarks.yml
+      - include: tasks/fzf.yml
+      - include: tasks/fasd.yml
+
+      # Other apps
+      - include: tasks/tmux.yml
+      - include: tasks/tmuxinator.yml
+      # include: tasks/verint_em_shell.yml
+
+      # Python
+      - include: tasks/pythondev.yml
+
+      # Virtualization server
+      - include: tasks/pywinrm.yml
+      - include: tasks/vagrant.yml
+      - name: Install yamllint for Ansible playbooks
+        become: true
+        apt:
+            name: yamllint

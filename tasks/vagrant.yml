@@ -1,0 +1,5 @@
+    - name: Intall Vagrant
+      become: yes
+      apt:
+        name:
+          - vagrant

@@ -15,6 +15,6 @@
 
 - name: "Install nord dircolors"
   file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME }}/.dircolors" state=link force=yes
-  #copy:
+  # copy:
   #  src: "{{ansible_env.HOME}}/dotfiles/dircolors/dircolors_nord"
   #  dest: "{{ansible_env.HOME}}/.dircolors"

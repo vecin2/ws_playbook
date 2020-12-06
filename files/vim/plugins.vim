@@ -136,10 +136,11 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "}}}
 
 "ale {{{
-let g:ale_linters ={'python':['flake8']}
+let g:ale_linters ={'python':['flake8'], 'yaml':['yamllint']}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
+\		'yaml':['yamlfix'],
 \   'python':['add_blank_lines_for_python_control_statements','black','isort']
 \}
 let g:ale_fix_on_save = 1

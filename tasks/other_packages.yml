@@ -3,4 +3,4 @@
   apt:
     name:
       - xclip
-      - cmake
+      - cmake #used by YouCompleteMe (vim plugin)

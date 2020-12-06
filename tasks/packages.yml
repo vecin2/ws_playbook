@@ -1,5 +1,6 @@
 ---
 - debug:
+  -sfsdf sadfasd:
     var: ansible_connection
 
 - debug: var=hostvars[inventory_hostname]['ansible_python_interpreter']
