@@ -22,7 +22,7 @@ Plugin 'https://github.com/blueyed/vim-diminactive'
 "Shorcut commmands, e.g: resize window quicker
 Plugin 'https://github.com/kana/vim-arpeggio.git'
 Plugin 'https://github.com/kana/vim-submode.git'
-Plugin 'git@github.com:tpope/vim-unimpaired.git'
+Plugin 'https://tpope.io/vim/unimpaired.git'
 "}}}
 
 "Search && Navigation {{{
