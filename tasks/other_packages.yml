@@ -4,3 +4,4 @@
     name:
       - xclip
       - cmake #used by YouCompleteMe (vim plugin)
+      - npm
