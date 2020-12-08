@@ -2,7 +2,7 @@
   git: repo="https://github.com/vecin2/bashmarks.git" dest={{ansible_env.HOME}}/.local/bashmarks update=no
 
 - name: "Installing bashmarks"
-  shell: chdir={{ansible_env.HOME}}/.local/bashmarks make install
+  shell: make -C {{ansible_env.HOME}}/.local/bashmarks  install
   args:
    creates: "{{ansible_env.HOME}}/.local/bin/bashmarks.sh"
 
