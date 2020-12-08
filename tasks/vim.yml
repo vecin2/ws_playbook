@@ -1,17 +1,20 @@
-#fixing ALE cursor issue:
-#sudo apt-get install software-properties-common
-#sudo add-apt-repository ppa:jonathonf/vim
-#sudo apt install vim
+# fixing ALE cursor issue:
+# sudo apt-get install software-properties-common
+# sudo add-apt-repository ppa:jonathonf/vim
+# sudo apt install vim
+---
 - name: "Installing Vim"
-  become: yes
+  become: true
   apt:
     name:
       - vim-gtk
+  tags: vim
 
 - name: "Create .vim folder"
   file:
     path: "{{ ansible_env.HOME}}/.vim"
     state: directory
+  tags: vim
 
 - name: "Link Vim Config files"
   file: src="{{ playbook_dir }}/files/vim/{{ item.src }}" dest="{{ ansible_env.HOME }}/{{ item.dest }}" state=link force=yes
@@ -22,6 +25,7 @@
       dest: .vim/config.vim
     - src: plugins.vim
       dest: .vim/plugins.vim
+  tags: vim
 
 - name: "Bash configuration for Vim"
   blockinfile:
@@ -32,14 +36,17 @@
         export CLOUD_LOC=$HOME/gdrive
         #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
         stty -ixon
+  tags: vim
 
 - name: "Downloading and Installing Vundle for Vim"
   git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
+  tags: vim
 
 - name: "Installing Vim Plugins"
   shell: vim -E -s -c "source ~/.vimrc" -c PluginInstall -c qa
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/nerdtree"
+  tags: vim
 
 - name: "Ensure YouCompleteMe dependencies are installed"
   become: yes
