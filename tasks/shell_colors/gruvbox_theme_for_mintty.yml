@@ -4,4 +4,4 @@
   register: themes_path
 
 - name: "Configure gruvbox.minttyrc file in wsltty themes folder"
-  file: src="{{ playbook_dir }}/files/gruvbox.minttyrc" dest="{{ themes_path.stdout}}/.gitconfig" state=link force=yes
+  file: src="{{ playbook_dir }}/files/gruvbox.minttyrc" dest="{{ themes_path.stdout}}" state=link force=yes
