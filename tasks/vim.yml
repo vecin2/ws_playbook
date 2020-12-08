@@ -47,6 +47,7 @@
   args:
     creates: "{{ansible_env.HOME}}/.vim/bundle/nerdtree"
   tags: vim
+  failed_when: false
 
 - name: "Ensure YouCompleteMe dependencies are installed"
   become: yes
