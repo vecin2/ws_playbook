@@ -1,7 +1,7 @@
 - name: "Downloading fzf"
   git: repo="https://github.com/junegunn/fzf.git" dest={{ansible_env.HOME}}/.fzf update=no
 - name: "Installing fzf"
-  shell: "{{ansible_env.HOME}}/.fzf/install"
+  shell: "{{ansible_env.HOME}}/.fzf/install --all"
   args:
    creates: "{{ansible_env.HOME}}/.fzf/bin/fzf"
 
