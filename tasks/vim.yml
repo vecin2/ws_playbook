@@ -64,10 +64,6 @@
   register: ycm_install
   tags: ycm_install
 
-- debug:
-    msg: "{{ycm_install}}"
-  tags: ycm_install
-
 - name: "Marked YouCompleteMe is installed"
   copy:
     content: ""
