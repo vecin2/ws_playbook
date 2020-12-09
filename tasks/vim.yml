@@ -1,23 +1,24 @@
+---
 # fixing ALE cursor issue:
 # sudo apt-get install software-properties-common
 # sudo add-apt-repository ppa:jonathonf/vim
 # sudo apt install vim
----
-- name: "Installing Vim"
+- name: Installing Vim
   become: true
   apt:
     name:
       - vim-gtk
   tags: vim
 
-- name: "Create .vim folder"
+- name: Create .vim folder
   file:
-    path: "{{ ansible_env.HOME}}/.vim"
+    path: '{{ ansible_env.HOME}}/.vim'
     state: directory
   tags: vim
 
-- name: "Link Vim Config files"
-  file: src="{{ playbook_dir }}/files/vim/{{ item.src }}" dest="{{ ansible_env.HOME }}/{{ item.dest }}" state=link force=yes
+- name: Link Vim Config files
+  file: src="{{ playbook_dir }}/files/vim/{{ item.src }}" dest="{{ ansible_env.HOME
+    }}/{{ item.dest }}" state=link force=yes
   with_items:
     - src: vimrc
       dest: .vimrc
@@ -27,46 +28,47 @@
       dest: .vim/plugins.vim
   tags: vim
 
-- name: "Bash configuration for Vim"
+- name: Bash configuration for Vim
   blockinfile:
-    path: "{{ansible_env.HOME}}/.profile"
-    marker: "#{mark} Vim vars"
+    path: '{{ansible_env.HOME}}/.profile'
+    marker: '#{mark} Vim vars'
     block: |
-        #This var is use in VIM mapping which opens docs in CLOUD folder
-        export CLOUD_LOC=$HOME/gdrive
-        #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
-        stty -ixon
+      #This var is use in VIM mapping which opens docs in CLOUD folder
+      export CLOUD_LOC=$HOME/gdrive
+      #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
+      stty -ixon
   tags: vim
 
-- name: "Downloading and Installing Vundle for Vim"
-  git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim update=no
+- name: Downloading and Installing Vundle for Vim
+  git: repo="https://github.com/VundleVim/Vundle.vim.git" dest={{ansible_env.HOME}}/.vim/bundle/Vundle.vim
+    update=no
   tags: vim
 
-- name: "Installing Vim Plugins"
+- name: Installing Vim Plugins
   shell: vim -E -s -c "source ~/.vimrc" -c PluginInstall -c qa
   args:
-    creates: "{{ansible_env.HOME}}/.vim/bundle/nerdtree"
+    creates: '{{ansible_env.HOME}}/.vim/bundle/nerdtree'
   tags: vim
   failed_when: false
 
-- name: "Ensure YouCompleteMe dependencies are installed"
-  become: yes
+- name: Ensure YouCompleteMe dependencies are installed
+  become: true
   apt:
     name:
       - build-essential
       - cmake
       - python3-dev
 
-- name: "Installing Vim Plugin: YouCompleteMe"
+- name: 'Installing Vim Plugin: YouCompleteMe'
   command:
-    cmd: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.py"
-    creates: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/.installed"
+    cmd: '{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/install.py'
+    creates: '{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/.installed'
   register: ycm_install
   tags: ycm_install
 
-- name: "Marked YouCompleteMe is installed"
+- name: Marked YouCompleteMe is installed
   copy:
-    content: ""
-    dest: "{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/.installed"
+    content: ''
+    dest: '{{ansible_env.HOME}}/.vim/bundle/YouCompleteMe/.installed'
   when: not ycm_install.failed
   tags: ycm_install

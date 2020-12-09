@@ -1,0 +1,9 @@
+---
+- name: Install yamllint
+  become: true
+  apt:
+    name: yamllint
+
+  pip:
+    name: yamlfix
+    extra_args: --user

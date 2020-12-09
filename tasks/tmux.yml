@@ -1,22 +1,25 @@
-- name: "Installing tmux"
-  become: yes
+---
+- name: Installing tmux
+  become: true
   apt:
     name:
       - tmux
 
-- name: "Downloading tmux plugin manager"
-  git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm update=no
+- name: Downloading tmux plugin manager
+  git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm
+    update=no
 
-- name: "Link tmux.conf"
-  file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf" state=link force=yes
+- name: Link tmux.conf
+  file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf"
+    state=link force=yes
 
-- name: "Install screen-italics terminal"
+- name: Install screen-italics terminal
   command:
     cmd: tic {{playbook_dir}}/files/screen-italics.terminfo
-    creates: "{{ansible_env.HOME}}/.terminfo/**/screen-italics"
+    creates: '{{ansible_env.HOME}}/.terminfo/**/screen-italics'
 
-- name: "Setting alias to allow italic font within tmux and vim"
+- name: Setting alias to allow italic font within tmux and vim
   lineinfile:
-    path: "{{ansible_env.HOME}}/.bash_aliases"
-    line: 'alias tmux="env TERM=screen-italics tmux -2"'
-    create: yes
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    line: alias tmux="env TERM=screen-italics tmux -2"
+    create: true
