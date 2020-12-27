@@ -4,6 +4,6 @@
   apt:
     name: yamllint
 
-  pip:
+- pip:
     name: yamlfix
     extra_args: --user

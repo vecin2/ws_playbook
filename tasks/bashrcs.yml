@@ -12,9 +12,12 @@
       export EDITOR=vim
 
       #If running WSL Enable VcXsrv for clipboard to work correctly
-      if grep -q Microsoft /proc/version; then
+      if grep -qi Microsoft /proc/version; then
         export DISPLAY=localhost:0.0
       fi
+
+      #Remove user name, hostname and full CWD. Only show the last CWD
+      export PS1="\[\033[01;34m\]\W\[\033[00m\]\$"
 
 - name: Install nord dircolors
   file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME
