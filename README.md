@@ -1,5 +1,5 @@
 # ws_playbook
-Ansible playbook to confire my dev work station. 
+Ansible playbook to confire my dev work station.
 Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.
 
 #Install on ubuntu
@@ -7,11 +7,26 @@ ag silver searcher so FZF Ctrl+t works
 
 # Manual Steps on Windows
 
+# Configuring a Windows 10 Vagrant box on Windows 10 Host
+
+Windows 10 box runs really slow. Thats related to Hyper-v still running an VirtualBox ends up using it. To turn off Hyper-v run the following command as an admin from the cmd:
+bcdedit /set hypervisorlaunchtype off
+
+The issue then is that WSL2 wont start
+https://github.com/MicrosoftDocs/WSL/issues/798
+
+
 #### Fix Vim xClip
 Download vcxsrv
 Run installer using default options
 Run vcxsrv using "xlaunch" (search in the start menu)
 Add export DISPLAY=localhost:0.0 to your wsl bashrc
+
+#### WSL2
+WSL2 uses a different network so instead we should use:
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+
+Also because it a external address the xlaunch configuration needs to have checked Disable Access Control so it accepts conexions
 
 ###Python
 Install python 3.5.7
@@ -57,6 +72,3 @@ function! s:FileUpdate(fname)
 Running in wsl/ubuntu need libaio1 package and oracle instant client
 Then set env var:
 export LD_LIBRARY_PATH=/usr/lib/oracle/<version>/client(64)/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-
-
-
