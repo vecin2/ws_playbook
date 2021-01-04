@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   connection: winrm
   vars:
@@ -5,7 +6,3 @@
     ansible_port: 5985
     ansible_wirm_transport: basic
     ansible_winrm_server_cert_validation: ignore
-
-  tasks:
-     - include: tasks/packages.yml
-    sdf sfsa
