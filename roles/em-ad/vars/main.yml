@@ -1,0 +1,16 @@
+---
+# vars file for em-ad-test
+products_path: C:/em/products
+installation_temp_folder: C:/em/products/temp
+version: 15.3-FP9-HFR_6.2.1
+downloaded_zip_files:
+  - agent-desktop_zip-builder_{{version}}
+  - agent-desktop_without-dependencies_{{version}}
+  - additional-dependencies_{{version}}
+  - ced_{{version}}
+  - content-language-analyzers_3.0
+
+installation_zip_files:
+  - agent-desktop_{{version}}
+  - ced_{{version}}
+  - content-language-analyzers_3.0

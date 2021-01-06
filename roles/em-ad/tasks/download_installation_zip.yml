@@ -1,0 +1,9 @@
+---
+- debug:
+    msg: Debug downloading {{item}}.zip to {{installation_temp_folder}}/
+  tags: debug
+
+- name: Downloading {{item}}/
+  win_copy:
+    src: '{{item}}.zip'
+    dest: '{{installation_temp_folder}}/'

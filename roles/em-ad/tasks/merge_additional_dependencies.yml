@@ -1,0 +1,19 @@
+---
+- debug:
+    msg: Debug Unziping {{installation_temp_folder}}/agent-desktop_zip-builder_{{version}}.zip
+  tags: debug
+
+- name: Unzip builder
+  win_unzip:
+    src: '{{installation_temp_folder}}/agent-desktop_zip-builder_{{version}}.zip'
+    dest: '{{installation_temp_folder}}'
+
+- debug:
+    msg: Debug running {{installation_temp_folder}}/run.bat
+  tags: debug
+
+- name: Build zip with additional dependencies
+  win_command: run.bat
+  args:
+    chdir: '{{installation_temp_folder}}'
+    creates: '{{installation_temp_folder}}/agent-desktop_{{version}}.zip'

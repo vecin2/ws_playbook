@@ -1,0 +1,23 @@
+---
+# tasks file for em-ad-test
+- debug:
+    msg: Debug about to create temp folder {{installation_temp_folder}}
+  tags: debug
+
+- name: Create Temp Installation folder
+  win_file:
+    path: '{{installation_temp_folder}}'
+    state: directory
+    recurse: true
+
+- import_tasks: download_installation_files.yml
+
+- import_tasks: merge_additional_dependencies.yml
+  when: "'agent-desktop_without-dependencies_'+version in downloaded_zip_files"
+
+- import_tasks: install_zip_files.yml
+
+- name: Delete Temp Installation folder
+  debug:
+    msg: Deleting temp folder {{installation_temp_folder}}
+  tags: debug
