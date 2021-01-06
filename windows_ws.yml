@@ -1,0 +1,5 @@
+---
+- hosts: windows
+  gather_facts: false
+  roles:
+    - em-ad
