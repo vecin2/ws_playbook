@@ -2,6 +2,7 @@
   pip:
     name: virtualenvwrapper
     extra_args: --user
+  tags: python
 
 - name: "Configuring virtualenvwrapper"
   blockinfile:
@@ -13,3 +14,4 @@
       export PROJECT_HOME=$HOME/dev/python
       export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
       source $HOME/.local/bin/virtualenvwrapper.sh
+  tags: python
