@@ -1,9 +1,10 @@
 ---
 - debug:
-    msg: Debug downloading {{item}}.zip to {{installation_temp_folder}}/
+    msg: Debug downloading {{artifacts_url}}/{{item}}.zip to {{installation_temp_folder}}/
   tags: debug
 
-- name: Downloading {{item}}/
-  win_copy:
-    src: '{{item}}.zip'
-    dest: '{{installation_temp_folder}}/'
+- name: Download from url
+  win_get_url:
+    url: '{{artifacts_url}}/{{item}}.zip'
+    dest: '{{installation_temp_folder}}'
+  tags: debug
