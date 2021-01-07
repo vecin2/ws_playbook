@@ -2,5 +2,5 @@
   become: yes
   apt:
     name: python3-pip
-- include: tasks/pythondev/virtualenvwrapper.yml
-- include: tasks/pythondev/pythonvim_IDE.yml
+- import_tasks: tasks/pythondev/virtualenvwrapper.yml
+- import_tasks: tasks/pythondev/pythonvim_IDE.yml
