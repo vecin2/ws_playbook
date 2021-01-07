@@ -1,5 +1,7 @@
 ---
 - hosts: windows
   gather_facts: false
+  vars_files:
+    - '{{playbook_dir}}/passwords.yml'
   roles:
     - em-ad
