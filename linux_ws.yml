@@ -1,6 +1,11 @@
 ---
 - hosts: wsl
   connection: local
+  vars_files:
+    - '{{playbook_dir}}/passwords.yml'
+  vars:
+    ansible_become_pass: '{{sudo_pass}}'
+
   pre_tasks:
     - name: update repositories
       apt: update_cache=yes
@@ -8,31 +13,32 @@
       become: true
   tasks:
 # Basic terminal
-    - include: tasks/bashrcs.yml
+    - import_tasks: tasks/bashrcs.yml
       tags: bashrcs
-    - include: tasks/mybash_functions.yml
-# - include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
-    - include: tasks/silversearcher.yml
-    - include: tasks/git.yml
-    - include: tasks/other_packages.yml
-    - include: tasks/vim.yml
+    - import_tasks: tasks/mybash_functions.yml
+# - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+    - import_tasks: tasks/silversearcher.yml
+    - import_tasks: tasks/git.yml
+    - import_tasks: tasks/other_packages.yml
+    - import_tasks: tasks/vim.yml
 
 # Cmd line tools
-    - include: tasks/bashmarks.yml
-    - include: tasks/fzf.yml
-    - include: tasks/fasd.yml
+    - import_tasks: tasks/bashmarks.yml
+    - import_tasks: tasks/fzf.yml
+    - import_tasks: tasks/fasd.yml
 
 # Other apps
-    - include: tasks/tmux.yml
-    - include: tasks/tmuxinator.yml
-# include: tasks/verint_em_shell.yml
+    - import_tasks: tasks/tmux.yml
+    - import_tasks: tasks/tmuxinator.yml
+# import_tasks: tasks/verint_em_shell.yml
 
 # Python
-    - include: tasks/pythondev.yml
+    - import_tasks: tasks/pythondev.yml
 # Yaml
-    - include: tasks/yamldev.yml
+    - import_tasks: tasks/yamldev.yml
 
 # Virtualization server
-    - include: tasks/pywinrm.yml
-# - include: tasks/vagrant.yml needs to be install from website to get the
+    - import_tasks: tasks/pywinrm.yml
+    - import_tasks: tasks/ansible.yml
+# - import_tasks: tasks/vagrant.yml needs to be install from website to get the
 # latest version
