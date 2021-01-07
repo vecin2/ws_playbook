@@ -52,6 +52,12 @@ choco install vagrant
 ##in wsl run
 sudo apt-get install  subversion
 
+### Run in WSL vs WSL2
+WSL shares the network with the Windows Host while WSL2 has its own network.
+when running playbooks against the windows host this translates in WSL being able to use "localhost" while WSL2 will have to specify the Windows  Host ip address within the Hyper-V WSL network.
+
+In a "worklaptop_WSL" I want to set the var ansible_python_interpreter put it into inventory
+
 
 Vim
 Syntastic and Nerdtree git failed when saving python files if the file was not open with nerdtree
