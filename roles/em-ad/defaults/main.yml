@@ -2,8 +2,11 @@
 # defaults file for em-ad-test
 products_path: C:/em/products
 installation_temp_folder: C:/em/products/temp
-version: 15.3-FP9-HFR_6.2.1
-artifacts_url: file:///C:/Users/vecin/dev/vagrant/bento_ubuntu_20_04/ws_playbook/roles/em-ad/files/
+#version: 15.3-FP9-HFR_6.2.1
+#artifacts_url: file:///C:/Users/vecin/dev/vagrant/bento_ubuntu_20_04/ws_playbook/roles/em-ad/files/
+version: 15.3-2020R3-HFR_6.3.2
+#artifacts_url: file:///C:/Users/vecin/dev/vagrant/bento_ubuntu_20_04/ws_playbook/roles/em-ad/files/
+artifacts_url: http://gtxbuilds/gtxbuilds/HotFixArtefacts/6.3.2/EM%20Agent%20Desktop%20Artefacts/
 downloaded_zip_files:
   - agent-desktop_zip-builder_{{version}}
   - agent-desktop_without-dependencies_{{version}}

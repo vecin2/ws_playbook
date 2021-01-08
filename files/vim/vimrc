@@ -53,6 +53,8 @@ Plugin 'https://github.com/gioele/vim-autoswap'
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+" Markdown
+Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 "}}}
 
 "Dev plugins{{{
