@@ -14,8 +14,10 @@
 
 - import_tasks: merge_additional_dependencies.yml
   when: "'agent-desktop_without-dependencies_'+version in downloaded_zip_files"
+  tags: merge
 
 - import_tasks: install_zip_files.yml
+  tags: unzip
 
 - name: Delete Temp Installation folder
   debug:
