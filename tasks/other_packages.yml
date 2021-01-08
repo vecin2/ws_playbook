@@ -1,7 +1,17 @@
-- name: "Installing other basic packages"
-  become: yes
+---
+- name: Installing other basic packages
+  become: true
   apt:
     name:
       - xclip
       - cmake #used by YouCompleteMe (vim plugin)
       - npm
+
+- name: Install "wsl-open" node.js package.
+  become: true
+  npm:
+    name: wsl-open
+    path: '{{ansible_env.HOME}}/.local/'
+    state: present
+    global: true
+  tags: wsl-open
