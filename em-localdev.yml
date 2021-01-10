@@ -1,0 +1,37 @@
+---
+- hosts: wsl
+  connection: local
+  vars_files:
+    - '{{playbook_dir}}/passwords.yml'
+  vars:
+    ansible_become_pass: '{{sudo_pass}}'
+    em_project_name: hc_prototype
+    em_project_home: /mnt/c/em/projects/{{em_project_name}}
+    em_win_project_home: C:\\em\\projects\\{{em_project_name}}
+    em_appserver_home: C\:\\em\\containers\\{{em_project_name}}
+
+  tasks:
+    - name: setup em-overrides file
+      blockinfile:
+        path: /mnt/c/ProgramData/Verint/engagement-management/em-overrides.properties
+        content: |
+          product.installs.dir=C\:\\em\\products
+          logical.machine.name=localhost
+        create: true
+
+    - name: configure local.properties
+      lineinfile:
+        path: '{{em_project_home}}/config/local.properties'
+        regexp: '^environment.name='
+        line: 'environment.name=localdev'
+        create: true
+
+    - name: Create localdev environment
+      command: cmd.exe wslpath -w "/mnt/c/em/projects/hc_prototype/bin/ccadmin.bat" create-environment -Denvironment.name=localdev -Dappserver.home={{em_appserver_home}}
+      args:
+        creates: '{{em_project_home}}/config/environment.localdev'
+
+    - name: Install appserver
+      command: cmd.exe wslpath -w "/mnt/c/em/projects/hc_prototype/bin/ccadmin.bat" install-appserver -Dappserver.home={{em_appserver_home}}
+      args:
+        creates: '{{em_appserver_home}}'
