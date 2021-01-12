@@ -78,9 +78,17 @@ augroup END
 	"zx Recompute folds
 	nnoremap , za
 	nnoremap <leader>, zMzv
-	"xml folding
+	set foldlevelstart=0 " start file with all folds close
+" }}}
+
+" xml {{{
 	let g:xml_syntax_folding=1
 	au FileType xml setlocal foldmethod=syntax
+" }}}
+
+" Javascript {{{
+	au FileType javascript,typescript,json setlocal foldmarker={,} foldmethod=marker
+	au FileType javascript,typescript,json syntax region bracketFold start="\[" end="\]" transparent fold
 " }}}
 
 	"Searching {{{
