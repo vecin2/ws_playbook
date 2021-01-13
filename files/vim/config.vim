@@ -76,6 +76,7 @@ augroup END
 	"zR close all folds, zr increate the fold level (less folds)
 	"zv expand folds to reveal cursor
 	"zx Recompute folds
+	"zf Creates manual folder. E.g in html use zfat,zit to fold to the end tag
 	nnoremap , za
 	nnoremap <leader>, zMzv
 	set foldlevelstart=0 " start file with all folds close
