@@ -5,7 +5,8 @@ call arpeggio#load()
 "FZF shorcuts +Ack with AG {{{
 
 "Ag searches only by content not by filename
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--ignore logs',{'options': '--delimiter : --nth 4..'}, <bang>0)
+
 "shorcuts
 nnoremap <leader>g :Ag<CR>
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
