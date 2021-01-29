@@ -209,9 +209,9 @@ augroup END
 	" <leader>-c redraws the screen and removes any search highlighting.
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
 	"Change root dir to current
-	command! Cdw :execute "lcd" . fnamemodify(resolve(expand('%')),':p:h')
-	"nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
-	nnoremap cd. :Cdw
+	"command! Cdw :execute "lcd" . fnamemodify(resolve(expand('%')),':p:h')
+	nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
+	"nnoremap cd. :Cdw
 	"}}}
 
 	" Ctrl+S {{{
