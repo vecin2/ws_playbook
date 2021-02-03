@@ -76,11 +76,20 @@ augroup END
 	"zR close all folds, zr increate the fold level (less folds)
 	"zv expand folds to reveal cursor
 	"zx Recompute folds
+	"zf Creates manual folder. E.g in html use zfat,zit to fold to the end tag
 	nnoremap , za
 	nnoremap <leader>, zMzv
-	"xml folding
+	set foldlevelstart=0 " start file with all folds close
+" }}}
+
+" xml {{{
 	let g:xml_syntax_folding=1
 	au FileType xml setlocal foldmethod=syntax
+" }}}
+
+" Javascript {{{
+	au FileType javascript,typescript,json setlocal foldmarker={,} foldmethod=marker
+	au FileType javascript,typescript,json syntax region bracketFold start="\[" end="\]" transparent fold
 " }}}
 
 	"Searching {{{
@@ -200,9 +209,9 @@ augroup END
 	" <leader>-c redraws the screen and removes any search highlighting.
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
 	"Change root dir to current
-	command! Cdw :execute "lcd" . fnamemodify(resolve(expand('%')),':p:h')
-	"nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
-	nnoremap cd. :Cdw
+	"command! Cdw :execute "lcd" . fnamemodify(resolve(expand('%')),':p:h')
+	nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
+	"nnoremap cd. :Cdw
 	"}}}
 
 	" Ctrl+S {{{
