@@ -100,3 +100,20 @@ fsvn(){
 		echo $paths | xargs svn $1
 	fi
 }
+fssh(){
+	user=""
+	if [ "$#" -eq 1 ]; then
+		user=$1
+	fi
+	node_line=$(cat $HOME/dev/ssh/nodes.txt  | fzf)
+	if ! test -z "$node_line"; then
+		host=$(echo "${node_line}" | awk '{print $2}')
+		if test -z "$user"; then # if user is not pass get it from file
+			user=$(echo "$node_line" | awk '{print $3}')
+		fi
+		if test -z "$user"; then # if user is not pass and not set in file default to my user
+			user="p43249"
+		fi
+		ssh $user@$host
+	fi
+}

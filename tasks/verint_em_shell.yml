@@ -5,7 +5,6 @@
     content: |
       alias tad="cd $EM_CORE_HOME"
       alias ced='wstart ccadmin ced'
-      alias sqltask='command "/mnt/c/em/projects/pacificorp/bin/sqltask.exe"'
       alias rsql='sqltask run-sql'
       alias csql='sqltask create-sql'
       alias tsql='sqltask create-sql'
@@ -17,3 +16,7 @@
     block: >
       [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh"
       # Load EM into a shell session *as a function*
+
+- name: Link em.sh
+  file: src="{{ playbook_dir }}/files/em.conf" dest="{{ ansible_env.HOME }}/.em.sh"
+    state=link force=yes
