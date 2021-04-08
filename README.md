@@ -78,3 +78,6 @@ function! s:FileUpdate(fname)
 Running in wsl/ubuntu need libaio1 package and oracle instant client
 Then set env var:
 export LD_LIBRARY_PATH=/usr/lib/oracle/<version>/client(64)/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+
+# Conect to windows host from WSL2
+Runnign ipconfig on windows will give a wsl ethernet adapter get ip from there e.g 172.24.128.1

@@ -1,10 +1,10 @@
-export EM_CORE_HOME=/mnt/c/em/projects/crm/trunk
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-FP9-HFR_6.2.3
+export EM_CORE_HOME=/mnt/c/em/projects/hc_prototype
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-FP9-HFR_6.2.1
 export AD=$EM_CORE_HOME
 
 last_log_path(){
 	ADPROCESSLOGS=$EM_CORE_HOME/logs/ad/cre/session/process
-	if [ -z "$1" ] 
+	if [ -z "$1" ]
 	then
 		TAIL=1
 	else
@@ -53,7 +53,7 @@ install_ccadmin_autocompletion(){
 		exit
 	else
 		sudo ln -sfv ~/dotfiles/em/ccadmin.sh /etc/bash_completion.d/ccadmin
-	fi 
+	fi
 	completion_file_location="${EM_CORE_HOME}/.em/autocompletion/ccadmin_completion"
 	if [ ! -f "$completion_file_location" ]; then
 		echo "Generating ccadmin options"...
@@ -86,5 +86,5 @@ custdiff(){
 		vimdiff "${full_prj_path}" "${full_product_path}"
 	fi
 
-	
+
 }

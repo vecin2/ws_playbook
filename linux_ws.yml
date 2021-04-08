@@ -31,7 +31,7 @@
 # Other apps
     - import_tasks: tasks/tmux.yml
     - import_tasks: tasks/tmuxinator.yml
-# import_tasks: tasks/verint_em_shell.yml
+    - import_tasks: tasks/verint_em_shell.yml
 
 # Python
     - import_tasks: tasks/pythondev.yml
