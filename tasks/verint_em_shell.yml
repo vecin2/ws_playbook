@@ -19,5 +19,16 @@
       # Load EM into a shell session *as a function*
 
 - name: Link em.sh
-  file: src="{{ playbook_dir }}/files/em.sh" dest="{{ ansible_env.HOME }}/.em.sh"
+  file: src="{{ playbook_dir }}/files/verint/em.sh" dest="{{ ansible_env.HOME }}/.em.sh"
+    state=link force=yes
+
+- name: Create ccadmin autocompletion folder
+  file:
+    path: '{{ansible_env.HOME}}/.verint/autocompletion/'
+    state: directory
+    recurse: true
+  register: autocompletion
+
+- name: Link ccadmin_autocomplation
+  file: src="{{ playbook_dir }}/files/verint/ccadmin.sh" dest="{{autocompletion.path}}ccadmin.sh"
     state=link force=yes

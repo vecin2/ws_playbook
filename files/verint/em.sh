@@ -88,3 +88,18 @@ custdiff(){
 
 
 }
+install_ccadmin_autocompletion(){
+	if [ -z $EM_CORE_HOME ]; then
+		echo Global variable EM_CORE_HOME has not been set. Please set it before install it.
+		exit
+	else
+		sudo ln -sfv $HOME/.verint/autocompletion/ccadmin.sh /etc/bash_completion.d/ccadmin
+	fi
+	completion_file_location="${HOME}/.verint/autocompletion/ccadmin_commands"
+	if [ ! -f "$completion_file_location" ]; then
+		echo "Generating ccadmin options"...
+		options=$(ccadmin | grep echo | awk '{print $3}')
+		echo $options
+		echo "$options"	>"$completion_file_location"
+	fi
+}
