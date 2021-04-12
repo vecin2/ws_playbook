@@ -21,3 +21,9 @@
     state: present
     global: true
   tags: wsl-open
+
+- name: Setting alias 'wo' for wsl-open
+  lineinfile:
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    line: alias wo="wsl-open"
+    create: true
