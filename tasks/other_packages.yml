@@ -7,6 +7,12 @@
       - cmake #used by YouCompleteMe (vim plugin)
       - npm
 
+- name: Installing Ubuntu 20.04
+  apt:
+    name:
+      - python-is-python3 #so scripts starting with '/usr/bin/env python' can be run in unbuntu 20.05
+  when: ansible_lsb.id == 'Ubuntu' and ansible_lsb.release == '20.04'
+
 - name: Install "wsl-open" node.js package.
   become: true
   npm:
@@ -15,3 +21,9 @@
     state: present
     global: true
   tags: wsl-open
+
+- name: Setting alias 'wo' for wsl-open
+  lineinfile:
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    line: alias wo="wsl-open"
+    create: true
