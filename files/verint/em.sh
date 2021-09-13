@@ -1,23 +1,39 @@
-export EM_CORE_HOME=/mnt/c/em/projects/hc_prototype
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-FP9-HFR_6.2.1
+export EM_CORE_HOME=/mnt/c/em/projects/highmark
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R2_7.2.0
 export AD=$EM_CORE_HOME
 
-last_log_path(){
-	ADPROCESSLOGS=$EM_CORE_HOME/logs/ad/cre/session/process
-	if [ -z "$1" ]
+last_process_log_path(){
+	tail_number=$1
+	log_path=$EM_CORE_HOME/logs/ad/cre/session/process
+	keyword=process
+	get_last_modified_files_at_path $log $keyword $tail_number
+}
+last_application_log_path(){
+	tail_number=$1
+	log_path=$EM_CORE_HOME/logs/ad/cre/session/application
+	keyword=application
+	get_last_modified_files_at_path $log $keyword $tail_number
+}
+get_last_modified_files_at_path(){
+	log=$1
+	application=$2
+	if [ -z "$3" ]
 	then
 		TAIL=1
 	else
-		TAIL=$1
+		TAIL=$3
 	fi
 
-	FILE_NAME=$(ls $ADPROCESSLOGS -ltr | grep process | tail -$TAIL | head -1 | rev | cut -d " " -f1 | rev)
+	FILE_NAME=$(ls $log_path -ltr | grep $keyword | tail -$TAIL | head -1 | rev | cut -d " " -f1 | rev)
 
-	FULL_PATH=$ADPROCESSLOGS/$FILE_NAME
+	FULL_PATH=$log_path/$FILE_NAME
 	echo $FULL_PATH
 }
 vpl(){
-	vim $(last_log_path $1)
+	vim $(last_process_log_path $1)
+}
+val(){
+	vim $(last_application_log_path $1)
 }
 ccadmin(){
 	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
