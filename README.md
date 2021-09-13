@@ -1,6 +1,7 @@
 # ws_playbook
 Ansible playbook to confire my dev work station.
 Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.
+Make sure this var is exported: export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_password.txt
 
 #Install on ubuntu
 ag silver searcher so FZF Ctrl+t works
