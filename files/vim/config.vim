@@ -189,7 +189,9 @@ augroup END
 
 	"Mouse config {{{
 	set mouse=a  "enable mouse
-	set ttymouse=sgr
+	if !has ('nvim')
+		set ttymouse=sgr
+	endif
 	" }}}
 
 	"Global Remaps{{{
@@ -208,10 +210,8 @@ augroup END
 	nnoremap \d :bp<cr>:bd! #<cr>
 	" <leader>-c redraws the screen and removes any search highlighting.
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
-	"Change root dir to current
-	"command! Cdw :execute "lcd" . fnamemodify(resolve(expand('%')),':p:h')
+	"change pwd to current parent folder
 	nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
-	"nnoremap cd. :Cdw
 	"}}}
 
 	" Ctrl+S {{{
