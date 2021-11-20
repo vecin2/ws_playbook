@@ -3,11 +3,12 @@
 # sudo apt-get install software-properties-common
 # sudo add-apt-repository ppa:jonathonf/vim
 # sudo apt install vim
-- name: Installing Vim
+- name: Installing Vim and Neovim
   become: true
   apt:
     name:
       - vim-gtk
+      - neovim
   tags: vim
 
 - name: Create .vim folder

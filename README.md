@@ -16,6 +16,12 @@ bcdedit /set hypervisorlaunchtype off
 The issue then is that WSL2 wont start
 https://github.com/MicrosoftDocs/WSL/issues/798
 
+### Vim with CoC
+Disable plugins: mi
+Search word on cwi: <space>g
+Search word under cursor on cwi: <space>ag
+Open File: <space>t
+Open Buffer: <space>b
 
 #### Fix Vim xClip
 Download vcxsrv

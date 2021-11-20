@@ -55,7 +55,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 0
-noremap gt :YcmCompleter GoToDefinition<CR>zv
+"noremap gt :YcmCompleter GoToDefinition<CR>zv
 "}}}
 
 "Vimux {{{
@@ -136,30 +136,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 "}}}
 
-"ale {{{
-let g:ale_linters ={'python':['flake8'], 'yaml':['yamllint']}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\		'yaml':['yamlfix'],
-\   'python':['add_blank_lines_for_python_control_statements','black','isort']
-\}
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_enter = 0
-"let g:ale_sign_error = '●'
-"let g:ale_sign_warning = '.'
-let g:ale_yaml_yamllint_options='-d relaxed'
-
-noremap ]a :ALENextWrap<CR>
-noremap [a :ALEPreviousWrap<CR>
-noremap ]A :ALELast<CR>
-noremap [A :ALEFirst<CR>
-
-highlight ALEError ctermbg=DarkRed
-highlight ALEError guibg=DarkRed
-highlight ALEWarning guibg=Yellow
-"}}}
-
 "{{{Pytest
 nmap <silent><Leader>pf <Esc>:Pytest file<CR>
 nmap <silent><Leader>pc <Esc>:Pytest class<CR>
@@ -169,3 +145,38 @@ nmap <silent><Leader>ps <Esc>:Pytest session<CR>
 Arpeggiomap tp <leader>pp
 let g:pytest_test_dir='/home/dgarcia/dev/python/python-emtask'
 "}}}
+"
+""ale {{{
+"let g:ale_linters ={'python':['flake8'], 'yaml':['yamllint']}
+"let g:ale_fixers = {
+"\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+"\   'javascript': ['eslint'],
+"\		'yaml':['yamlfix'],
+"\   'python':['add_blank_lines_for_python_control_statements','black','isort']
+"\}
+"let g:ale_fix_on_save = 1
+"let g:ale_lint_on_enter = 0
+""let g:ale_sign_error = '●'
+""let g:ale_sign_warning = '.'
+"let g:ale_yaml_yamllint_options='-d relaxed'
+"
+"noremap ]a :ALENextWrap<CR>
+"noremap [a :ALEPreviousWrap<CR>
+"noremap ]A :ALELast<CR>
+"noremap [A :ALEFirst<CR>
+"
+"highlight ALEError ctermbg=DarkRed
+"highlight ALEError guibg=DarkRed
+"highlight ALEWarning guibg=Yellow
+""}}}
+"
+"{{{Pytest
+nmap <silent><Leader>pf <Esc>:Pytest file<CR>
+nmap <silent><Leader>pc <Esc>:Pytest class<CR>
+nmap <silent><Leader>pm <Esc>:Pytest method<CR>
+nmap <silent><Leader>pp <Esc>:Pytest project<CR>
+nmap <silent><Leader>ps <Esc>:Pytest session<CR>
+Arpeggiomap tp <leader>pp
+let g:pytest_test_dir='/home/dgarcia/dev/python/python-emtask'
+"}}}
+

@@ -87,7 +87,6 @@ call vundle#end()
 "}}}
 
 
-"colorscheme gruvbox
 " Source vim config when save {{{
 augroup sourcevim
 	autocmd!
