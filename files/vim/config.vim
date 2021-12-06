@@ -1,6 +1,5 @@
 "Colors {{{
 "let base16colorspace=256
-"let base16colorspace=256
 "if filereadable(expand("~/.vimrc_background"))
 "	    source ~/.vimrc_background
 "endif
@@ -14,22 +13,6 @@ if exists('+termguicolors')
 	highlight Comment cterm=italic
 endif
 
-"" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-"}}}
 
 "Coding settings {{{
 set tags +=.git/tags

@@ -19,43 +19,21 @@ Arpeggiomap aj <leader>ag
 "perform linewise completition based on what you’ve already typed
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" Redefine :Ag command
-"autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "33;1"', fzf#vim#default_layout)
-"set t_ZH=[3m
-"set t_ZR=[23m
-"set termguicolors
-
-"}}}
-
-"Syntasic {{{
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"
-""Solve error when sourcing files in bash files
-"let g:syntastic_sh_shellcheck_args = "-x"
-"
-"let g:syntastic_mode_map = {
-"    \ "mode": "active",
-"    \ "passive_filetypes": ["xml","java","sh"] }
-
-"workaround to fix draw issue with syntastic
-"augroup redrawfix
-"	autocmd!
-"	autocmd VimEnter * nnoremap <silent> <c-j> :TmuxNavigateDown<cr>:redraw!<cr>
-"augroup END
-
-"}}}
-
-"YouCompleteMe (ycm){{{
-"Uncomment this if it prompts for confirmaiton to load the extra conf python
-"file
-"let g:ycm_confirm_extra_conf=0
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 0
-"noremap gt :YcmCompleter GoToDefinition<CR>zv
+"Customize  colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 "}}}
 
 "Vimux {{{
@@ -81,7 +59,6 @@ augroup nerdtree
 augroup END
 
 "Use Arpeggio
-Arpeggiomap bd \d
 nnoremap <Leader>v :NERDTreeToggle<Enter>
 nnoremap <Leader>f :NERDTreeFind<Enter>
 let NERDTreeAutoDeleteBuffer = 1 "Automatically delete a buffer when delete file from NT
@@ -145,7 +122,7 @@ nmap <silent><Leader>ps <Esc>:Pytest session<CR>
 Arpeggiomap tp <leader>pp
 let g:pytest_test_dir='/home/dgarcia/dev/python/python-emtask'
 "}}}
-"
+
 ""ale {{{
 "let g:ale_linters ={'python':['flake8'], 'yaml':['yamllint']}
 "let g:ale_fixers = {
@@ -169,14 +146,5 @@ let g:pytest_test_dir='/home/dgarcia/dev/python/python-emtask'
 "highlight ALEError guibg=DarkRed
 "highlight ALEWarning guibg=Yellow
 ""}}}
-"
-"{{{Pytest
-nmap <silent><Leader>pf <Esc>:Pytest file<CR>
-nmap <silent><Leader>pc <Esc>:Pytest class<CR>
-nmap <silent><Leader>pm <Esc>:Pytest method<CR>
-nmap <silent><Leader>pp <Esc>:Pytest project<CR>
-nmap <silent><Leader>ps <Esc>:Pytest session<CR>
-Arpeggiomap tp <leader>pp
-let g:pytest_test_dir='/home/dgarcia/dev/python/python-emtask'
-"}}}
+
 

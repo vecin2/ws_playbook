@@ -1,5 +1,9 @@
+## Ansible Project
+Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
+
+## Vim
+cx exchange inner word does not work
 Ansible IDE
 Yaml autoformating
 Ansible completion
-
 Highlight current line
