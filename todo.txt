@@ -1,0 +1,5 @@
+Ansible IDE
+Yaml autoformating
+Ansible completion
+
+Highlight current line
