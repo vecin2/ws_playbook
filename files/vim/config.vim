@@ -131,6 +131,7 @@ augroup END
 	map OB <down>
 	map OC <right>
 	map OD <left>
+	map gf :edit <cfile><cr>
 	"}}}
 
 	"Highlight current line number but not line{{{

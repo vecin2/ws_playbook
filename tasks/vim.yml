@@ -3,7 +3,7 @@
 # sudo apt-get install software-properties-common
 # sudo add-apt-repository ppa:jonathonf/vim
 # sudo apt install vim
-- name: Installing Vim and Neovim
+- name: Installing Vim
   become: true
   apt:
     name:
@@ -17,7 +17,7 @@
     state: directory
   tags: vim
 
-- name: Link Vim Config files
+- name: Creating vim symlinks
   file: src="{{ playbook_dir }}/files/vim/{{ item.src }}" dest="{{ ansible_env.HOME
     }}/{{ item.dest }}" state=link force=yes
   with_items:

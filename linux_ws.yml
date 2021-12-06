@@ -20,10 +20,9 @@
 # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - import_tasks: tasks/silversearcher.yml
     - import_tasks: tasks/git.yml
-    - import_tasks: tasks/nodejs.yml
     - import_tasks: tasks/other_packages.yml
     - import_tasks: tasks/vim.yml
-
+    - import_tasks: tasks/neovim.yml
 # Cmd line tools
     - import_tasks: tasks/bashmarks.yml
     - import_tasks: tasks/fzf.yml

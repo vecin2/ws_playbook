@@ -5,7 +5,7 @@
     name:
       - xclip
       - cmake #used by YouCompleteMe (vim plugin)
-      - npm
+        #- npm - currently broken
 
 - name: Installing Ubuntu 20.04
   apt:
