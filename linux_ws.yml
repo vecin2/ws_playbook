@@ -18,7 +18,7 @@
       tags: bashrcs
     - import_tasks: tasks/mybash_functions.yml
 # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
-    - import_tasks: tasks/silversearcher.yml
+    - import_tasks: tasks/searchers.yml
     - import_tasks: tasks/git.yml
     - import_tasks: tasks/other_packages.yml
     - import_tasks: tasks/vim.yml

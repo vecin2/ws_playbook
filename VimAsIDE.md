@@ -24,3 +24,9 @@ k
 
 ## Code Navigation
   - Preview Definition: usefull for viewing the method as a popup
+
+## Fuzy search
+  - Files (on cwd and on most frequent paths)
+  - Terms
+  - Word Under cursor
+  - Other commands: help

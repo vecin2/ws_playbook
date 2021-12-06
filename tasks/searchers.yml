@@ -1,12 +1,15 @@
-- name: Installing ack and ag
+- name: Installing ack, ag and ripgrep
   become: yes
   apt:
     name:
       - ack
       - silversearcher-ag
+      - ripgrep
+      - fd-find
 
 - name: "Setting alias for silversearcher"
   lineinfile:
     path: "{{ansible_env.HOME}}/.bash_aliases"
     line: "#alias ag=\"ag --color-path '36;1' --color-line-number '1;35'\""
     create: yes
+

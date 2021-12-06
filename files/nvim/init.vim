@@ -4,7 +4,7 @@ filetype plugin indent on
 set rtp+=~/.fzf
 
 "Plug autoinstall{{{
-let data_dir = '~/.config/nvim/'
+let data_dir = '~/.cofig/nvim/'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -36,6 +36,8 @@ Plug 'https://tpope.io/vim/unimpaired.git'
 
 "Search && Navigation {{{
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-telescope/telescope.nvim' | Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } "increase sorting speed telescope
 Plug 'scrooloose/nerdtree'
 Plug 'https://github.com/ivalkeen/nerdtree-execute.git'
 "This pull request from syntastic fixes an issue when opening files
@@ -162,6 +164,7 @@ lua <<EOF
 
 EOF
 "}}}
+
 "{{{ lspconfig
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -215,8 +218,24 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 "}}}
+
 "{{{lsp-signature
 lua << EOF
 require "lsp_signature".setup()
 EOF
+"}}}
+
+"{{{Telescope
+lua << EOF
+require('telescope').load_extension('fzf')
+EOF
+"lua require("mytelescope")
+" Using Lua functions
+nnoremap <leader>t <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>ag <cmd>lua require('telescope.builtin').grep_string()<cr>
+nnoremap <leader>r <cmd>lua require('telescope.builtin').command_history()<cr>
+nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>md <cmd>lua require('vecin.telescope').search_dotfiles()<cr>
 "}}}
