@@ -98,10 +98,11 @@ Plug 'ray-x/lsp_signature.nvim' "hint when invoking function
 call plug#end()
 "}}}
 "}}}
+
 " Source vim config when save {{{
 augroup sourcevim
 	autocmd!
-	autocmd bufwritepost vimrc,config.vim,plugins.vim source $MYVIMRC
+	autocmd bufwritepost init.vim,vimrc,config.vim,plugins.vim source $MYVIMRC
 augroup END
 
 " }}}
