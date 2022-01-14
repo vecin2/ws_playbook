@@ -1,34 +1,37 @@
-- name: "Adding fasd apt repository"
-  become: yes
+---
+- name: Adding fasd apt repository
+  become: true
   apt_repository:
     repo: ppa:aacebedo/fasd
     state: present
 
-- name: "Install fasd"
-  become: yes
+- name: Install fasd
+  become: true
   apt:
     name: fasd
 
-- name: "Source fasd on rc files"
+- name: Source fasd on rc files
   blockinfile:
-    path: "{{ansible_env.HOME}}/.profile"
-    marker: "#{mark} fasd config"
+    path: '{{ansible_env.HOME}}/.profile'
+    marker: '#{mark} fasd config'
     block: |
       #It caches the initialization for minimal overhead
       fasd_cache="$HOME/.fasd-init-bash"
       if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
         fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+
       fi
       source "$fasd_cache"
       unset fasd_cache
 
-- name: "Add fasd aliases"
+- name: Add fasd aliases
   blockinfile:
-    path: "{{ansible_env.HOME}}/.profile"
-    marker: "#{mark} fasd aliases"
-    block: |
+    path: '{{ansible_env.HOME}}/.profile'
+    marker: '#{mark} fasd aliases'
+    block: |-
       alias v='f -e vim' # quick opening files with vim
       alias o='a -e xdg-open' # quick opening files with xdg-open
       #alias r='fasd -si'
       #alias sd='fasd -sid'
       #alias sf='fasd -sif'
+      #

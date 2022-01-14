@@ -1,0 +1,26 @@
+---
+- debug:
+    msg: Debug unzipping {{item}}
+  tags: debug
+
+- name: Unzip {{item}}
+  win_command: 7z x {{item}}.zip -o{{item}}
+  args:
+    chdir: '{{installation_temp_folder}}'
+    creates: '{{installation_temp_folder}}/{{item}}'
+
+- debug:
+    msg: Debug stat {{item}}
+  tags: debug
+- name: stat {{item}}
+  win_stat: path={{installation_temp_folder}}/{{item}}/
+  register: dir_stat
+
+- debug:
+    msg: Debug move {{item}} to {{products_path}}
+  tags: debug
+- name: Move {{item}} to products
+  win_command: cmd.exe
+  args:
+    stdin: move {{installation_temp_folder}}/{{item}} {{products_path}}
+  when: dir_stat.stat.exists

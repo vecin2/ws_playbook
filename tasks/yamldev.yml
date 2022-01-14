@@ -1,0 +1,12 @@
+---
+- name: Install yamllint
+  become: true
+  apt:
+    name: yamllint
+# found an error with a yamlfix 'ruyaml' dependecy. It does not have module ruamel.yml which is isud by yamlfix
+# It can be fix by installing 'ruyaml' separately: pip install ruyaml==0.19.2
+# Or even better pip install yamlfix==0.2.1 which relies on the above ruyaml==0.19.2 version
+- pip:
+    name: yamlfix
+    extra_args: --user
+

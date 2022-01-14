@@ -1,0 +1,6 @@
+---
+- name: Downloading {{artifacts_url}}/{{item}}.zip to {{installation_temp_folder}}/
+  win_get_url:
+    url: '{{artifacts_url}}/{{item}}.zip'
+    dest: '{{installation_temp_folder}}'
+  tags: debug

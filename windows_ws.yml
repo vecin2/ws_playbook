@@ -1,0 +1,33 @@
+---
+- hosts: windows
+  gather_facts: false
+  vars:
+    em_appserver_home: C:\em\containers\hc_prototype
+  vars_files:
+    - '{{playbook_dir}}/passwords.yml'
+      #roles:
+      #  - em-ad
+  tasks:
+    - name: install appserver
+      win_command: C:/em/projects/hc_prototype/bin/ccadmin.bat install-appserver -Dappserver.home={{em_appserver_home}}
+      become: true
+      become_user: winrm_user
+    - import_tasks: tasks/windows/packages.yml
+#    - name: Install appserver
+#  win_shell: |
+#$arg1="c:\em\projects\hc_prototype\bin\ccadmin.bat install-appserver -Dappserver.home=c:\em\containers\ansible2 2>&1 > appserver2.log"; Start-process "cmd" -Verb runas -ArgumentList '/c', $arg1; Start-Sleep -Seconds 600
+#$arg1="c:\em\projects\hc_prototype\bin\ccadmin.bat install-appserver -Dappserver.home 2>&1 > c:\em\install-appserver.log"; Start-process -FilePath "$env:comspec" -Verb runas -ArgumentList '/c', $arg1 -wait; cat c:\em\install-appserver.log; rm c:\em\install-appserver.log
+#$arg1="c:\em\projects\hc_prototype\bin\ccadmin.bat install-appserver"; Start-process -FilePath "$env:comspec" -Verb runas -ArgumentList '/c', $arg1 -wait
+#        $arg1= "c:\em\projects\hc_prototype\bin\ccadmin.bat uninstall-appserver -Dappserver.home=c:\em\containers\ansible9 > c:\Users\vecin\dir.log 2>&1"; $p= (Start-process "cmd" -Verb runas -ArgumentList '/c', $arg1 -PassThru -Wait); cat c:\Users\vecin\dir.log; exit  $p.ExitCode
+#      register: out
+#Start-Process -FilePath "$env:comspec" -ArgumentList "/c", $arg2 -NoNewWindow -wait
+#$arg1="c:\em\projects\hc_prototype\bin\ccadmin.bat"; Start-Process -FilePath "$env:comspec" -Verb runas -ArgumentList "/c", $arg1 -NoNewWindow -wait
+#async: 600
+
+#- debug: var=out.stdout_lines
+#tasks:
+#   - name: Install appserver
+#      win_command: C:/em/projects/hc_prototype/bin/ccadmin.bat install-appserver
+#        -Dappserver.home={{em_appserver_home}}
+#      become: true
+#      become_user: ansible_user

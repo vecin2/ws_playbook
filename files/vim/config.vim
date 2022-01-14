@@ -1,6 +1,5 @@
 "Colors {{{
 "let base16colorspace=256
-"let base16colorspace=256
 "if filereadable(expand("~/.vimrc_background"))
 "	    source ~/.vimrc_background
 "endif
@@ -14,22 +13,6 @@ if exists('+termguicolors')
 	highlight Comment cterm=italic
 endif
 
-"" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-"}}}
 
 "Coding settings {{{
 set tags +=.git/tags
@@ -76,11 +59,20 @@ augroup END
 	"zR close all folds, zr increate the fold level (less folds)
 	"zv expand folds to reveal cursor
 	"zx Recompute folds
+	"zf Creates manual folder. E.g in html use zfat,zit to fold to the end tag
 	nnoremap , za
 	nnoremap <leader>, zMzv
-	"xml folding
+	set foldlevelstart=0 " start file with all folds close
+" }}}
+
+" xml {{{
 	let g:xml_syntax_folding=1
 	au FileType xml setlocal foldmethod=syntax
+" }}}
+
+" Javascript {{{
+	au FileType javascript,typescript,json setlocal foldmarker={,} foldmethod=marker
+	au FileType javascript,typescript,json syntax region bracketFold start="\[" end="\]" transparent fold
 " }}}
 
 	"Searching {{{
@@ -122,6 +114,7 @@ augroup END
 	map OB <down>
 	map OC <right>
 	map OD <left>
+	map gf :edit <cfile><cr>
 	"}}}
 
 	"Highlight current line number but not line{{{
@@ -180,7 +173,9 @@ augroup END
 
 	"Mouse config {{{
 	set mouse=a  "enable mouse
-	set ttymouse=sgr
+	if !has ('nvim')
+		set ttymouse=sgr
+	endif
 	" }}}
 
 	"Global Remaps{{{
@@ -199,10 +194,8 @@ augroup END
 	nnoremap \d :bp<cr>:bd! #<cr>
 	" <leader>-c redraws the screen and removes any search highlighting.
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
-	"Change root dir to current
-	command! Cdw :execute "lcd" . fnamemodify(resolve(expand('%')),':p:h')
-	"nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
-	nnoremap cd. :Cdw
+	"change pwd to current parent folder
+	nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
 	"}}}
 
 	" Ctrl+S {{{
@@ -280,12 +273,11 @@ augroup END
 	nnoremap <Leader>pl :e $CLOUD_LOC/links/links.txt<CR>
 	"nnoremap <Leader>adl :e $EM_CORE_HOME/docs/links.txt<CR>
 	nnoremap <Leader>mv :e $MYVIMRC<CR> "Edit MYVIMRC
+	nnoremap <Leader>mn :e ~/.config/nvim/init.vim<CR> "Edit init neovim config
 	nnoremap <Leader>mc :e ~/.vim/config.vim<CR> "Edit config.vim
 	nnoremap <Leader>mp :e ~/.vim/plugins.vim<CR> "Edit plugins.vim
 	"nnoremap <Leader>pn :e $EM_CORE_HOME/docs/notes.txt<CR>
 "}}}
-
-
 
 " Shorcuts to main docs {{{
 command! Kernel execute 'edit'  "$EM_CORE_HOME/logs/ad/cre/kernel/kernel.log"

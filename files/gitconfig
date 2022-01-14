@@ -7,3 +7,9 @@
 	ctags = !.git/hooks/ctags
 	co = commit
 	st = status
+[core]
+	excludesFile = /home/dgarcia/.gitignore_global
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

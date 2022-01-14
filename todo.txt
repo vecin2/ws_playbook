@@ -1,0 +1,17 @@
+## Ansible Project
+Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
+
+## Vim
+cx exchange inner word does not work
+Ansible IDE
+Yaml autoformating
+Ansible completion
+Highlight current line
+Intstall Telescope to replace fzf
+Path autocompletion
+fasd integration in vim - https://www.reddit.com/r/vim/comments/i1vba4/fasd_integration_in_vim/
+
+
+## Searchers
+Install ripgrep all allows pdf word search
+

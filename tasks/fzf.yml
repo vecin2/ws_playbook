@@ -1,15 +1,28 @@
 - name: "Downloading fzf"
   git: repo="https://github.com/junegunn/fzf.git" dest={{ansible_env.HOME}}/.fzf update=no
+  tags:
+    - fzf
+
 - name: "Installing fzf"
-  shell: "{{ansible_env.HOME}}/.fzf/install"
+  shell: "{{ansible_env.HOME}}/.fzf/install --all"
   args:
    creates: "{{ansible_env.HOME}}/.fzf/bin/fzf"
+  tags:
+    - fzf
 
-- name: "Link fzf.bash"
-  file: src="{{ playbook_dir }}/files/fzf.bash" dest="{{ ansible_env.HOME }}/.fzf.bash" state=link force=yes
+- name: "Configuring fzf"
+  blockinfile:
+    path: "{{ansible_env.HOME}}/.fzf.bash"
+    create: true
+    marker: "#{mark} Custom Configuration"
+    block: source "{{playbook_dir}}/files/fzf_custom.bash"
+  tags:
+    - fzf
 
 - name: "Source fzf.bash on rc files"
   lineinfile:
     path: "{{ansible_env.HOME}}/.profile"
     line: "[ -f ~/.fzf.bash ] && source ~/.fzf.bash"
     state: present
+  tags:
+    - fzf

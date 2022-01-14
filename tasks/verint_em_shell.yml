@@ -1,19 +1,34 @@
+---
 - name: Configure EM aliases
   blockinfile:
-    path: "{{ansible_env.HOME}}/.bash_aliases"
-    marker: "#{mark} EM aliases"
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    marker: '#{mark} EM aliases'
     content: |
       alias tad="cd $EM_CORE_HOME"
       alias ced='wstart ccadmin ced'
-      alias sqltask='command "/mnt/c/em/projects/pacificorp/bin/sqltask.exe"'
       alias rsql='sqltask run-sql'
       alias csql='sqltask create-sql'
       alias tsql='sqltask create-sql'
 
 - name: EM environment variables
   blockinfile:
-    path: "{{ansible_env.HOME}}/.profile"
-    marker: "#{mark} EM file"
+    path: '{{ansible_env.HOME}}/.profile'
+    marker: '#{mark} EM file'
     block: >
       [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh"
       # Load EM into a shell session *as a function*
+
+- name: Link em.sh
+  file: src="{{ playbook_dir }}/files/verint/em.sh" dest="{{ ansible_env.HOME }}/.em.sh"
+    state=link force=yes
+
+- name: Create ccadmin autocompletion folder
+  file:
+    path: '{{ansible_env.HOME}}/.verint/autocompletion/'
+    state: directory
+    recurse: true
+  register: autocompletion
+
+- name: Link ccadmin_autocomplation
+  file: src="{{ playbook_dir }}/files/verint/ccadmin.sh" dest="{{autocompletion.path}}ccadmin.sh"
+    state=link force=yes

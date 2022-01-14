@@ -7,9 +7,6 @@ export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.gitignore -g "" --follow'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export MY_BASHRC_VAR="$FZF_DEFAULT_COMMAND"
-if [[ ! "$PATH" == */home/dgarcia/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/home/dgarcia/.fzf/bin"
-fi
 fzf-binds() {
 	printf 'ctrl-e:execute(echo {+} | xargs -o ${EDITOR:-vim})+abort,'
         printf 'ctrl-y:execute-silent(echo {} | xargs echo -n | xclip -selection clipboard),'
@@ -23,15 +20,7 @@ export FZF_DEFAULT_OPTS="
         --bind 'ctrl-y:execute-silent(echo {} | xargs echo -n | xclip -selection clipboard)'
         --bind 'ctrl-r:execute-silent(realpath {} | xargs echo -n | xclip -selection clipboard)'"
 
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "/home/dgarcia/.fzf/shell/completion.bash" 2> /dev/null
-
-# Key bindings
-# ------------
-source "/home/dgarcia/.fzf/shell/key-bindings.bash"
-
-# fkill - kill process
+# kill process
 fkill() {
 	local pid
 	pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
@@ -109,5 +98,22 @@ fsvn(){
 	if [ "x$paths" != "x" ]
 	then
 		echo $paths | xargs svn $1
+	fi
+}
+fssh(){
+	user=""
+	if [ "$#" -eq 1 ]; then
+		user=$1
+	fi
+	node_line=$(cat $HOME/dev/ssh/nodes.txt  | fzf)
+	if ! test -z "$node_line"; then
+		host=$(echo "${node_line}" | awk '{print $2}')
+		if test -z "$user"; then # if user is not pass get it from file
+			user=$(echo "$node_line" | awk '{print $3}')
+		fi
+		if test -z "$user"; then # if user is not pass and not set in file default to my user
+			user="p43249"
+		fi
+		ssh $user@$host
 	fi
 }

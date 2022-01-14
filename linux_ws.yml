@@ -1,38 +1,45 @@
 ---
-- hosts: localhost
+- hosts: wsl
   connection: local
   pre_tasks:
-      - name: update repositories
-        apt: update_cache=yes
-        changed_when: false
-        become: true
+# - name: update repositories
+#   apt: update_cache=yes
+#   changed_when: false
+#   become: true
+    - import_tasks: tasks/wsl_facts.yml
+  vars_files:
+    - '{{playbook_dir}}/passwords.yml'
+  vars:
+    ansible_become_pass: '{{sudo_pass}}'
+
   tasks:
-      # Basic terminal
-      - include: tasks/bashrcs.yml
-      - include: tasks/mybash_functions.yml
-      # - include: tasks/shell_colors/gruvbox_theme_for_mintty.yml
-      - include: tasks/silversearcher.yml
-      - include: tasks/git.yml
-      - include: tasks/other_packages.yml
-      - include: tasks/vim.yml
+# Basic terminal
+    - import_tasks: tasks/bashrcs.yml
+      tags: bashrcs
+    - import_tasks: tasks/mybash_functions.yml
+# - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+    - import_tasks: tasks/searchers.yml
+    - import_tasks: tasks/git.yml
+    - import_tasks: tasks/other_packages.yml
+    - import_tasks: tasks/vim.yml
+    - import_tasks: tasks/neovim.yml
+# Cmd line tools
+    - import_tasks: tasks/bashmarks.yml
+    - import_tasks: tasks/fzf.yml
+    - import_tasks: tasks/fasd.yml
 
-      # Cmd line tools
-      - include: tasks/bashmarks.yml
-      - include: tasks/fzf.yml
-      - include: tasks/fasd.yml
+# Other apps
+    - import_tasks: tasks/tmux.yml
+    - import_tasks: tasks/tmuxinator.yml
+    - import_tasks: tasks/verint_em_shell.yml
 
-      # Other apps
-      - include: tasks/tmux.yml
-      - include: tasks/tmuxinator.yml
-      # include: tasks/verint_em_shell.yml
+# Python
+    - import_tasks: tasks/pythondev.yml
+# Yaml
+    - import_tasks: tasks/yamldev.yml
 
-      # Python
-      - include: tasks/pythondev.yml
-
-      # Virtualization server
-      - include: tasks/pywinrm.yml
-      - include: tasks/vagrant.yml
-      - name: Install yamllint for Ansible playbooks
-        become: true
-        apt:
-            name: yamllint
+# Virtualization server
+    - import_tasks: tasks/pywinrm.yml
+    - import_tasks: tasks/ansible.yml
+# - import_tasks: tasks/vagrant.yml needs to be install from website to get the
+# latest version

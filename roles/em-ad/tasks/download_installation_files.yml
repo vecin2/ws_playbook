@@ -1,0 +1,4 @@
+---
+- include_tasks: download_installation_zip.yml
+  with_items: '{{downloaded_zip_files}}'
+  tags: debug

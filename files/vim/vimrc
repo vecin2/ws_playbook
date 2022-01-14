@@ -22,7 +22,7 @@ Plugin 'https://github.com/blueyed/vim-diminactive'
 "Shorcut commmands, e.g: resize window quicker
 Plugin 'https://github.com/kana/vim-arpeggio.git'
 Plugin 'https://github.com/kana/vim-submode.git'
-Plugin 'git@github.com:tpope/vim-unimpaired.git'
+Plugin 'https://tpope.io/vim/unimpaired.git'
 "}}}
 
 "Search && Navigation {{{
@@ -53,6 +53,8 @@ Plugin 'https://github.com/gioele/vim-autoswap'
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+" Markdown
+Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 "}}}
 
 "Dev plugins{{{
@@ -85,7 +87,6 @@ call vundle#end()
 "}}}
 
 
-"colorscheme gruvbox
 " Source vim config when save {{{
 augroup sourcevim
 	autocmd!
