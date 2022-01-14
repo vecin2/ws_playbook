@@ -1,6 +1,8 @@
-- name: "Installing other basic packages"
-  become: yes
+---
+- name: Installing other basic packages
+  become: true
   apt:
     name:
       - xclip
       - cmake #used by YouCompleteMe (vim plugin)
+      - npm # used to install wsl-open
