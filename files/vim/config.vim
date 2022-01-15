@@ -8,8 +8,8 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
   set background=dark
-  colorscheme gruvbox
   let g:gruvbox_italic=1
+  colorscheme gruvbox
 	highlight Comment cterm=italic
 endif
 "}}}
