@@ -12,43 +12,7 @@ if exists('+termguicolors')
   let g:gruvbox_italic=1
 	highlight Comment cterm=italic
 endif
-
-
-"Coding settings {{{
-set tags +=.git/tags
-" }}}
-
-"Python settings{{{
-augroup filetype_py
-	autocmd!
-	autocmd FileType python : set colorcolumn =88
-"python with virtualenv support
-py3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  #exec(activate_this, dict(__file__=activate_this))
-  #exec(open(filename).read())
-  with open(activate_this) as infile:
-      exec(infile.read(),dict(__file__=activate_this))
-
-EOF
-
 "}}}
-
-"yaml settings{{{
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-"}}}
-
-"Vimscript file setting ----- {{{
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2
-augroup END
-" }}}
 
 " Folding {{{
 "Cheatsheet
@@ -65,23 +29,23 @@ augroup END
 	set foldlevelstart=0 " start file with all folds close
 " }}}
 
+"Vimscript file setting ----- {{{
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2
+augroup END
+" }}}
+
 " xml {{{
 	let g:xml_syntax_folding=1
 	au FileType xml setlocal foldmethod=syntax
 " }}}
 
-" Javascript {{{
-	au FileType javascript,typescript,json setlocal foldmarker={,} foldmethod=marker
-	au FileType javascript,typescript,json syntax region bracketFold start="\[" end="\]" transparent fold
-" }}}
-
 	"Searching {{{
-	"search by files completing like sh
-	set wildmode=longest,list
-	"allow searching in subdirectories
-	set path+=**
-	" hilight searched term
-	set hlsearch
+	set wildmode=longest,list "search by files completing like sh
+	set path+=** "allow searching in subdirectories
+	set hlsearch " hilight searched term
+	set smartcase 
 	"Allows vim to use ag with ack plugin
 	let g:ackprg = 'ag --nogroup --nocolor --column'
 	nnoremap <leader>a <Esc>:Ack!
@@ -98,23 +62,13 @@ augroup END
 	"}}}
 
 	"Navigating docs {{{
-	"Remove backup files swp
-	set nobackup nowritebackup
-	"Allow exit buffer without saving
-	set hidden
-	" Always show 5 lines between current cursor line and top or bottom line
-	set scrolloff=5
-	"set relativenumber and absolute number for current line
-	"set rnu
+	set nobackup "Remove backup files swp
+	set hidden "Allow exit buffer without saving
+	set scrolloff=5 " Always show 5 lines between current cursor line and top or bottom line
+  set sidescrolloff=5
 	set number
 	set cursorline
-	"This map allows to use the arrow keys in insert mode. Otherwise it shows
-	"strange characters
-	map OA <up>
-	map OB <down>
-	map OC <right>
-	map OD <left>
-	map gf :edit <cfile><cr>
+  set signcolumn=yes:1
 	"}}}
 
 	"Highlight current line number but not line{{{
@@ -178,19 +132,11 @@ augroup END
 	endif
 	" }}}
 
-	"Global Remaps{{{
+	"KeyBindings{{{
 	let mapleader="\<Space>"
 	:inoremap jk <Esc>
-	"Uncommenting the below lines causes characters to appear when mouse events
-	"occur in insert mode
-	":inoremap <Esc> <nop>
-
 	noremap ; :
-	"noremap : <nop>
-	"}}}
-
-	"Other Vim remaps {{{
-	"To allow NERDTREE delete a buffer without exiting window
+	"delete a buffer without exiting window
 	nnoremap \d :bp<cr>:bd! #<cr>
 	" <leader>-c redraws the screen and removes any search highlighting.
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
@@ -239,6 +185,13 @@ augroup END
 	vmap <C-Down> xp`[V`]
 	"}}}
 
+"Other options{{{
+set splitright "force all horizontal splits to go below current window
+set splitbelow  "force all horizontal splits to go below current window
+se noswapfile
+set undofile
+"}}}
+
 	"Setting tabs Set tabstop, softtabstop and shiftwidth to the same value {{{
 	command! -nargs=* Stab call Stab()
 	function! Stab()
@@ -254,14 +207,10 @@ augroup END
 	function! SummarizeTabs()
 			try
 					echohl ModeMsg
-					echon 'tabstop='.&l:ts
+					echon ' tabstop='.&l:ts
 					echon ' shiftwidth='.&l:sw
 					echon ' softtabstop='.&l:sts
-					if &l:et
-							echon ' expandtab'
-					else
-							echon ' noexpandtab'
-					endif
+					set expandtab?
 			finally
 					echohl None
 			endtry

@@ -25,7 +25,7 @@ Plug 'https://github.com/29decibel/codeschool-vim-theme.git'
 Plug 'lifepillar/vim-solarized8'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tmux-plugins/vim-tmux-focus-events' "it was needed for pre vim 8.2 for gaines focus event working proeperly
 Plug 'https://github.com/blueyed/vim-diminactive'
 
 "Shorcut commmands, e.g: resize window quicker
@@ -35,7 +35,7 @@ Plug 'https://tpope.io/vim/unimpaired.git'
 "}}}
 
 "Search && Navigation {{{
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf.vim'
 Plug 'nvim-telescope/telescope.nvim' | Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } "increase sorting speed telescope
 Plug 'scrooloose/nerdtree'
@@ -72,11 +72,12 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-
-
 " For vsnip users.
+"Plug 'L3MON4D3/LuaSnip' "snippet engine
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'rafamadriz/friendly-snippets' " collections of predefined Snippets
+
 "{{{ Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 "}}}
@@ -84,6 +85,7 @@ Plug 'https://github.com/tpope/vim-endwise.git'
 Plug 'https://github.com/vim-ruby/vim-ruby.git'
 Plug 'alfredodeza/pytest.vim'
 Plug 'tpope/vim-fugitive'
+
 "Bundle 'skalnik/vim-vroom'
 Plug 'https://github.com/tpope/vim-dispatch.git'
 Plug 'https://github.com/ervandew/supertab.git'
@@ -112,58 +114,7 @@ so ~/.vim/plugins.vim
 
 "{{{cmp
 set completeopt=menu,menuone,noselect
-
-lua <<EOF
-  -- Setup nvim-cmp.
-  local cmp = require'cmp'
-
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-        -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-      end,
-    },
-    mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-      ['<C-e>'] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-
-EOF
+lua require("vecin.cmp")
 "}}}
 
 "{{{ lspconfig
