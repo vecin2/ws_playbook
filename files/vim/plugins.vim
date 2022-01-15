@@ -21,8 +21,7 @@ augroup nerdtree
 augroup END
 
 
-"nnoremap <Leader>v :NERDTreeToggle<Enter>
-nnoremap <Leader>v :NERDTreeFind<Enter>
+nnoremap <Leader>f :NERDTreeFind<Enter>
 let NERDTreeAutoDeleteBuffer = 1 "Automatically delete a buffer when delete file from NT
 let g:NERDTreeQuitOnOpen = 1 "Closes nerdtree when opening a file
 

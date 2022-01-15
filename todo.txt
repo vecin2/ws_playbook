@@ -2,7 +2,6 @@
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
 ## Vim
-Telescope ctrl+v open vertical, ctrl+x open horizontal
 cx exchange inner word does not work
 Ansible IDE
 Yaml autoformating

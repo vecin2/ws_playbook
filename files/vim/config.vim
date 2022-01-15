@@ -175,16 +175,6 @@ augroup END
 	nnoremap <silent> <C-w>z :ZoomToggle<CR>
 	"}}}
 
-	"Ctrl+UP(Down) -Bubble single lines{{{
-	map <ESC>[1;5A <C-Up>
-	map <ESC>[1;5B <C-Down>
-	nmap <C-Up> ddkP
-	nmap <C-Down> ddp
-	"Buble multiple lines
-	vmap <C-Up> xkP`[V`]
-	vmap <C-Down> xp`[V`]
-	"}}}
-
 "Other options{{{
 set splitright "force all horizontal splits to go below current window
 set splitbelow  "force all horizontal splits to go below current window
@@ -240,4 +230,14 @@ function! s:Vpl(...)
 	execute "edit" . pl_path . file_name
 endfunction
 command! -nargs=? Vpl call s:Vpl(<f-args>)
+"}}}
+
+" Stay in indent mode{{{
+vnoremap < <gv
+vnoremap > >gv
+" Resize with arrows
+nnoremap <C-Up> :resize -2<CR>
+nnoremap <C-Down> :resize +2<CR>
+nnoremap <C-Left> :vertical resize -2<CR>
+nnoremap <C-Right> :vertical resize +2<CR>
 "}}}
