@@ -18,10 +18,12 @@
       tags: bashrcs
     - import_tasks: tasks/mybash_functions.yml
 # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+    - import_tasks: tasks/windows_terminal.yml
+      when: "'WSL' in wsl_version"
     - import_tasks: tasks/searchers.yml
     - import_tasks: tasks/git.yml
     - import_tasks: tasks/other_packages.yml
-    - import_tasks: tasks/vim.yml
+#    - import_tasks: tasks/vim.yml
     - import_tasks: tasks/neovim.yml
 # Cmd line tools
     - import_tasks: tasks/bashmarks.yml
