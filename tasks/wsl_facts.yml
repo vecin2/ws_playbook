@@ -1,5 +1,5 @@
 ---
-- name: Setting WSL facts
+- name: Setting wsl_version fact
   shell: |
     if [[ {{ansible_kernel}} == *'microsoft'* ]]; then
         echo "WSL2"
@@ -15,4 +15,16 @@
 
 - set_fact:
     wsl_version: "{{wsl_version_checker.stdout}}"
+  tags: always
+
+- name: Setting WSL facts
+  shell: |
+    echo $(cmd.exe /c echo %username%)
+  args:
+    executable: "/bin/bash"
+  tags: always
+  register: wsl_version_checker
+
+- set_fact:
+    win_username: "{{wsl_version_checker.stdout}}"
   tags: always
