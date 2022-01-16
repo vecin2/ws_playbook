@@ -2,6 +2,7 @@
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
 ## Vim
+finish chris plugins
 Ansible IDE
 Yaml autoformating
 Ansible completion
@@ -20,6 +21,7 @@ fold comments .lua
 shell ohmyzsh 
 remote clipboard clipper
 folding in lua
+disable pair " for vim files, so comments do not create two "
 ## Searchers
 Install ripgrep all allows pdf word search
 what is: set wildmode=longest,list "search by files completing like sh
