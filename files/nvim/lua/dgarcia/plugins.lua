@@ -53,7 +53,8 @@ return packer.startup(function(use)
 	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use("kyazdani42/nvim-web-devicons")
-	use("scrooloose/nerdtree")
+	--	use("scrooloose/nerdtree")
+	use({ "kyazdani42/nvim-tree.lua" })
 	use("nvim-lualine/lualine.nvim")
 	use("ahmedkhalf/project.nvim")
 	--  use "lewis6991/impatient.nvim"
