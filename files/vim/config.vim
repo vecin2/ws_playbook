@@ -69,6 +69,8 @@ augroup END
 	set number
 	set cursorline
   set signcolumn=yes:1
+
+	map gf :edit <cfile><cr> "Allow gf to open non-existing files
 	"}}}
 
 	"Highlight current line number but not line{{{
@@ -232,12 +234,9 @@ endfunction
 command! -nargs=? Vpl call s:Vpl(<f-args>)
 "}}}
 
-" Stay in indent mode{{{
-vnoremap < <gv
-vnoremap > >gv
-" Resize with arrows
-nnoremap <C-Up> :resize -2<CR>
-nnoremap <C-Down> :resize +2<CR>
+" Resize with arrows{{{
+nnoremap <C-Up> :resize +2<CR>
+nnoremap <C-Down> :resize -2<CR>
 nnoremap <C-Left> :vertical resize -2<CR>
 nnoremap <C-Right> :vertical resize +2<CR>
 "}}}

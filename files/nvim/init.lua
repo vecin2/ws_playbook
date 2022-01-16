@@ -1,18 +1,18 @@
 --require "user.options"
-require			 "dgarcia.plugins"
-vim.cmd 'so ~/.config/nvim/config.vim'
 
-vim.cmd 'so ~/.config/nvim/plugins.vim'
+require("dgarcia.plugins")
+vim.cmd("so ~/.config/nvim/config.vim")
 
---require "user.colorscheme"
-require "dgarcia.cmp"
-require "user.lsp"
+vim.cmd("so ~/.config/nvim/plugins.vim")
+
+require("dgarcia.cmp")
+require("user.lsp")
 --
 --
-require 			"dgarcia.telescope"
-require "user.treesitter"
-require "user.autopairs"
-require "user.comment"
+require("dgarcia.telescope")
+require("user.treesitter")
+require("user.autopairs")
+require("user.comment")
 --require "user.gitsigns"
 --require "user.nvim-tree"
 --require "user.bufferline"

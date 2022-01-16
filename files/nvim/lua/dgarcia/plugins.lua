@@ -48,6 +48,7 @@ use "wbthomason/packer.nvim" -- Have packer manage itself
 
 --"Shorcut commmands, e.g: resize window quicker
 use 'https://tpope.io/vim/unimpaired.git'
+use 'https://tpope.io/vim/fugitive.git'
 --"}}}
 use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
