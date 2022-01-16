@@ -2,6 +2,7 @@ local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
 	return
 end
+vim.cmd([[set noshowmode]]) -- we don't need to see things like -- INSERT -- anymore
 
 local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80
@@ -21,7 +22,7 @@ local diff = {
 	"diff",
 	colored = false,
 	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-  cond = hide_in_width
+	cond = hide_in_width,
 }
 
 local mode = {

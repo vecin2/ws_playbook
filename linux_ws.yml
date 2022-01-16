@@ -17,6 +17,8 @@
     - import_tasks: tasks/bashrcs.yml
       tags: bashrcs
     - import_tasks: tasks/mybash_functions.yml
+# ZSH terminal
+    - import_tasks: tasks/zsh.yml
 # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - import_tasks: tasks/windows_terminal.yml
       when: "'WSL' in wsl_version"
@@ -39,6 +41,9 @@
     - import_tasks: tasks/pythondev.yml
 # Yaml
     - import_tasks: tasks/yamldev.yml
+# lua
+    - import_tasks: tasks/luadev.yml
+
 
 # Virtualization server
     - import_tasks: tasks/pywinrm.yml
