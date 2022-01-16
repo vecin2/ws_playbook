@@ -181,7 +181,7 @@ augroup END
 set splitright "force all horizontal splits to go below current window
 set splitbelow  "force all horizontal splits to go below current window
 se noswapfile
-set undofile
+set undofile "persistent save
 "}}}
 
 	"Setting tabs Set tabstop, softtabstop and shiftwidth to the same value {{{
