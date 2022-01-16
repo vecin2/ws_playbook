@@ -15,7 +15,7 @@ require("user.autopairs")
 require("user.comment")
 --require "user.gitsigns"
 require("user.lualine")
---require "user.project"
+require("user.project")
 --require "user.impatient"
 --require "user.indentline"
 --require "user.alpha"

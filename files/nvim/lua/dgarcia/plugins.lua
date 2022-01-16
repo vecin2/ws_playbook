@@ -55,7 +55,7 @@ return packer.startup(function(use)
 	use("kyazdani42/nvim-web-devicons")
 	use("scrooloose/nerdtree")
 	use("nvim-lualine/lualine.nvim")
-	--  use "ahmedkhalf/project.nvim"
+	use("ahmedkhalf/project.nvim")
 	--  use "lewis6991/impatient.nvim"
 	--  use "lukas-reineke/indent-blankline.nvim"
 	--  use "goolord/alpha-nvim"
