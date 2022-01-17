@@ -2,8 +2,12 @@
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
 ## Vim
+add file name to status bar
+move DISPLAY to commonrc
+source common rc from bashrc and zshrc
 finish chris plugins
 Ansible IDE
+Ansible pairs {%%}
 Yaml autoformating
 Ansible completion
 Highlight current line

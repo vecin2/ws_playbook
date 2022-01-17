@@ -53,11 +53,10 @@ return packer.startup(function(use)
 	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use("kyazdani42/nvim-web-devicons")
-	--	use("scrooloose/nerdtree")
 	use({ "kyazdani42/nvim-tree.lua" })
 	use("nvim-lualine/lualine.nvim")
 	use("ahmedkhalf/project.nvim")
-	--  use "lewis6991/impatient.nvim"
+	use "lewis6991/impatient.nvim"
 	--  use "lukas-reineke/indent-blankline.nvim"
 	--  use "goolord/alpha-nvim"
 	--  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
@@ -105,7 +104,7 @@ return packer.startup(function(use)
 	})
 	--
 	--  -- Git
-	--  use "lewis6991/gitsigns.nvim"
+	 use "lewis6991/gitsigns.nvim"
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

@@ -12,7 +12,7 @@ nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>ag <cmd>lua require('telescope.builtin').grep_string()<cr>
 
 nnoremap <leader>r <cmd>lua require('telescope.builtin').command_history()<cr>
-nnoremap <leader>h <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>e <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>md <cmd>lua require('dgarcia.telescope').search_dotfiles()<cr>
 ]]
 
@@ -112,7 +112,6 @@ M.search_dotfiles = function()
 		prompt_title = "< MYVIMRC >",
 		cwd = "$DOT_FILES_LOC",
 	})
-	
 end
 
 return M
