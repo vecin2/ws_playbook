@@ -1,16 +1,17 @@
 ---
-- name: Configure DISPLAY var on WSL1 environment
-  lineinfile:
-    path: '{{ansible_env.HOME}}/.bashrc'
-    line: export DISPLAY=localhost:0 #allows wsl to copy/paste form host windows
-    regexp: '^export DISPLAY='
-  when: wsl_version == 'WSL1'
-  tags: display
+- shell: grep "^$USER" /etc/passwd
+  register: shell_used #determine if bash or zsh
+  tags: wsl_clipboard
 
-- name: Configure DISPLAY var on WSL2 environment
+- name: Set DISPLAY var
+  vars:
+    wsl1_display: localhost:0
+    wsl2_display: $(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+    display: "{% if wsl_version == 'WSL1' %}{{wsl1_display}} {%else%} {{wsl2_display}}{% endif %}"
+    shellrc: "{% if 'zsh' in shell_used.stdout %}zshrc{% else %}bashrc{% endif %}"
   lineinfile:
-    path: '{{ansible_env.HOME}}/.bashrc'
-    line: export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+    path: '{{ansible_env.HOME}}/.{{shellrc}}'
     regexp: '^export DISPLAY='
-  when: wsl_version == 'WSL2'
-  tags: display
+    line: export DISPLAY={{display.strip()}}
+  tags: wsl_clipboard
+

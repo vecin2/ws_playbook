@@ -6,17 +6,14 @@
     block: |
       # After each command, append to the history file and reread it
       export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r; history -n"
-
       export EDITOR=vim
       #Remove user name, hostname and full CWD. Only show the last CWD
       export PS1="\[\033[01;34m\]\W\[\033[00m\]\$"
   tags: display
 
-- import_tasks: wsl_display.yml
-
-- name: Install nord dircolors
-  file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME
-    }}/.dircolors" state=link force=yes
+  #- name: Install nord dircolors
+  #  file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME
+  #    }}/.dircolors" state=link force=yes
 # copy:
 #  src: "{{ansible_env.HOME}}/dotfiles/dircolors/dircolors_nord"
 #  dest: "{{ansible_env.HOME}}/.dircolors"
