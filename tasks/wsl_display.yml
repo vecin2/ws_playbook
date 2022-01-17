@@ -7,10 +7,13 @@
   vars:
     wsl1_display: localhost:0
     wsl2_display: $(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-    display: "{% if wsl_version == 'WSL1' %}{{wsl1_display}} {%else%} {{wsl2_display}}{% endif %}"
-    shellrc: "{% if 'zsh' in shell_used.stdout %}zshrc{% else %}bashrc{% endif %}"
+    display: "{% if wsl_version == 'WSL1' %}
+                {{wsl1_display}} 
+              {%else%} 
+                {{wsl2_display}}
+              {% endif %}"
   lineinfile:
-    path: '{{ansible_env.HOME}}/.{{shellrc}}'
+    path: '{{myshellrc}}'
     regexp: '^export DISPLAY='
     line: export DISPLAY={{display.strip()}}
   tags: wsl_clipboard

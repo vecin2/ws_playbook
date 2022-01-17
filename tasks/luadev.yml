@@ -3,7 +3,7 @@
   apt: name=cargo
 - name: Add cargo to PATH
   lineinfile:
-    path: '{{ansible_env.HOME}}/.profile'
+    path: '{{myshellrc}}'
     regexp: ^export PATH=\"$HOME/.cargo
     line: export PATH="$HOME/.cargo/bin:$PATH"
     create: true
