@@ -2,7 +2,7 @@
 	"profiles": [
 		{
 			"name": "My Ubuntu 20.04",
-			"commandline": "wsl -d Ubuntu-20.04",
+			"commandline": "wsl -d Ubuntu-20.04 tmux attach || tmux",
 			"colorScheme": "Gruvbox Dark",
 			"cursorShape": "vintage",
 			"startingDirectory": "\\\\wsl$\\Ubuntu-20.04\\home\\dgarcia"
