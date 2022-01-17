@@ -17,10 +17,10 @@ end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost plugins.lua source <afile> | PackerSync
+augroup end
 ]])
 
 -- Use a protected call so we don't error out on first use
@@ -57,7 +57,7 @@ return packer.startup(function(use)
 	use("nvim-lualine/lualine.nvim")
 	use("ahmedkhalf/project.nvim")
 	use "lewis6991/impatient.nvim"
-	--  use "lukas-reineke/indent-blankline.nvim"
+	use "lukas-reineke/indent-blankline.nvim"
 	--  use "goolord/alpha-nvim"
 	--  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
 	--  use "folke/which-key.nvim"
@@ -87,8 +87,8 @@ return packer.startup(function(use)
 	--  -- snippets
 	use("L3MON4D3/LuaSnip") --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
-	--
-	--  -- LSP
+--	--
+--	--  -- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
 	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	--  use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
@@ -104,7 +104,7 @@ return packer.startup(function(use)
 	})
 	--
 	--  -- Git
-	 use "lewis6991/gitsigns.nvim"
+	use "lewis6991/gitsigns.nvim"
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

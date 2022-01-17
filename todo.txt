@@ -2,6 +2,7 @@
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
 ## Vim
+ansible '{{}}' -- does not close bracket on {
 add file name to status bar
 move DISPLAY to commonrc
 source common rc from bashrc and zshrc
