@@ -183,6 +183,8 @@ set splitright "force all horizontal splits to go below current window
 set splitbelow  "force all horizontal splits to go below current window
 se noswapfile
 set undofile "persistent save
+set tabstop=2 shiftwidth=2 softtabstop=2 "generic tabwidth
+let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL 
 "}}}
 
 	"Setting tabs Set tabstop, softtabstop and shiftwidth to the same value {{{
