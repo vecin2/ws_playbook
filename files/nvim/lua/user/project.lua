@@ -44,5 +44,5 @@ local tele_status_ok, telescope = pcall(require, "telescope")
 if not tele_status_ok then
 	return
 end
-vim.cmd([[nnoremap <leader>p :Telescope projects<Enter>]])
+vim.cmd([[nnoremap <leader>o :Telescope projects<Enter>]])
 telescope.load_extension("projects")
