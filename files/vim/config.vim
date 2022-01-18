@@ -9,7 +9,7 @@ if exists('+termguicolors')
   set termguicolors
   set background=dark
   let g:gruvbox_italic=1
-  colorscheme gruvbox
+  colorscheme darkplus
 	highlight Comment cterm=italic
 endif
 "}}}
