@@ -35,7 +35,8 @@ augroup filetype_vim
 	autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
-"Vimscript file setting ----- {{{
+
+"lua file setting ----- {{{
 augroup filetype_lua
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
@@ -83,14 +84,7 @@ augroup END
 	"}}}
 
 	"Highlight current line number but not line{{{
-	hi clear CursorLine
-	augroup CLClear
-		autocmd! ColorScheme * hi clear CursorLine
-	augroup END
-	hi CursorLineNR cterm=bold
-	augroup CLNRSet
-		autocmd! ColorScheme * hi CursorLineNR cterm=bold
-	augroup END
+  set cursorline   "highlight the current line
 	"}}}
 
 	"Status Line {{{
