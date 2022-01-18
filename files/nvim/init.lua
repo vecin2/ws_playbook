@@ -1,10 +1,10 @@
-require("dgarcia.plugins")
+require("user.plugins")
 vim.cmd("so ~/.config/nvim/config.vim")
 vim.cmd("so ~/.config/nvim/plugins.vim")
 
-require("dgarcia.cmp")
+require("user.cmp")
 require("user.lsp")
-require("dgarcia.telescope")
+require("user.telescope")
 require("user.treesitter")
 require("user.autopairs")
 require("user.comment")
