@@ -1,0 +1,40 @@
+---
+- name: Setting wsl_version fact
+  shell: |
+    if [[ {{ansible_kernel}} == *'microsoft'* ]]; then
+        echo "WSL2"
+    elif [[ {{ansible_kernel}} == *'Microsoft'* ]]; then
+        echo "WSL1"
+    else
+        echo "NO_WSL"
+    fi
+  args:
+    executable: "/bin/bash"
+  tags: always
+  register: wsl_version_checker
+
+- set_fact:
+    wsl_version: "{{wsl_version_checker.stdout}}"
+  tags: always
+
+- name: Setting Windows username
+  shell: |
+    echo $(cmd.exe /c echo %username%)
+  args:
+    executable: "/bin/bash"
+  tags: always
+  register: wsl_version_checker
+
+- set_fact:
+    win_username: "{{wsl_version_checker.stdout}}"
+  tags: always
+
+- block:
+  - name: Setting shellrc file
+    shell: grep "^$USER" /etc/passwd
+    register: shell_used #determine if bash or zsh
+  - set_fact:
+      myshellrc: "{{ansible_env.HOME}}/.{{myshellfile}}"
+  vars:
+    myshellfile: "{% if 'zsh' in shell_used.stdout %}zshrc{% else %}bashrc{% endif %}"
+  tags: always
