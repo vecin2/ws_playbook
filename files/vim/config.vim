@@ -32,7 +32,13 @@ endif
 "Vimscript file setting ----- {{{
 augroup filetype_vim
 	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+"Vimscript file setting ----- {{{
+augroup filetype_lua
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
 
@@ -45,7 +51,9 @@ augroup END
 	set wildmode=longest,list "search by files completing like sh
 	set path+=** "allow searching in subdirectories
 	set hlsearch " hilight searched term
-	set smartcase 
+	set smartcase "only applies when ignorecase is set
+	set ignorecase 
+	set smartindent
 	"Allows vim to use ag with ack plugin
 	let g:ackprg = 'ag --nogroup --nocolor --column'
 	nnoremap <leader>a <Esc>:Ack!
