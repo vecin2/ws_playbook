@@ -6,7 +6,7 @@
 - name: "Installing fzf"
   shell: "{{ansible_env.HOME}}/.fzf/install --all"
   args:
-   creates: "{{ansible_env.HOME}}/.fzf/bin/fzf"
+    creates: "{{ansible_env.HOME}}/.fzf/bin/fzf"
   tags:
     - fzf
 
