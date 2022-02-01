@@ -8,47 +8,11 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
   set background=dark
-  colorscheme gruvbox
   let g:gruvbox_italic=1
+  colorscheme darkplus
 	highlight Comment cterm=italic
 endif
-
-
-"Coding settings {{{
-set tags +=.git/tags
-" }}}
-
-"Python settings{{{
-augroup filetype_py
-	autocmd!
-	autocmd FileType python : set colorcolumn =88
-"python with virtualenv support
-py3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  #exec(activate_this, dict(__file__=activate_this))
-  #exec(open(filename).read())
-  with open(activate_this) as infile:
-      exec(infile.read(),dict(__file__=activate_this))
-
-EOF
-
 "}}}
-
-"yaml settings{{{
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-"}}}
-
-"Vimscript file setting ----- {{{
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2
-augroup END
-" }}}
 
 " Folding {{{
 "Cheatsheet
@@ -65,23 +29,32 @@ augroup END
 	set foldlevelstart=0 " start file with all folds close
 " }}}
 
+"Vimscript file setting ----- {{{
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+"lua file setting ----- {{{
+augroup filetype_lua
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
 " xml {{{
 	let g:xml_syntax_folding=1
 	au FileType xml setlocal foldmethod=syntax
 " }}}
 
-" Javascript {{{
-	au FileType javascript,typescript,json setlocal foldmarker={,} foldmethod=marker
-	au FileType javascript,typescript,json syntax region bracketFold start="\[" end="\]" transparent fold
-" }}}
-
 	"Searching {{{
-	"search by files completing like sh
-	set wildmode=longest,list
-	"allow searching in subdirectories
-	set path+=**
-	" hilight searched term
-	set hlsearch
+	set wildmode=longest,list "search by files completing like sh
+	set path+=** "allow searching in subdirectories
+	set hlsearch " hilight searched term
+	set smartcase "only applies when ignorecase is set
+	set ignorecase 
+	set smartindent
 	"Allows vim to use ag with ack plugin
 	let g:ackprg = 'ag --nogroup --nocolor --column'
 	nnoremap <leader>a <Esc>:Ack!
@@ -91,6 +64,7 @@ augroup END
 	"Allows to paste text copied from Vim after exit vim
 	autocmd VimLeave * call system("xclip -o | xclip -selection c")
 	set clipboard=unnamedplus
+
 	" Prevent x from overriding what's in the clipboard.
 	noremap x "_x
 	noremap X "_X
@@ -98,34 +72,19 @@ augroup END
 	"}}}
 
 	"Navigating docs {{{
-	"Remove backup files swp
-	set nobackup nowritebackup
-	"Allow exit buffer without saving
-	set hidden
-	" Always show 5 lines between current cursor line and top or bottom line
-	set scrolloff=5
-	"set relativenumber and absolute number for current line
-	"set rnu
+	set nobackup "Remove backup files swp
+	set hidden "Allow exit buffer without saving
+	set scrolloff=5 " Always show 5 lines between current cursor line and top or bottom line
+  set sidescrolloff=5
 	set number
 	set cursorline
-	"This map allows to use the arrow keys in insert mode. Otherwise it shows
-	"strange characters
-	map OA <up>
-	map OB <down>
-	map OC <right>
-	map OD <left>
-	map gf :edit <cfile><cr>
+  set signcolumn=yes:1
+
+	map gf :edit <cfile><cr> "Allow gf to open non-existing files
 	"}}}
 
 	"Highlight current line number but not line{{{
-	hi clear CursorLine
-	augroup CLClear
-		autocmd! ColorScheme * hi clear CursorLine
-	augroup END
-	hi CursorLineNR cterm=bold
-	augroup CLNRSet
-		autocmd! ColorScheme * hi CursorLineNR cterm=bold
-	augroup END
+  set cursorline   "highlight the current line
 	"}}}
 
 	"Status Line {{{
@@ -178,19 +137,11 @@ augroup END
 	endif
 	" }}}
 
-	"Global Remaps{{{
+	"KeyBindings{{{
 	let mapleader="\<Space>"
 	:inoremap jk <Esc>
-	"Uncommenting the below lines causes characters to appear when mouse events
-	"occur in insert mode
-	":inoremap <Esc> <nop>
-
 	noremap ; :
-	"noremap : <nop>
-	"}}}
-
-	"Other Vim remaps {{{
-	"To allow NERDTREE delete a buffer without exiting window
+	"delete a buffer without exiting window
 	nnoremap \d :bp<cr>:bd! #<cr>
 	" <leader>-c redraws the screen and removes any search highlighting.
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
@@ -229,15 +180,14 @@ augroup END
 	nnoremap <silent> <C-w>z :ZoomToggle<CR>
 	"}}}
 
-	"Ctrl+UP(Down) -Bubble single lines{{{
-	map <ESC>[1;5A <C-Up>
-	map <ESC>[1;5B <C-Down>
-	nmap <C-Up> ddkP
-	nmap <C-Down> ddp
-	"Buble multiple lines
-	vmap <C-Up> xkP`[V`]
-	vmap <C-Down> xp`[V`]
-	"}}}
+"Other options{{{
+set splitright "force all horizontal splits to go below current window
+set splitbelow  "force all horizontal splits to go below current window
+se noswapfile
+set undofile "persistent save
+set tabstop=2 shiftwidth=2 softtabstop=2 "generic tabwidth
+let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL 
+"}}}
 
 	"Setting tabs Set tabstop, softtabstop and shiftwidth to the same value {{{
 	command! -nargs=* Stab call Stab()
@@ -254,14 +204,10 @@ augroup END
 	function! SummarizeTabs()
 			try
 					echohl ModeMsg
-					echon 'tabstop='.&l:ts
+					echon ' tabstop='.&l:ts
 					echon ' shiftwidth='.&l:sw
 					echon ' softtabstop='.&l:sts
-					if &l:et
-							echon ' expandtab'
-					else
-							echon ' noexpandtab'
-					endif
+					set expandtab?
 			finally
 					echohl None
 			endtry
@@ -291,4 +237,11 @@ function! s:Vpl(...)
 	execute "edit" . pl_path . file_name
 endfunction
 command! -nargs=? Vpl call s:Vpl(<f-args>)
+"}}}
+
+" Resize with arrows{{{
+nnoremap <C-Up> :resize +2<CR>
+nnoremap <C-Down> :resize -2<CR>
+nnoremap <C-Left> :vertical resize -2<CR>
+nnoremap <C-Right> :vertical resize +2<CR>
 "}}}

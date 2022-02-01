@@ -1,19 +1,27 @@
-- name: Installing neovim
+- name: Installing nvim
   become: true
   apt:
     name:
       - neovim
-  tags: vim
+  tags: nvim
 
 - name: Create nvim folder
   file:
-    path: '{{ ansible_env.HOME}}/.vim'
+    path: '{{ ansible_env.HOME}}/.config/nvim'
     state: directory
-  tags: vim
+  tags: nvim
 
 - name: Creating nvim symlinks
   file: src="{{ playbook_dir }}/files/nvim/{{ item }}" dest="{{ ansible_env.HOME
     }}/.config/nvim/{{ item }}" state=link force=yes
   with_items:
-    - init.vim
+    - init.lua
     - lua
+
+- name: Creating common nvim symlinks -config and plugins
+  file: src="{{ playbook_dir }}/files/vim/{{ item }}" dest="{{ ansible_env.HOME
+    }}/.config/nvim/{{ item }}" state=link force=yes
+  with_items:
+    - config.vim
+    - plugins.vim
+  tags: nvim

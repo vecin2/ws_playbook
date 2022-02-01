@@ -4,3 +4,12 @@
 
 - name: "Setting gitconfig"
   file: src="{{ playbook_dir }}/files/gitconfig" dest="{{ ansible_env.HOME }}/.gitconfig" state=link force=yes
+
+- name: "Start ssh agent on start"
+  blockinfile:
+    marker: "#{mark} ssh configuration"
+    path: '{{ansible_env.HOME}}/.zshrc'
+    content: |
+      eval "$(ssh-agent -s)"
+      ssh-add ~/.ssh/github_rsa
+    create: true

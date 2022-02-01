@@ -117,3 +117,7 @@ fssh(){
 		ssh $user@$host
 	fi
 }
+#find in file an open in vim
+fif() { 
+	vim $(rg . | fzf | awk -F: '{print $1}')
+}
