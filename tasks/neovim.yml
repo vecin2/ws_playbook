@@ -1,11 +1,17 @@
-- name: Installing nvim
-  become: true
-  apt:
-    name:
-      - neovim
+- name: Create nvim app folder
+  file:
+    path: "{{ansible_env.HOME}}/apps/nvim"
+    state: directory
   tags: nvim
 
-- name: Create nvim folder
+- name: Download nightly nvim
+  get_url:
+    url: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    dest: "{{ansible_env.HOME}}/apps/nvim"
+    mode: u+x
+  tags: nvim
+
+- name: Create nvim configfolder
   file:
     path: '{{ ansible_env.HOME}}/.config/nvim'
     state: directory
@@ -17,6 +23,7 @@
   with_items:
     - init.lua
     - lua
+  tags: nvim
 
 - name: Creating common nvim symlinks -config and plugins
   file: src="{{ playbook_dir }}/files/vim/{{ item }}" dest="{{ ansible_env.HOME
@@ -24,4 +31,11 @@
   with_items:
     - config.vim
     - plugins.vim
+  tags: nvim
+
+- name: "Setting alias for nvim"
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.bash_aliases"
+    line: "alias nvim=~/apps/nvim/nvim.appimage "
+    create: yes
   tags: nvim
