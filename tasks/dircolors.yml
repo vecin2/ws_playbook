@@ -1,0 +1,10 @@
+- name: Installing nordircolors
+  file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME}}/.dircolors" state=link force=yes
+  tags: dircolors
+
+- name: "Source bash_aliases from zsh"
+  lineinfile:
+    path: "{{myshellrc}}"
+    line: test -r "~/.dircolors" && eval $(dircolors ~/.dircolors)
+    create: yes
+  tags: dircolors
