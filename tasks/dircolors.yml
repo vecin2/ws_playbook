@@ -5,6 +5,5 @@
 - name: "Source bash_aliases from zsh"
   lineinfile:
     path: "{{myshellrc}}"
-    line: test -r "~/.dircolors" && eval $(dircolors ~/.dircolors)
-    create: yes
+    line: eval $(dircolors ~/.dircolors)
   tags: dircolors
