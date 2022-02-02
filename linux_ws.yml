@@ -34,7 +34,8 @@
 # Cmd line tools
     - import_tasks: tasks/bashmarks.yml
     - import_tasks: tasks/fzf.yml
-    - import_tasks: tasks/fasd.yml
+      #- import_tasks: tasks/fasd.yml
+    - import_tasks: tasks/zoxide.yml
 
 # Other apps
     - import_tasks: tasks/tmux.yml
