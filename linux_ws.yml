@@ -27,6 +27,7 @@
       when: "'WSL' in wsl_version"
     - import_tasks: tasks/searchers.yml
     - import_tasks: tasks/git.yml
+    - import_tasks: tasks/nodejs.yml
     - import_tasks: tasks/other_packages.yml
 #    - import_tasks: tasks/vim.yml
     - import_tasks: tasks/neovim.yml

@@ -5,7 +5,8 @@
     name:
       - xclip
       - cmake #used by YouCompleteMe (vim plugin)
-        #- npm # used to install wsl-open
+      - nodejs # used to install wsl-open
+  tags: other-packages
 
 - name: Installing Ubuntu python-is-python3 on 20.04
   apt:
