@@ -67,7 +67,7 @@ return packer.startup(function(use)
 	-- }}}
 
 	-- Navigation{{{
-	use("https://tpope.io/vim/unimpaired.git")
+	use("tpope/vim-unimpaired")
 	use("kyazdani42/nvim-tree.lua")
 	use("ahmedkhalf/project.nvim")
 	use("terryma/vim-smooth-scroll")
@@ -106,7 +106,7 @@ return packer.startup(function(use)
 
 	-- Git{{{
 	use("lewis6991/gitsigns.nvim")
-	use("https://tpope.io/vim/fugitive.git")
+	use("tpope/vim-fugitive")
 	--}}}
 
 	--Bootstrap packer{{{
