@@ -3,9 +3,16 @@
   become: true
   apt:
     name:
-      - tmux
-
-- name: Downloading tmux plugin manager
+      - tmux 
+      - libevent-dev # require to build tmux from tar file
+# to Build tmux from source:
+# 1. wget  https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz
+# then run:
+  # -tar -zxf tmux-*.tar.gz
+  # cd tmux-*/
+  # ./configure
+  # make && sudo make install name: Downloading  https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gztmux plugin manager
+- name: Downloading  https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gztmux plugin manager
   git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm
     update=no
 
@@ -13,8 +20,4 @@
   file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf"
     state=link force=yes
 
-    #- name: Install screen-italics terminal
-    # command:
-    #cmd: tic {{playbook_dir}}/files/screen-italics.terminfo
-    #creates: '{{ansible_env.HOME}}/.terminfo/**/screen-italics'
 
