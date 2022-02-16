@@ -223,9 +223,10 @@ let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL
 	nnoremap <Leader>mc :e ~/.vim/config.vim<CR> "Edit config.vim
 	nnoremap <Leader>mp :e ~/.vim/plugins.vim<CR> "Edit plugins.vim
 	"nnoremap <Leader>pn :e $EM_CORE_HOME/docs/notes.txt<CR>
+	nnoremap <Leader>ma :e ~/.dailyhours.md<CR> "track daily hours
 "}}}
 
-" Shorcuts to main docs {{{
+" Shorcuts EM Session logs{{{
 command! Kernel execute 'edit'  "$EM_CORE_HOME/logs/ad/cre/kernel/kernel.log"
 command! Stdout execute 'edit'  "$EM_CORE_HOME/logs/ad/weblogic/stdout.log"
 
