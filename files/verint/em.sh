@@ -1,4 +1,4 @@
-export EM_CORE_HOME=/mnt/c/em/projects/devtraining/MC
+export EM_CORE_HOME=/mnt/c/em/projects/evergy
 export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R2_7.2.0
 export AD=$EM_CORE_HOME
 
