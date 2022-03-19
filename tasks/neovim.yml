@@ -39,3 +39,16 @@
     line: "alias nvim=~/apps/nvim/nvim.appimage "
     create: yes
   tags: nvim
+
+- name: Bash configuration for Vim
+  blockinfile:
+    path: '{{myshellrc}}'
+    marker: '#{mark} Vim vars'
+    block: |
+      #This var is use in VIM mapping which opens docs in CLOUD folder
+      export CLOUD_LOC=$HOME/gdrive
+      export DOT_FILES_LOC={{playbook_dir}}
+      #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
+      stty -ixon
+  tags: nvim
+
