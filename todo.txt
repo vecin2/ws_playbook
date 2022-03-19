@@ -2,20 +2,18 @@
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
 ## Vim
+setup wsl-open with telescope
 setup alpha for nice login screen
 setup whichkey for remembering key bindings
 ansible '{{}}' -- does not close bracket on {
 add file name to status bar
 move DISPLAY to commonrc
 source common rc from bashrc and zshrc
-finish chris plugins
 Ansible IDE
 Ansible pairs {%%}
 Yaml autoformating
 Ansible completion
 Highlight current line
-Intstall Telescope to replace fzf
-Path autocompletion
 fasd integration in vim - https://www.reddit.com/r/vim/comments/i1vba4/fasd_integration_in_vim/
 Test python virtualenv support is still working after removing from config
 move specific extension files to right place - watch video 
