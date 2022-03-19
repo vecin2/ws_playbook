@@ -31,7 +31,7 @@
 
 - name: Bash configuration for Vim
   blockinfile:
-    path: '{{ansible_env.HOME}}/.profile'
+    path: '{{myshellrc}}'
     marker: '#{mark} Vim vars'
     block: |
       #This var is use in VIM mapping which opens docs in CLOUD folder
