@@ -219,7 +219,6 @@ let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL
 	nnoremap <Leader>pl :e $CLOUD_LOC/links/links.txt<CR>
 	"nnoremap <Leader>adl :e $EM_CORE_HOME/docs/links.txt<CR>
 	nnoremap <Leader>mv :e $MYVIMRC<CR> "Edit MYVIMRC
-	nnoremap <Leader>mn :e ~/.config/nvim/init.lua<CR> "Edit init neovim config
 	nnoremap <Leader>mc :e ~/.vim/config.vim<CR> "Edit config.vim
 	nnoremap <Leader>mp :e ~/.vim/plugins.vim<CR> "Edit plugins.vim
 	"nnoremap <Leader>pn :e $EM_CORE_HOME/docs/notes.txt<CR>
