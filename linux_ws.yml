@@ -44,6 +44,9 @@
 
 # Python
     - import_tasks: tasks/pythondev.yml
+# JavaScript
+    - import_tasks: tasks/javascript.yml
+      tags: javascript
 # Yaml
     - import_tasks: tasks/yamldev.yml
 # lua
