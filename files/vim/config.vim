@@ -245,3 +245,7 @@ nnoremap <C-Down> :resize -2<CR>
 nnoremap <C-Left> :vertical resize -2<CR>
 nnoremap <C-Right> :vertical resize +2<CR>
 "}}}
+
+"Custom commmands, e.g BufOnly{{{
+command! BufOnly execute '%bdelete|edit #|normal `"'
+"}}}
