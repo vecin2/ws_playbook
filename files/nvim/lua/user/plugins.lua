@@ -1,5 +1,6 @@
 local fn = vim.fn
 
+
 -- Automatically install packer{{{
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -65,7 +66,6 @@ return packer.startup(function(use)
 	use("lukas-reineke/indent-blankline.nvim")
 	-- use "goolord/alpha-nvim"
 	-- }}}
-
 	-- Navigation{{{
 	use("tpope/vim-unimpaired")
 	use("kyazdani42/nvim-tree.lua")
@@ -88,7 +88,7 @@ return packer.startup(function(use)
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	--}}}
 	--Javascript{{{{
-	use('mustache/vim-mustache-handlebars')
+	-- use('mustache/vim-mustache-handlebars')
 	--}
 	-- cmp plugins{{{
 	use("hrsh7th/nvim-cmp") -- The completion plugin
@@ -104,6 +104,7 @@ return packer.startup(function(use)
 	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+	use("pedro757/emmet") -- for emmet web-dev
 	--}}}
 
 	-- Git{{{

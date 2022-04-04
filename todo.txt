@@ -1,6 +1,10 @@
 ## Ansible Project
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
+Install tssserver and css server  and possibly handle bars (already installed as a plugin)
+npm install -g typescript-language-server typescript
+npm install -g cssmodules-language-server
+
 ## Vim
 setup wsl-open with telescope
 setup alpha for nice login screen
