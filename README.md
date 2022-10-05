@@ -10,7 +10,18 @@ wsl --install -d <<distribution_name>>
 ** In a corporate laptop make sure to run it as an admin from `cmd` and not powershell. Powershell gives a priviledges error.
 
 
-# 
+#  Steps
+## Set-up ssh key
+
+- Create key account silently
+ssh-keygen -t ed25519 -C vecin2@gmail.com -f ~/.ssh/id_ed25519_vecin2 -P ""
+
+Open pub file a copy account and add it to your github profile
+notepad.exe ~/.ssh/id_ed25519_vecin2.pub
+
+- Start ssh-agent and add key. Run [setup_ssh_key.sh](./setup_ssh_key.sh) passing file name.
+
+- [Install ansible](./install_ansible.sh)
 # ws_playbook
 Ansible playbook to confire my dev work station.
 Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.
