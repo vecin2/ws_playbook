@@ -1,3 +1,16 @@
+# Introduction
+This repository intends to help setting my wsl environment within a Windows 10 machine.
+
+The first step will be to wsl on windows 10 so git is available. To do that run the following commands:
+
+wsl --list  --online #will return the list of available distrution names
+
+wsl --install -d <<distribution_name>>
+
+** In a corporate laptop make sure to run it as an admin from `cmd` and not powershell. Powershell gives a priviledges error.
+
+
+# 
 # ws_playbook
 Ansible playbook to confire my dev work station.
 Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.
