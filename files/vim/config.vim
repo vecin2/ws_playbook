@@ -223,6 +223,8 @@ let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL
 	nnoremap <Leader>mp :e ~/.vim/plugins.vim<CR> "Edit plugins.vim
 	"nnoremap <Leader>pn :e $EM_CORE_HOME/docs/notes.txt<CR>
 	nnoremap <Leader>ma :e ~/.dailyhours.md<CR> "track daily hours
+	nnoremap <Leader>wc :e /mnt/c/wfo/components/<CR> "take me to main wfo compo
+	nnoremap <Leader>wp :e /mnt/c/wfo/projects/<CR> "take me to main wfo compo
 "}}}
 
 " Shorcuts EM Session logs{{{
