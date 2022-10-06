@@ -1,4 +1,4 @@
-- name: Install "wsl-open" node.js package.
+- name: Install "prettier" node.js package.
   become: true
   npm:
     name: prettier

@@ -35,6 +35,4 @@
     register: shell_used #determine if bash or zsh
   - set_fact:
       myshellrc: "{{ansible_env.HOME}}/.{{myshellfile}}"
-  vars:
-    myshellfile: "{% if 'zsh' in shell_used.stdout %}zshrc{% else %}bashrc{% endif %}"
   tags: always

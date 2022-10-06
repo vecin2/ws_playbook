@@ -2,7 +2,6 @@
   become: true
   apt_key:
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    state: present
   tags: nodejs
 
 - name: "Add nodejs ppa for apt repo"
@@ -10,7 +9,7 @@
   vars: 
     nodejs_version: 17
   apt_repository:
-    repo: deb https://deb.nodesource.com/node_{{nodejs_version}}.x bionic main
+    repo: deb https://deb.nodesource.com/node_{{nodejs_version}}.x {{ansible_lsb.codename }} main
     update_cache: yes
   tags: nodejs
 

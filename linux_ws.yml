@@ -8,6 +8,7 @@
 #   become: true
     - import_tasks: tasks/facts.yml
   vars_files:
+    - '{{playbook_dir}}/vars.yml'
     - '{{playbook_dir}}/passwords.yml'
   vars:
     ansible_become_pass: '{{sudo_pass}}'
@@ -32,7 +33,7 @@
 #    - import_tasks: tasks/vim.yml
     - import_tasks: tasks/neovim.yml
 # Cmd line tools
-    - import_tasks: tasks/bashmarks.yml
+#    - import_tasks: tasks/bashmarks.yml
     - import_tasks: tasks/fzf.yml
       #- import_tasks: tasks/fasd.yml
     - import_tasks: tasks/zoxide.yml

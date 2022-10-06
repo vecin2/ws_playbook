@@ -5,10 +5,10 @@
     name:
       - xclip
       - cmake #used by YouCompleteMe (vim plugin)
-      - nodejs # used to install wsl-open
   tags: other-packages
 
 - name: Installing Ubuntu python-is-python3 on 20.04
+  become: true
   apt:
     name:
       - python-is-python3 #so scripts starting with '/usr/bin/env python' can be run in unbuntu 20.04

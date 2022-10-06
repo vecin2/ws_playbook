@@ -22,6 +22,8 @@ notepad.exe ~/.ssh/id_ed25519_vecin2.pub
 - Start ssh-agent and add key. Run [setup_ssh_key.sh](./setup_ssh_key.sh) passing file name.
 
 - [Install ansible](./install_ansible.sh)
+- Open playbook [linux_ws.yml](./linux_ws.yml) and review the tasks that will be installed
+- Run [wsl-playbook](./bootstrap_wsl.sh)
 # ws_playbook
 Ansible playbook to confire my dev work station.
 Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.

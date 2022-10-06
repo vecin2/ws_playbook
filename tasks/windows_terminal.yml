@@ -1,6 +1,6 @@
 - name: Ensures /mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows Terminal/Fragments/Windows.Terminal.Wsl/ dir exists
-  file: path="/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows Terminal/Fragments" state=directory
+  file: path="/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows\ Terminal/Fragments" state=directory
 - name: Copy Terminal mysettings.json
   template:
     src: "{{playbook_dir}}/files/windowsTerminalSettings.json"
-    dest: "/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows Terminal/Fragments/Windows.Terminal.Wsl/"
+    dest: "/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows\ Terminal/Fragments/Windows.Terminal.Wsl/"
