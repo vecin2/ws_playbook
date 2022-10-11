@@ -23,7 +23,31 @@ notepad.exe ~/.ssh/id_ed25519_vecin2.pub
 
 - [Install ansible](./install_ansible.sh)
 - Open playbook [linux_ws.yml](./linux_ws.yml) and review the tasks that will be installed
-- Run [wsl-playbook](./bootstrap_wsl.sh)
+- Run [wsl-playbook](./run_linux_playbook.sh)
+
+## Windows
+- Install chocolatey if not installed
+- From an admin cmd install the following choco packages:
+```
+# For EM development
+
+choco install -y tortoisesvn virtualbox vagrant
+
+# Basic Packages
+choco install -y notepadplusplus
+```
+
+# Setup Clipboard on WSL2
+choco install vcxsrv
+WSL2 uses a different network so instead we should use:
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+
+Also because it a external address the xlaunch configuration needs to have checked Disable Access Control so it accepts conexions
+
+# NerdFonts
+Copy ./files/Caskadia Cove Nerd Font Complete Windows Compatible.tff into your desktop. Open it and install it.
+Current windows terminal `files/settings.json` is pointing to the font so web-devicons are working on the terminal.
+
 # ws_playbook
 Ansible playbook to confire my dev work station.
 Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.

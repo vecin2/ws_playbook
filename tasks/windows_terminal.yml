@@ -16,11 +16,3 @@
     dest: "{{windows_terminal_folder.files[0].path}}/LocalState"
   tags:
     - terminal
-
-- debug: 
-    msg: "{{windows_terminal_folder.files[0].path}}/LocalState"
-  tags:
-    - terminal
-  tags:
-    - terminal
-

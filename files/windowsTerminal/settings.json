@@ -37,7 +37,13 @@
     "defaultProfile": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
     "profiles": 
     {
-        "defaults": {},
+      "defaults": 
+        {
+            "font": 
+            {
+                "face": "Cascadia Code"
+            }
+        },
         "list": 
         [
             {
