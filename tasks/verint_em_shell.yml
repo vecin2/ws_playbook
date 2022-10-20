@@ -29,6 +29,6 @@
     recurse: true
   register: autocompletion
 
-- name: Link ccadmin_autocomplation
+- name: Link ccadmin_autocompletion
   file: src="{{ playbook_dir }}/files/verint/ccadmin.sh" dest="{{autocompletion.path}}ccadmin.sh"
     state=link force=yes
