@@ -37,6 +37,14 @@ choco install -y tortoisesvn virtualbox vagrant
 choco install -y notepadplusplus
 ```
 
+# Ansible in Ubuntu
+Having cargo module on ansible requires having later version allows using ansible-galaxy collect list 
+To get the latest ansible version we need to add the ansible repository to apt:
+sudo apt -y install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+
+Add community collection, used to install cargo packages
+
 # Setup Clipboard on WSL2
 - choco install vcxsrv
 - WSL2 uses a different network setup the following line within you rc file
@@ -140,7 +148,7 @@ function! s:FileUpdate(fname)
 
 
 
-##EM_AUTOMATION
+# EM_AUTOMATION
 Running in wsl/ubuntu need libaio1 package and oracle instant client
 Then set env var:
 export LD_LIBRARY_PATH=/usr/lib/oracle/<version>/client(64)/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
