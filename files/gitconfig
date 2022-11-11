@@ -12,6 +12,7 @@
 	st = status
 [core]
 	excludesFile = /home/dgarcia/.gitignore_global
+	editor = vim
 [diff]
 	tool = vimdiff
 [difftool]

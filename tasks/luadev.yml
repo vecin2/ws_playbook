@@ -8,3 +8,8 @@
     line: export PATH="$HOME/.cargo/bin:$PATH"
     create: true
   tags: cargo
+
+- name: Install "stylua" Rust package
+  community.general.cargo:
+    name: stylua
+

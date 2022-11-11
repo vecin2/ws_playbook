@@ -2,10 +2,10 @@
 - hosts: wsl
   connection: local
   pre_tasks:
-# - name: update repositories
-#   apt: update_cache=yes
-#   changed_when: false
-#   become: true
+    # - name: update repositories
+    #   apt: update_cache=yes
+    #   changed_when: false
+    #   become: true
     - import_tasks: tasks/facts.yml
   vars_files:
     - '{{playbook_dir}}/vars.yml'
@@ -14,13 +14,13 @@
     ansible_become_pass: '{{sudo_pass}}'
 
   tasks:
-# Basic terminal
+    # Basic terminal
     - import_tasks: tasks/bashrcs.yml
       tags: bashrcs
     - import_tasks: tasks/mybash_functions.yml
-# ZSH terminal
+    # ZSH terminal
     - import_tasks: tasks/zsh.yml
-# - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
+    # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - import_tasks: tasks/dircolors.yml
     - import_tasks: tasks/windows_terminal.yml
       when: "'WSL' in wsl_version"
@@ -30,31 +30,30 @@
     - import_tasks: tasks/git.yml
     - import_tasks: tasks/nodejs.yml
     - import_tasks: tasks/other_packages.yml
-#    - import_tasks: tasks/vim.yml
+    #    - import_tasks: tasks/vim.yml
     - import_tasks: tasks/neovim.yml
-# Cmd line tools
-#    - import_tasks: tasks/bashmarks.yml
+    # Cmd line tools
+    #    - import_tasks: tasks/bashmarks.yml
     - import_tasks: tasks/fzf.yml
       #- import_tasks: tasks/fasd.yml
     - import_tasks: tasks/zoxide.yml
 
-# Other apps
+    # Other apps
     - import_tasks: tasks/tmux.yml
     - import_tasks: tasks/tmuxinator.yml
     - import_tasks: tasks/verint_em_shell.yml
 
-# Python
+    # Python
     - import_tasks: tasks/pythondev.yml
-# JavaScript
+    # JavaScript
     - import_tasks: tasks/javascript.yml
       tags: javascript
-# Yaml
+    # Yaml
     - import_tasks: tasks/yamldev.yml
-# lua
+    # lua
     - import_tasks: tasks/luadev.yml
 
-
-# Virtualization server
+    # Virtualization server
     - import_tasks: tasks/pywinrm.yml
     - import_tasks: tasks/ansible.yml
 # - import_tasks: tasks/vagrant.yml needs to be install from website to get the

@@ -1,5 +1,5 @@
-export EM_CORE_HOME=/mnt/c/em/projects/evergy
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R2_7.2.0
+export EM_CORE_HOME=/mnt/c/em/projects/DTO/trunk/
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R3-HFR_7.3.9
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){
