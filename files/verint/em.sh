@@ -112,10 +112,13 @@ install_ccadmin_autocompletion(){
 		sudo ln -sfv $HOME/.verint/autocompletion/ccadmin.sh /etc/bash_completion.d/ccadmin
 	fi
 	completion_file_location="${HOME}/.verint/autocompletion/ccadmin_commands"
-	if [ ! -f "$completion_file_location" ]; then
+	if [ ! -f "${completion_file_location}" ]; then
 		echo "Generating ccadmin options"...
-		options=$(ccadmin | grep echo | awk '{print $3}')
-		echo $options
-		echo "$options"	>"$completion_file_location"
+		ccadmin | grep echo | awk '{print $3}' >"$completion_file_location"
+		echo Completion file created at $completion_file_location
+		echo Run ccadmin and hit tab to see autocompletion
+	else
+		echo Completions file already exist.
+		echo "If you want to recreate completions, remove file ${completion_file_location} and run this command again."
 	fi
 }
