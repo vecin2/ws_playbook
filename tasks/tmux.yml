@@ -1,42 +1,19 @@
 ---
-- name: Uninstalling tmux
-  become: true
-  apt:
-    name: tmux 
-    state: absent
+- name: Check if tmux 3.3 is installed
+  command: "tmux -V"
+  changed_when: true
+  register: tmux_installed_version
+  ignore_errors: true
   tags: tmux
 
-- name: Installing require packages
-  become: true
-  apt:
-    name:  # require to build tmux from tar file
-      - libevent-dev
-      - libncurses5-dev
-      - libncursesw5-dev
+- debug: msg={{tmux_installed_version}}
   tags: tmux
 
-- name: create directory
-  file: 
-    path: '{{ansible_env.HOME}}/tmux_installer' 
-    state: directory
+    #- name: Running task install tmux
+- import_tasks: tasks/tmux_install.yml
+  when: "( tmux_installed_version is failed) or ('3.3' not in tmux_installed_version.stdout)"
   tags: tmux
 
-- name: Downloading  tmux 3.3 from releases
-  get_url: url="https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz" dest={{ansible_env.HOME}}/tmux_installer/
-  tags: tmux
-
-- name: Change file ownership, group and permissions
-  file:
-          path: '{{playbook_dir}}/files/install_tmux.sh'
-          mode: '764'
-  tags: tmux
-
-- name: install and config tmux from source  
-  command:
-       cmd: '{{playbook_dir}}/files/install_tmux.sh'
-  tags: tmux
-
- 
 - name: Downloading  https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz tmux plugin manager
   git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm
     update=no
@@ -45,6 +22,4 @@
   file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf"
     state=link force=yes
   tags: tmux
-
-
 
