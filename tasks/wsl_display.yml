@@ -1,8 +1,4 @@
 ---
-- shell: grep "^$USER" /etc/passwd
-  register: shell_used #determine if bash or zsh
-  tags: wsl_clipboard
-
 - name: Set DISPLAY var
   vars:
     wsl1_display: localhost:0

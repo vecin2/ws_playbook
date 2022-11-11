@@ -38,9 +38,18 @@ choco install -y notepadplusplus
 ```
 
 # Setup Clipboard on WSL2
-choco install vcxsrv
-WSL2 uses a different network so instead we should use:
+- choco install vcxsrv
+- WSL2 uses a different network setup the following line within you rc file
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+
+- Run C:/Program Files/VcXsrv/xlaunch.exe:
+    - Multiple windows
+    - Start no client
+    - Clipboard/Native Opengl/Disable Access Control (all three ticked)
+    - Save config to starup folder so it runs on start  
+    - Startup folderi
+        - Windows key + r: shell: Startup 
+        - C:\Users\dgarcia\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 
 Also because it a external address the xlaunch configuration needs to have checked Disable Access Control so it accepts conexions
 
