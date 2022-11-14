@@ -80,12 +80,24 @@ augroup END
 	set number
 	set cursorline
   set signcolumn=yes:1
-
-	map gf :edit <cfile><cr> "Allow gf to open non-existing files
+	
+	map gf :edit <cfile><cr> "Allow gf to open non-" existing files
+	"}}}
+	
+	"Navigating quick list{{{
+	nnoremap <Up> :cprevious<cr>
+	nnoremap <Down> :cnext<cr>
+	nnoremap <Left> :cpf<cr>
+	nnoremap <Right> :cnf<cr>
 	"}}}
 
-	"Highlight current line number but not line{{{
+	"Cursorline{{{
   set cursorline   "highlight the current line
+	"}}}
+	
+	"split lines{{{
+	"removes vertical line on split 
+  set fillchars+=vert:\  
 	"}}}
 
 	"Status Line {{{
