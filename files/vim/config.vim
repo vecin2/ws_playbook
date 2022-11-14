@@ -5,7 +5,7 @@
 "endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[49;2;%lu;%lu;%lum"
   set termguicolors
   set background=dark
   let g:gruvbox_italic=1
@@ -13,6 +13,7 @@ if exists('+termguicolors')
 	highlight Comment cterm=italic
 endif
 "}}}
+"w gf to open non-existing files
 
 " Folding {{{
 "Cheatsheet
@@ -88,8 +89,7 @@ augroup END
 	"}}}
 
 	"Status Line {{{
-	"Display status line always
-	set laststatus=2
+	set laststatus=3 "Display only one status line at the bottom
 	function! GitBranch()
 			return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 	endfunction
