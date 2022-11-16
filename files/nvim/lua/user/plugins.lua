@@ -1,6 +1,5 @@
 local fn = vim.fn
 
-
 -- Automatically install packer{{{
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -100,10 +99,14 @@ return packer.startup(function(use)
 	--}}}
 
 	--	LSP{{{
-	use("neovim/nvim-lspconfig") -- enable LSP
-	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
+	use({
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	})
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+	use("frbor/python-lsp-autoimport") -- for formatters and linters
 	use("pedro757/emmet") -- for emmet web-dev
 	--}}}
 

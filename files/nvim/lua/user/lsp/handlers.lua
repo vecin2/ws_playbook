@@ -88,7 +88,7 @@ end
 M.on_attach = function(client, bufnr)
 	if
 		client.name == "tsserver"
-		or client.name == "pylsp"
+		--or client.name == "pylsp"
 		or client.name == "html"
 		or client.name == "stylelint_lsp"
 		or client.name == "stylelint_lsp"

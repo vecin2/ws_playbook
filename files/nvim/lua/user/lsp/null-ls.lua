@@ -13,10 +13,13 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
 	debug = false,
 	sources = {
-		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote","--bracket-same-line" } }),
-		formatting.black.with({ extra_args = { "--fast" } }),
+		formatting.prettier.with({
+			extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote", "--bracket-same-line" },
+		}),
+		--formatting.black.with({ extra_args = { "--fast" } }),
+		--formatting.isort,
 		formatting.stylua,
-		diagnostics.flake8,
+		--diagnostics.flake8,
 		code_actions.refactoring,
 	},
 	-- auto-format on save
