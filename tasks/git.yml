@@ -1,14 +1,14 @@
-- name: "Installing git"
+- name: 'Installing git'
   become: yes
   apt: name=git
 
-- name: "Setting gitconfig"
+- name: 'Setting gitconfig'
   file: src="{{ playbook_dir }}/files/gitconfig" dest="{{ ansible_env.HOME }}/.gitconfig" state=link force=yes
 
-- name: "Start ssh agent on start"
+- name: 'Start ssh agent on start'
   blockinfile:
-    marker: "#{mark} ssh configuration"
-    path: '{{ansible_env.HOME}}/.zshrc'
+    marker: '#{mark} ssh configuration'
+    path: '{{myshellrc}}'
     content: |
       eval "$(ssh-agent -s)"
       ssh-add ~/.ssh/id_ed25519_vecin2
