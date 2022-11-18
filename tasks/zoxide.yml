@@ -1,5 +1,5 @@
-- name: Check whether zoxide is installed and on system path 
-  command: 'which zoxide' 
+- name: Check whether zoxide is installed and on system path
+  command: 'which zoxide'
   register: zoxide_installed
   ignore_errors: yes
   changed_when: false
@@ -11,8 +11,8 @@
   when: zoxide_installed.rc != 0 #return code is not 0 means it failed
   tags: zoxide
 
-- name: Add zoxide to zshrc
+- name: Add zoxide to shell
   lineinfile:
     path: '{{myshellrc}}'
-    line: eval "$(zoxide init zsh)"
+    line: eval "$(zoxide init {{myshell}})"
   tags: zoxide

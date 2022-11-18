@@ -2,8 +2,8 @@
   file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME}}/.dircolors" state=link force=yes
   tags: dircolors
 
-- name: "Source bash_aliases from zsh"
+- name: 'Source .dircolors from shell rc file'
   lineinfile:
-    path: "{{myshellrc}}"
+    path: '{{myshellrc}}'
     line: eval $(dircolors ~/.dircolors)
   tags: dircolors

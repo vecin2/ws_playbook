@@ -19,7 +19,8 @@
       alias tsql='sqltask create-sql'
 
 - name: Link em.sh
-  file: src="{{ playbook_dir }}/files/verint/em.sh" dest="{{ ansible_env.HOME }}/.em.sh"
+  file:
+    src="{{ playbook_dir }}/files/verint/em.sh" dest="{{ ansible_env.HOME }}/.em.sh"
     state=link force=yes
 
 - name: Create ccadmin autocompletion folder
@@ -30,5 +31,10 @@
   register: autocompletion
 
 - name: Link ccadmin_autocompletion
-  file: src="{{ playbook_dir }}/files/verint/ccadmin.sh" dest="{{autocompletion.path}}ccadmin.sh"
+  file:
+    src="{{ playbook_dir }}/files/verint/ccadmin.sh" dest="{{autocompletion.path}}ccadmin.sh"
     state=link force=yes
+
+- name: Installing powershell EM scripts
+  copy: src="{{ playbook_dir }}/files/verint/ps_scripts" dest="/mnt/c/ProgramData/Verint"
+  tags: em

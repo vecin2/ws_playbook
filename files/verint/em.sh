@@ -1,5 +1,5 @@
-export EM_CORE_HOME=/mnt/c/em/projects/DTO/trunk/
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R3-HFR_7.3.9
+export EM_CORE_HOME=/mnt/c/em/projects/DU/prototype
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2022R5_8.5.0
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){
@@ -39,16 +39,16 @@ ccadmin(){
 	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
 }
 ad_kill(){
-	dir='C:\ProgramData\Verint\powershell\kill_ad_java.ps1'
-	powershell.exe -F $dir
+	dir='C:\ProgramData\Verint\ps_scripts\kill_ad_java.ps1'
+	powershell.exe -executionpolicy bypass -F $dir
 }
 ad_restart(){
 	ad_kill
 	ccadmin start-appserver -Dcontainer.name=ad
 }
 ced_kill(){
-	dir='C:\ProgramData\Verint\powershell\kill_ced_java.ps1'
-	powershell.exe -F $dir
+	dir='C:\ProgramData\Verint\ps_scripts\kill_ced_java.ps1'
+	powershell.exe -executionpolicy bypass -F $dir
 }
 ced_restart(){
 	ced_kill
