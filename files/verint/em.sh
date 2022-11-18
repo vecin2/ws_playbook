@@ -36,7 +36,10 @@ val(){
 	vim $(last_application_log_path $1)
 }
 ccadmin(){
-	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
+	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
+	
+	cd "${EM_CORE_HOME}/bin"
+	./ccadmin.bat "$@"
 }
 ad_kill(){
 	dir='C:\ProgramData\Verint\ps_scripts\kill_ad_java.ps1'
