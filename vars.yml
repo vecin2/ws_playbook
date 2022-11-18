@@ -1,2 +1,2 @@
-myshellfile: bashrc #either bashrc or zshrc
 myshell: bash #either zsh or bash
+myshellfile: bashrc #either bashrc or zshrc

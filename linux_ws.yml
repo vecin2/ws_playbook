@@ -15,6 +15,7 @@
 
   tasks:
     # Basic terminal
+    - import_tasks: tasks/shell.yml
     - import_tasks: tasks/bashrcs.yml
       tags: bashrcs
     - import_tasks: tasks/mybash_functions.yml

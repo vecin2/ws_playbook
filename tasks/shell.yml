@@ -1,0 +1,32 @@
+---
+- name: Setting basic bash environment vars on bashrc
+  blockinfile:
+    path: '{{ansible_env.HOME}}/.bashrc'
+    marker: '#{mark} Setting bash base environment variables'
+    block: |
+      # After each command, append to the history file and reread it
+      export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r; history -n"
+      export EDITOR=vim
+      #Remove user name, hostname and full CWD. Only show the last CWD
+      export PS1="\[\033[01;34m\]\W\[\033[00m\]\$"
+  tags: shell
+
+- name: Set shell
+  shell: echo $SHELL
+  register: shell_output
+  tags: shell
+- debug: var=shell_output.stdout
+  tags: shell
+- debug: var=myshell
+  tags: shell
+- debug:
+    msg: 'Running command: usermod --shell /bin/{{myshell}} dgarcia'
+  tags: shell
+- name: Updating shell
+  become: true
+  shell: usermod --shell /bin/{{myshell}} dgarcia
+  register: usermod_output
+  when: shell_output.stdout not in myshell
+  tags: shell
+- debug: var=usermod_output
+  tags: shell
