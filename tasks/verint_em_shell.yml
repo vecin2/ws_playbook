@@ -2,10 +2,9 @@
 - name: EM environment variables
   blockinfile:
     path: '{{myshellrc}}'
-    marker: '#{mark} EM file'
-    block: >
-      [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh"
-      # Load EM into a shell session *as a function*
+    marker: '#{mark} Source em.sh and allow bat exec from WSL'
+    block: |
+      [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh" 
       sudo sh -c "echo :WindowsBatch:E::bat::/init: > /proc/sys/fs/binfmt_misc/register"
 
 - name: Configure EM aliases

@@ -65,6 +65,11 @@ validate_config(){
 	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" validate-config
 	wsl-open $EM_CORE_HOME/work/config/validate-config/validate-config.csv
 }
+create_em_app(){
+	ad_kill
+	ccadmin create-application
+}
+
 install_ccadmin_autocompletion(){
 
 	if [ -z $EM_CORE_HOME ]; then
