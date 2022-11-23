@@ -40,6 +40,13 @@ choco install -y tortoisesvn virtualbox vagrant
 choco install -y notepadplusplus
 ```
 
+### Allow WSL .bat Execute
+
+Run the following command:
+`sudo sh -c "echo :WindowsBatch:E::bat::/init: > /proc/sys/fs/binfmt_misc/register"`
+
+Do not put on rc file as it prompts for password and it is no required to run everytime (maybe its required after each restart)
+
 # Ansible in Ubuntu
 
 Having cargo module on ansible requires having later version allows using ansible-galaxy collect list

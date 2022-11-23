@@ -37,9 +37,10 @@ val(){
 }
 ccadmin(){
 	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
-	
+	cwd=$(pwd)
 	cd "${EM_CORE_HOME}/bin"
 	./ccadmin.bat "$@"
+	cd $cwd
 }
 ad_kill(){
 	dir='C:\ProgramData\Verint\ps_scripts\kill_ad_java.ps1'
@@ -65,9 +66,15 @@ validate_config(){
 	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" validate-config
 	wsl-open $EM_CORE_HOME/work/config/validate-config/validate-config.csv
 }
-create_em_app(){
+recreate_em_app(){
+	if [ "$#" -ne 1 ]; then
+		echo "Container.name is required as parameter"
+		exit 1
+	fi
 	ad_kill
-	ccadmin create-application
+	ccadmin create-single-app -Dapplication.name="$1"
+	ccadmin recreate-container -Dcontainer.name="$1"
+	ccadmin start-appserver -Dcontainer.name="$1"
 }
 
 install_ccadmin_autocompletion(){

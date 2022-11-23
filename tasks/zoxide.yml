@@ -12,7 +12,10 @@
   tags: zoxide
 
 - name: Add zoxide to shell
-  lineinfile:
+  blockinfile:
+    marker: '#{mark} zoxide'
     path: '{{myshellrc}}'
-    line: eval "$(zoxide init {{myshell}})"
+    content: |
+      export _ZO_ECHO='1' #set  env vars
+      eval "$(zoxide init {{myshell}})"
   tags: zoxide
