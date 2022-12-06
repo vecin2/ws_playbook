@@ -1,4 +1,4 @@
-export EM_CORE_HOME=/mnt/c/em/projects/DU/prototype
+export EM_CORE_HOME=/mnt/c/em/projects/DU/du
 export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2022R5_8.5.0
 export AD=$EM_CORE_HOME
 
@@ -35,6 +35,13 @@ vpl(){
 val(){
 	vim $(last_application_log_path $1)
 }
+
+scanlogs(){
+	dir=$EM_CORE_HOME/logs
+
+	find $dir -type f -exec stat --format '%Y :%y %n' "{}" \; | sort -nr | cut -d: -f2- | head -n 40
+}
+
 ccadmin(){
 	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
 	cwd=$(pwd)
