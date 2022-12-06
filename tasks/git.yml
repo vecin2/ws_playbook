@@ -13,8 +13,13 @@
     marker: '#{mark} ssh configuration'
     path: '{{myshellrc}}'
     content: |
-      eval "$(ssh-agent -s)"
-      ssh-add ~/.ssh/id_ed25519_vecin2
+      if ps -p $SSH_AGENT_PID > /dev/null
+      then
+        echo "ssh-agent is already running" > /dev/null
+      else
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_ed25519_vecin2
+      fi
     create: true
 - name: 'Apply wsl2 git performance workaround'
   blockinfile:
