@@ -8,7 +8,7 @@
 
 - name: Allow dgarcia user to run write to proc/sys/fs/binfmt_misc/register without a password
   community.general.sudoers:
-    name: alice-service
+    name: windows-batch
     user: dgarcia
     commands: sh -c "echo \":WindowsBatch:E::bat::/init:\" > /proc/sys/fs/binfmt_misc/register"
   tags: em
