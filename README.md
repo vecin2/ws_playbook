@@ -97,6 +97,23 @@ bcdedit /set hypervisorlaunchtype off
 The issue then is that WSL2 wont start
 https://github.com/MicrosoftDocs/WSL/issues/798
 
+# VirtualBox Set static address
+
+Some vagrant boxes, like oracle 19.3, configure VirtualBox to use a NAT network only. Then they use port forwarding on 1521 from localhost into the VirtualBox machine. However, this approach doesn't work when accessing from WSL. We have to use static ip address.
+
+This [article](https://marcus.4christies.com/2019/01/how-to-create-a-virtualbox-vm-with-a-static-ip-and-internet-access/) describes how to implement, at least for fedora linux system, which is the one used by the [oracle19.3](https://github.com/oracle/vagrant-projects) vagant box. Main section from that article:
+
+Create a file called ifcfg-enp0s8 in `/etc/sysconfig/network-scripts/` and give it the following contents:
+
+DEVICE=enp0s8
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.99.10
+NETMASK=255.255.255.0
+Where NETMASK should match the settings for your host-only network as obtained above and IPADDR should be an available IP address in the host-only network (again, typically in 2-254 range).
+
+Now run `systemctl restart network`
+
 ### Vim with CoC
 
 Disable plugins: mi
