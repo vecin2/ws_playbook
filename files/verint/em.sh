@@ -126,5 +126,4 @@ install_ccadmin_autocompletion(){
 		echo "If you want to recreate completions, remove file ${completion_file_location} and run this command again."
 	fi
 }
-}
 
