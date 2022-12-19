@@ -6,12 +6,19 @@
     block: |
       [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh"
 
-- name: Allow dgarcia user to run write to proc/sys/fs/binfmt_misc/register without a password
-  community.general.sudoers:
-    name: windows-batch
-    user: dgarcia
-    commands: sh -c "echo \":WindowsBatch:E::bat::/init:\" > /proc/sys/fs/binfmt_misc/register"
+- name: 'Adding alias to allow wsl run .bat'
+  lineinfile:
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    line: 'alias run_bat=''sudo sh -c "echo ":WindowsBatch:E::bat::/init:" > /proc/sys/fs/binfmt_misc/register"'''
+    create: yes
   tags: em
+
+- name: ''
+  lineinfile:
+    path: '{{ansible_env.HOME}}/.zshrc'
+    line: alias run_bat='sudo sh -c "echo \":WindowsBatch:E::bat::/init:\" > /proc/sys/fs/binfmt_misc/register"'
+    create: yes
+  tags: nvim
 
 - name: Configure EM aliases
   blockinfile:
