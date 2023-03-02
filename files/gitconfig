@@ -1,3 +1,6 @@
+#[user]
+#	email = david.garcia@verint.com
+#	name = david.garcia
 [user]
 	email = vecin2@gmail.com
 	name = vecin2
@@ -17,3 +20,5 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[difftool "vimdiff"]
+	path = /home/dgarcia//apps/nvim/nvim.appimage
