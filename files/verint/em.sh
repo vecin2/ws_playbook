@@ -1,5 +1,5 @@
-export EM_CORE_HOME=/mnt/c/em/projects/highmark
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R2_7.2.0
+export EM_CORE_HOME=/mnt/c/em/projects/DU/du
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2022R5_8.5.0
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){
@@ -35,20 +35,31 @@ vpl(){
 val(){
 	vim $(last_application_log_path $1)
 }
+
+scanlogs(){
+	dir=$EM_CORE_HOME/logs
+
+	find $dir -type f -exec stat --format '%Y :%y %n' "{}" \; | sort -nr | cut -d: -f2- | head -n 40
+}
+
 ccadmin(){
-	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
+	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
+	cwd=$(pwd)
+	cd "${EM_CORE_HOME}/bin"
+	./ccadmin.bat "$@"
+	cd $cwd
 }
 ad_kill(){
-	dir='C:\ProgramData\Verint\powershell\kill_ad_java.ps1'
-	powershell.exe -F $dir
+	dir='C:\ProgramData\Verint\ps_scripts\kill_ad_java.ps1'
+	powershell.exe -executionpolicy bypass -F $dir
 }
 ad_restart(){
 	ad_kill
 	ccadmin start-appserver -Dcontainer.name=ad
 }
 ced_kill(){
-	dir='C:\ProgramData\Verint\powershell\kill_ced_java.ps1'
-	powershell.exe -F $dir
+	dir='C:\ProgramData\Verint\ps_scripts\kill_ced_java.ps1'
+	powershell.exe -executionpolicy bypass -F $dir
 }
 ced_restart(){
 	ced_kill
@@ -62,22 +73,15 @@ validate_config(){
 	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" validate-config
 	wsl-open $EM_CORE_HOME/work/config/validate-config/validate-config.csv
 }
-install_ccadmin_autocompletion(){
-
-	if [ -z $EM_CORE_HOME ]; then
-		echo Global variable EM_CORE_HOME has not been set. Please set it before install it.
-		exit
-	else
-		sudo ln -sfv ~/dotfiles/em/ccadmin.sh /etc/bash_completion.d/ccadmin
+recreate_em_app(){
+	if [ "$#" -ne 1 ]; then
+		echo "Container.name is required as parameter"
+		exit 1
 	fi
-	completion_file_location="${EM_CORE_HOME}/.em/autocompletion/ccadmin_completion"
-	if [ ! -f "$completion_file_location" ]; then
-		echo "Generating ccadmin options"...
-		options=$("${EM_CORE_HOME}"/bin/ccadmin.sh | grep echo | awk '{print $3}')
-		echo $options
-		mkdir -p "${EM_CORE_HOME}/.em/autocompletion"
-		echo "$options"	>"$completion_file_location"
-	fi
+	ad_kill
+	ccadmin create-single-app -Dapplication.name="$1"
+	ccadmin recreate-container -Dcontainer.name="$1"
+	ccadmin start-appserver -Dcontainer.name="$1"
 }
 
 find_jar_by_classname(){
@@ -112,10 +116,14 @@ install_ccadmin_autocompletion(){
 		sudo ln -sfv $HOME/.verint/autocompletion/ccadmin.sh /etc/bash_completion.d/ccadmin
 	fi
 	completion_file_location="${HOME}/.verint/autocompletion/ccadmin_commands"
-	if [ ! -f "$completion_file_location" ]; then
+	if [ ! -f "${completion_file_location}" ]; then
 		echo "Generating ccadmin options"...
-		options=$(ccadmin | grep echo | awk '{print $3}')
-		echo $options
-		echo "$options"	>"$completion_file_location"
+		ccadmin | grep echo | awk '{print $3}' >"$completion_file_location"
+		echo Completion file created at $completion_file_location
+		echo Run ccadmin and hit tab to see autocompletion
+	else
+		echo Completions file already exist.
+		echo "If you want to recreate completions, remove file ${completion_file_location} and run this command again."
 	fi
 }
+

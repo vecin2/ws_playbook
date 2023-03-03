@@ -11,9 +11,3 @@
       export PS1="\[\033[01;34m\]\W\[\033[00m\]\$"
   tags: display
 
-  #- name: Install nord dircolors
-  #  file: src="{{ playbook_dir }}/files/dircolors_nord" dest="{{ ansible_env.HOME
-  #    }}/.dircolors" state=link force=yes
-# copy:
-#  src: "{{ansible_env.HOME}}/dotfiles/dircolors/dircolors_nord"
-#  dest: "{{ansible_env.HOME}}/.dircolors"

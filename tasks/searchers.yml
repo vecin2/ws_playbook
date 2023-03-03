@@ -12,6 +12,8 @@
     path: "{{ansible_env.HOME}}/.bash_aliases"
     line: "alias ag=\"ag --color-path '36;1' --color-line-number '1;35'\""
     create: yes
+- name: Ensures ~/.local/bin dir exists
+  file: path=~/.local/bin state=directory
 - name: "Setting fd alias for fdfind"
   file: src=/usr/bin/fdfind dest=~/.local/bin/fd state=link force=yes
 #

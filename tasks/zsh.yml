@@ -1,3 +1,7 @@
+- name: install zsh
+  become: true
+  apt:
+    name: zsh
 - name: Check if .zshrc exists
   stat:
     path: ~/.zshrc
@@ -19,3 +23,10 @@
     src=~/.oh-my-zsh/templates/zshrc.zsh-template
     dest=~/.zshrc
   when: not stat_rc_result.stat.exists
+
+- name: "Source bash_aliases from zsh"
+  lineinfile:
+    path: "{{ansible_env.HOME}}/.zshrc"
+    line: ". ~/.bash_aliases"
+    create: yes
+  tags: nvim

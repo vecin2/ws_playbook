@@ -1,4 +1,10 @@
 {
+	"actions": 
+	[
+		{
+			"command": "unbound",
+			"keys": "ctrl+v"
+		}],
 	"profiles": [
 		{
 			"name": "My Ubuntu 20.04",

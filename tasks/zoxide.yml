@@ -1,0 +1,21 @@
+- name: Check whether zoxide is installed and on system path
+  command: 'which zoxide'
+  register: zoxide_installed
+  ignore_errors: yes
+  changed_when: false
+  tags: zoxide
+
+- name: install zoxide
+  shell:
+    cmd: curl -sS https://webinstall.dev/zoxide | bash
+  when: zoxide_installed.rc != 0 #return code is not 0 means it failed
+  tags: zoxide
+
+- name: Add zoxide to shell
+  blockinfile:
+    marker: '#{mark} zoxide'
+    path: '{{myshellrc}}'
+    content: |
+      export _ZO_ECHO='1' #set  env vars
+      eval "$(zoxide init {{myshell}})"
+  tags: zoxide

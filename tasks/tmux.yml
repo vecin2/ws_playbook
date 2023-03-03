@@ -1,20 +1,25 @@
 ---
-- name: Installing tmux
-  become: true
-  apt:
-    name:
-      - tmux
+- name: Check if tmux 3.3 is installed
+  command: "tmux -V"
+  changed_when: true
+  register: tmux_installed_version
+  ignore_errors: true
+  tags: tmux
 
-- name: Downloading tmux plugin manager
+- debug: msg={{tmux_installed_version}}
+  tags: tmux
+
+    #- name: Running task install tmux
+- import_tasks: tasks/tmux_install.yml
+  when: "( tmux_installed_version is failed) or ('3.3' not in tmux_installed_version.stdout)"
+  tags: tmux
+
+- name: Downloading  https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz tmux plugin manager
   git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm
     update=no
-
+  tags: tmux
 - name: Link tmux.conf
   file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf"
     state=link force=yes
-
-    #- name: Install screen-italics terminal
-    # command:
-    #cmd: tic {{playbook_dir}}/files/screen-italics.terminfo
-    #creates: '{{ansible_env.HOME}}/.terminfo/**/screen-italics'
+  tags: tmux
 

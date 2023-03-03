@@ -6,7 +6,7 @@
 
 - name: "Configuring virtualenvwrapper"
   blockinfile:
-    path : "{{ansible_env.HOME}}/.profile"
+    path : "{{myshellrc}}"
     marker: "#{mark} virtualwrapper"
     create: yes
     block: |

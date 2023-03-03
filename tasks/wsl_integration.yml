@@ -1,0 +1,11 @@
+---
+- name: Link wsl.sh
+  file:
+    src="{{ playbook_dir }}/files/wsl/wsl.sh" dest="{{ ansible_env.HOME }}/.wsl.sh"
+    state=link force=yes
+  tags: wsl_integration
+- name: Sourcing on shellrc file
+  lineinfile:
+    path: '{{myshellrc}}'
+    line: '[ -s "$HOME/.wsl.sh" ] && source "$HOME/.wsl.sh"'
+  tags: wsl_integration

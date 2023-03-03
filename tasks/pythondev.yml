@@ -1,6 +1,10 @@
-- name: "Install pip"
+- name: "Installing python packages"
   become: yes
   apt:
-    name: python3-pip
+    name:
+      - python3-pip
+      - python3.8-venv #require by pylsp
+  tags: python
+
 - import_tasks: tasks/pythondev/virtualenvwrapper.yml
 - import_tasks: tasks/pythondev/pythonvim_IDE.yml

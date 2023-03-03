@@ -65,9 +65,8 @@ return packer.startup(function(use)
 	use("lukas-reineke/indent-blankline.nvim")
 	-- use "goolord/alpha-nvim"
 	-- }}}
-
 	-- Navigation{{{
-	use("https://tpope.io/vim/unimpaired.git")
+	use("tpope/vim-unimpaired")
 	use("kyazdani42/nvim-tree.lua")
 	use("ahmedkhalf/project.nvim")
 	use("terryma/vim-smooth-scroll")
@@ -87,7 +86,9 @@ return packer.startup(function(use)
 	use("L3MON4D3/LuaSnip") --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	--}}}
-
+	--Javascript{{{{
+	-- use('mustache/vim-mustache-handlebars')
+	--}
 	-- cmp plugins{{{
 	use("hrsh7th/nvim-cmp") -- The completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
@@ -98,15 +99,20 @@ return packer.startup(function(use)
 	--}}}
 
 	--	LSP{{{
-	use("neovim/nvim-lspconfig") -- enable LSP
-	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
+	use({
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	})
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+	use("frbor/python-lsp-autoimport") -- for formatters and linters
+	use("pedro757/emmet") -- for emmet web-dev
 	--}}}
 
 	-- Git{{{
 	use("lewis6991/gitsigns.nvim")
-	use("https://tpope.io/vim/fugitive.git")
+	use("tpope/vim-fugitive")
 	--}}}
 
 	--Bootstrap packer{{{

@@ -6,6 +6,7 @@
   loop:
 # developement
     - dbeaver
-    - javaruntime
 # wsl
     - VcXsrv
+# Editors
+    - notepadplusplus

@@ -5,7 +5,7 @@
 "endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[49;2;%lu;%lu;%lum"
   set termguicolors
   set background=dark
   let g:gruvbox_italic=1
@@ -13,6 +13,7 @@ if exists('+termguicolors')
 	highlight Comment cterm=italic
 endif
 "}}}
+"w gf to open non-existing files
 
 " Folding {{{
 "Cheatsheet
@@ -79,17 +80,28 @@ augroup END
 	set number
 	set cursorline
   set signcolumn=yes:1
-
-	map gf :edit <cfile><cr> "Allow gf to open non-existing files
+	
+	map gf :edit <cfile><cr> "Allow gf to open non-" existing files
+	"}}}
+	
+	"Navigating quick list{{{
+	nnoremap <Up> :cprevious<cr>
+	nnoremap <Down> :cnext<cr>
+	nnoremap <Left> :cpf<cr>
+	nnoremap <Right> :cnf<cr>
 	"}}}
 
-	"Highlight current line number but not line{{{
+	"Cursorline{{{
   set cursorline   "highlight the current line
+	"}}}
+	
+	"split lines{{{
+	"removes vertical line on split 
+  set fillchars+=vert:\  
 	"}}}
 
 	"Status Line {{{
-	"Display status line always
-	set laststatus=2
+	set laststatus=3 "Display only one status line at the bottom
 	function! GitBranch()
 			return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 	endfunction
@@ -219,13 +231,15 @@ let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL
 	nnoremap <Leader>pl :e $CLOUD_LOC/links/links.txt<CR>
 	"nnoremap <Leader>adl :e $EM_CORE_HOME/docs/links.txt<CR>
 	nnoremap <Leader>mv :e $MYVIMRC<CR> "Edit MYVIMRC
-	nnoremap <Leader>mn :e ~/.config/nvim/init.vim<CR> "Edit init neovim config
 	nnoremap <Leader>mc :e ~/.vim/config.vim<CR> "Edit config.vim
 	nnoremap <Leader>mp :e ~/.vim/plugins.vim<CR> "Edit plugins.vim
 	"nnoremap <Leader>pn :e $EM_CORE_HOME/docs/notes.txt<CR>
+	nnoremap <Leader>ma :e ~/.dailyhours.md<CR> "track daily hours
+	nnoremap <Leader>wc :e /mnt/c/wfo/components/<CR> "take me to main wfo compo
+	nnoremap <Leader>wp :e /mnt/c/wfo/projects/<CR> "take me to main wfo compo
 "}}}
 
-" Shorcuts to main docs {{{
+" Shorcuts EM Session logs{{{
 command! Kernel execute 'edit'  "$EM_CORE_HOME/logs/ad/cre/kernel/kernel.log"
 command! Stdout execute 'edit'  "$EM_CORE_HOME/logs/ad/weblogic/stdout.log"
 
@@ -245,3 +259,28 @@ nnoremap <C-Down> :resize -2<CR>
 nnoremap <C-Left> :vertical resize -2<CR>
 nnoremap <C-Right> :vertical resize +2<CR>
 "}}}
+
+"Custom commmands, e.g BufOnly{{{
+command! BufOnly execute '%bdelete|edit #|normal `"'
+"}}}
+
+function! Redir(cmd)
+  for win in range(1, winnr('$'))
+    if getwinvar(win, 'scratch')
+      execute win . 'windo close'
+    endif
+  endfor
+  if a:cmd =~ '^!'
+    let output = system(matchstr(a:cmd, '^!\zs.*'))
+  else
+    redir => output
+    execute a:cmd
+    redir END
+  endif
+  botright vnew
+  let w:scratch = 1
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, split(output, "\n"))
+endfunction
+"`:Redir` followed by either shell or vim command
+command! -nargs=+ -complete=command Redir silent call Redir(<q-args>)

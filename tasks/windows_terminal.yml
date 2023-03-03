@@ -1,6 +1,18 @@
 - name: Ensures /mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows Terminal/Fragments/Windows.Terminal.Wsl/ dir exists
-  file: path="/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows Terminal/Fragments" state=directory
+  file: path="/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows\ Terminal/Fragments" state=directory
 - name: Copy Terminal mysettings.json
   template:
-    src: "{{playbook_dir}}/files/windowsTerminalSettings.json"
-    dest: "/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows Terminal/Fragments/Windows.Terminal.Wsl/"
+    src: "{{playbook_dir}}/files/windowsTerminal/myUbuntu20_04.json"
+    dest: "/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows\ Terminal/Fragments/Windows.Terminal.Wsl/"
+
+- name: "Find Windows Terminal folder" 
+  find: paths="/mnt/c/Users/{{win_username}}/AppData/Local/Packages/" patterns="Microsoft.WindowsTerminal*" file_type=directory
+  register: windows_terminal_folder
+  tags:
+    - terminal
+- name: Update Windows Terminal Settings
+  template:
+    src: "{{playbook_dir}}/files/windowsTerminal/settings.json"
+    dest: "{{windows_terminal_folder.files[0].path}}/LocalState"
+  tags:
+    - terminal

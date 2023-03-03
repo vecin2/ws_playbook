@@ -12,7 +12,7 @@
 
 - name: Source fasd on rc files
   blockinfile:
-    path: '{{ansible_env.HOME}}/.profile'
+    path: '{{myshellrc}}'
     marker: '#{mark} fasd config'
     block: |
       #It caches the initialization for minimal overhead
@@ -23,15 +23,3 @@
       fi
       source "$fasd_cache"
       unset fasd_cache
-
-- name: Add fasd aliases
-  blockinfile:
-    path: '{{ansible_env.HOME}}/.profile'
-    marker: '#{mark} fasd aliases'
-    block: |-
-      alias v='f -e vim' # quick opening files with vim
-      alias o='a -e xdg-open' # quick opening files with xdg-open
-      #alias r='fasd -si'
-      #alias sd='fasd -sid'
-      #alias sf='fasd -sif'
-      #

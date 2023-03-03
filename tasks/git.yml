@@ -1,15 +1,45 @@
-- name: "Installing git"
+- name: 'Installing git'
   become: yes
   apt: name=git
 
-- name: "Setting gitconfig"
+- name: 'Setting gitconfig on wsl2'
   file: src="{{ playbook_dir }}/files/gitconfig" dest="{{ ansible_env.HOME }}/.gitconfig" state=link force=yes
 
-- name: "Start ssh agent on start"
+- name: 'Setting gitconfig on windows'
+  copy: src="{{ playbook_dir }}/files/gitconfig" dest="/mnt/c/Users/{{win_username}}/.gitconfig"
+
+- name: 'Start ssh agent on start'
   blockinfile:
-    marker: "#{mark} ssh configuration"
-    path: '{{ansible_env.HOME}}/.zshrc'
+    marker: '#{mark} ssh configuration'
+    path: '{{myshellrc}}'
     content: |
-      eval "$(ssh-agent -s)"
-      ssh-add ~/.ssh/github_rsa
+      if ps -p $SSH_AGENT_PID > /dev/null
+      then
+        echo "ssh-agent is already running" > /dev/null
+      else
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_ed25519_vecin2
+      fi
+    create: true
+- name: 'Apply wsl2 git performance workaround'
+  blockinfile:
+    marker: '#{mark} git workaround on wsl2'
+    path: '{{myshellrc}}'
+    content: |
+      # checks to see if we are in a windows or linux dir
+      function isWinDir {
+        case $PWD/ in
+        /mnt/*) return $(true);;
+        *) return $(false);;
+        esac
+      }
+      # wrap the git command to either run windows git or linux
+      function git {
+        if isWinDir
+        then
+        git.exe "$@"
+        else
+        /usr/bin/git "$@"
+        fi
+      }
     create: true
