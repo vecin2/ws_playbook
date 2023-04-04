@@ -1,3 +1,4 @@
 *.sw?
 *.zip
 *.un~
+.pytest_cache
