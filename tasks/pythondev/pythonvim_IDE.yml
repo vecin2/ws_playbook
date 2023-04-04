@@ -7,7 +7,7 @@
     name: virtualenvwrapper
     extra_args: --user
 
-- include: tasks/pythondev/flake8.yml
+- include_tasks: tasks/pythondev/flake8.yml
 
 - name: 'pip installing packages for VIM python IDE experience'
   become: yes
