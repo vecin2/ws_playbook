@@ -73,6 +73,13 @@ return packer.startup(function(use)
 	use("christoomey/vim-tmux-navigator")
 	use("nelstrom/vim-visual-star-search")
 	use("nvim-telescope/telescope.nvim")
+	use({
+		"stevearc/aerial.nvim", -- summary method leader+a
+		config = function()
+			require("aerial").setup()
+		end,
+	})
+
 	-- use "folke/which-key.nvim"
 	--}}}
 
