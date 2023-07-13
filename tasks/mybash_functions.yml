@@ -9,5 +9,12 @@
         for term in $@; do
           search="$search%20$term"
         done
-        chrome "http://www.google.com/search?q=$search"
+        firefox "http://www.google.com/search?q=$search"
       }
+
+- name: Configuring General Environment Variables
+  blockinfile:
+    path: '{{myshellrc}}'
+    marker: '#{mark} General ENV VARS'
+    block: |
+      export DOWNLOADS=/mnt/c/Users/dgarcia/Downloads

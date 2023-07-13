@@ -1,9 +1,9 @@
-#[user]
-#	email = david.garcia@verint.com
-#	name = david.garcia
 [user]
-	email = vecin2@gmail.com
-	name = vecin2
+	email = david.garcia@verint.com
+	name = david.garcia
+#[user]
+#	email = vecin2@gmail.com
+#	name = vecin2
 [user]
 #	email = david.avgarcia.work@gmail.com
 #	name = davgarciawork
