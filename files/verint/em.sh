@@ -53,7 +53,7 @@ ccadmin(){
 	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
 	cwd=$(pwd)
 	cd "${EM_CORE_HOME}/bin"
-	./ccadmin.bat "$@"
+	./ccadmin.bat "$@" | cat
 	cd $cwd
 }
 ad_kill(){
