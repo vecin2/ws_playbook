@@ -25,6 +25,21 @@ require("nvim-tree").setup({
   },
 })
 
+-- open as vsplit on current node
+local function vsplit_preview()
+  local node = api.tree.get_node_under_cursor()
+
+  if node.nodes ~= nil then
+    -- expand or collapse folder
+    api.node.open.edit()
+  else
+    -- open file as vsplit
+    api.node.open.vertical()
+  end
+
+  -- Finally refocus on tree if it was lost
+  api.tree.focus()
+end
 
 local function my_on_attach(bufnr)
   local api = require "nvim-tree.api"
