@@ -3,7 +3,7 @@ export EM_CORE_HOME=/mnt/c/em/projects/DU/du
 # export SQL_TEMPLATES_PATH=/mnt/c/Users/dgarcia/dev/python/sqltask-templates/prj_config/templates
 export SQL_TEMPLATES_PATH=C:\\ProgramData\\Verint\\sqltask_templates\\templates
 
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2022R5_8.5.0
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2023R1-HFR_9.1.8
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){

@@ -1,10 +1,11 @@
 ---
-- name: EM environment variables
+- name: Configure EM environment variables bin folder
   blockinfile:
     path: '{{myshellrc}}'
     marker: '#{mark} Source em.sh and allow bat exec from WSL'
     block: |
       [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh"
+      export PATH="/mnt/c/em/bin:$PATH"
 
 - name: 'Adding alias to allow wsl run .bat'
   lineinfile:
@@ -50,4 +51,13 @@
 
 - name: Installing powershell EM scripts
   copy: src="{{ playbook_dir }}/files/verint/ps_scripts" dest="/mnt/c/ProgramData/Verint"
+  tags: em
+
+- name: Creates em/bin folder
+  file:
+    path: /mnt/c/em/bin
+    state: directory
+
+- name: Installing python EM Scripts
+  copy: src="{{ playbook_dir }}/files/verint/create_patch.py" dest="/mnt/c/em/bin"
   tags: em
