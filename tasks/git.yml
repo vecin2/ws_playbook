@@ -3,16 +3,16 @@
   apt: name=git
 
 - name: 'Setting gitconfig on wsl2'
-  file: src="{{ playbook_dir }}/files/{{item}}" dest="{{ ansible_env.HOME }}/.{{item}}" state=link force=yes
+  file: src="{{ playbook_dir }}/files/gitconfig/{{item}}" dest="{{ ansible_env.HOME }}/.{{item.split('.')[0]}}" state=link force=yes
   with_items:
-    - gitconfig
+    - gitconfig.linux
     - gitconfig-personal
     - gitconfig-work
 
 - name: 'Setting gitconfig on windows'
-  copy: src="{{ playbook_dir }}/files/{{item}}" dest="/mnt/c/Users/{{win_username}}/.{{item}}"
+  copy: src="{{ playbook_dir }}/files/gitconfig/{{item}}" dest="/mnt/c/Users/{{win_username}}/.{{item.split('.')[0]}}"
   with_items:
-    - gitconfig
+    - gitconfig.win
     - gitconfig-personal
     - gitconfig-work
 

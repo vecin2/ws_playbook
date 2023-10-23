@@ -1,7 +1,8 @@
-[includeIf "gitdir:~/dgarcia/dev/"]
+[includeIf "gitdir/i:c:/Users/dgarcia/"]
 	path = .gitconfig-personal
-[includeIf "gitdir:~/em/"]
+[includeIf "gitdir/i:c:/em/"]
 	path = .gitconfig-work
+
 [init]
 	templatedir = $HOME/.git_template
 [alias]

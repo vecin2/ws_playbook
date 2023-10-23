@@ -1,0 +1,20 @@
+[includeIf "gitdir/i:~/"]
+	path = .gitconfig-personal
+#[includeIf "gitdir/i:~/dev/python/em-task/"]
+#	path = .gitconfig-work
+
+[init]
+	templatedir = $HOME/.git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	co = commit
+	st = status
+[core]
+	excludesFile = /home/dgarcia/.gitignore_global
+	editor = vim
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[difftool "vimdiff"]
+	path = /home/dgarcia//apps/nvim/nvim.appimage
