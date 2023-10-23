@@ -52,19 +52,18 @@ def main():
     patch_index.write_text(patch_name)
     (meta_folder / "product.version").write_text(product_version)
 
-    patch_abs_path_dst = patch_folder / "core" / patched_relative_path
+    patch_abs_path_dst = patch_folder / patch_name / "core" / patched_relative_path
     patch_abs_path_dst.parent.mkdir(parents=True)
     shutil.copyfile(patched_abs_path_src, patch_abs_path_dst)
 
     readme_path = patch_folder / "README.md"
     readme_path.write_text(capture_readme_on_editor(patch_name))
 
-    zip_file_path = patches_path / patch_name
-
+    zip_file_path = patches_path / (patch_name + ".zip")
     if zip_file_path.exists():
         zip_file_path.unlink()
 
-    shutil.make_archive(zip_file_path, "zip", patch_folder)
+    shutil.make_archive(zip_file_path.with_suffix(""), "zip", patch_folder)
 
     print(f"Patch folder created under {patch_folder}, remove before commit")
     print(f"Patch zip created under {zip_file_path}")

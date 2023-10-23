@@ -3,10 +3,18 @@
   apt: name=git
 
 - name: 'Setting gitconfig on wsl2'
-  file: src="{{ playbook_dir }}/files/gitconfig" dest="{{ ansible_env.HOME }}/.gitconfig" state=link force=yes
+  file: src="{{ playbook_dir }}/files/{{item}}" dest="{{ ansible_env.HOME }}/.{{item}}" state=link force=yes
+  with_items:
+    - gitconfig
+    - gitconfig-personal
+    - gitconfig-work
 
 - name: 'Setting gitconfig on windows'
-  copy: src="{{ playbook_dir }}/files/gitconfig" dest="/mnt/c/Users/{{win_username}}/.gitconfig"
+  copy: src="{{ playbook_dir }}/files/{{item}}" dest="/mnt/c/Users/{{win_username}}/.{{item}}"
+  with_items:
+    - gitconfig
+    - gitconfig-personal
+    - gitconfig-work
 
 - name: 'Start ssh agent on start'
   blockinfile:

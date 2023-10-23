@@ -17,3 +17,12 @@
     line: alias chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe" 
     create: true
   tags: wsl_integration
+
+- name: Configure windows env vars 
+  blockinfile:
+    path: '{{myshellrc}}'
+    marker: '#{mark} Add Windows Env Vars'
+    block: |
+      export WHOME="/mnt/c/Users/$USER"
+      export DOWNLOADS=/mnt/c/Users/dgarcia/Downloads
+  tags: wsl_integration
