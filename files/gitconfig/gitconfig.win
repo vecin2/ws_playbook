@@ -10,11 +10,10 @@
 	co = commit
 	st = status
 [core]
-	excludesFile = /home/dgarcia/.gitignore_global
-	editor = vim
+	editor = C:/Windows/vim.bat
 [diff]
-	tool = vimdiff
+	tool = windiff
 [difftool]
 	prompt = false
-[difftool "vimdiff"]
-	path = /home/dgarcia//apps/nvim/nvim.appimage
+[difftool "windiff"]
+	cmd = C:/Windows/vimdiff.bat \"$LOCAL\" \"$REMOTE\"
