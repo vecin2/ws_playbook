@@ -19,6 +19,7 @@
     - import_tasks: tasks/bashrcs.yml
       tags: bashrcs
     - import_tasks: tasks/mybash_functions.yml
+      tags: bashrcs
     # ZSH terminal
     - import_tasks: tasks/zsh.yml
     # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
@@ -27,9 +28,12 @@
       when: "'WSL' in wsl_version"
     - import_tasks: tasks/wsl_display.yml
       when: "'WSL' in wsl_version"
+    - import_tasks: tasks/wsl_integration.yml
+      when: "'WSL' in wsl_version"
     - import_tasks: tasks/searchers.yml
     - import_tasks: tasks/git.yml
-    - import_tasks: tasks/nodejs.yml
+      tags: git
+    # - import_tasks: tasks/nodejs.yml
     - import_tasks: tasks/other_packages.yml
     #    - import_tasks: tasks/vim.yml
     - import_tasks: tasks/neovim.yml

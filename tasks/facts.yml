@@ -19,7 +19,7 @@
 
 - name: Setting Windows username
   shell: |
-    echo $(cmd.exe /c echo %username%)
+    powershell.exe '$env:UserName'
   args:
     executable: "/bin/bash"
   tags: always

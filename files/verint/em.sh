@@ -1,5 +1,9 @@
 export EM_CORE_HOME=/mnt/c/em/projects/DU/du
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2022R5_8.5.0
+# export EM_CORE_HOME=/mnt/c/em/projects/DTO/trunk
+# export SQL_TEMPLATES_PATH=/mnt/c/Users/dgarcia/dev/python/sqltask-templates/prj_config/templates
+export SQL_TEMPLATES_PATH=C:\\ProgramData\\Verint\\sqltask_templates\\templates
+
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2023R1-HFR_9.1.8
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){
@@ -24,13 +28,16 @@ get_last_modified_files_at_path(){
 		TAIL=$3
 	fi
 
-	FILE_NAME=$(ls $log_path -ltr | grep $keyword | tail -$TAIL | head -1 | rev | cut -d " " -f1 | rev)
+	FILE_NAME=$(ls $log_path -ltr | grep $keyword | grep -v WorkRetrieval | grep -v HotUpdate | tail -$TAIL | head -1 | rev | cut -d " " -f1 | rev)
 
 	FULL_PATH=$log_path/$FILE_NAME
 	echo $FULL_PATH
 }
 vpl(){
 	vim $(last_process_log_path $1)
+}
+tpl(){
+	cd $EM_CORE_HOME/logs/ad/cre/session
 }
 val(){
 	vim $(last_application_log_path $1)
@@ -39,14 +46,14 @@ val(){
 scanlogs(){
 	dir=$EM_CORE_HOME/logs
 
-	find $dir -type f -exec stat --format '%Y :%y %n' "{}" \; | sort -nr | cut -d: -f2- | head -n 40
+	find $dir -type f -exec stat --format '%Y :%y %n' "{}" \; | sort -nr | cut -d: -f2- | head -n 25
 }
 
 ccadmin(){
 	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
 	cwd=$(pwd)
 	cd "${EM_CORE_HOME}/bin"
-	./ccadmin.bat "$@"
+	./ccadmin.bat "$@" | cat
 	cd $cwd
 }
 ad_kill(){

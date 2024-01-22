@@ -1,13 +1,13 @@
 - name: Create nvim app folder
   file:
-    path: '{{ansible_env.HOME}}/apps/nvim'
+    path: "{{ansible_env.HOME}}/apps/nvim"
     state: directory
   tags: nvim
 
 - name: Download nightly nvim
   get_url:
     url: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    dest: '{{ansible_env.HOME}}/apps/nvim'
+    dest: "{{ansible_env.HOME}}/apps/nvim"
     mode: u+x
   tags: nvim
 
@@ -33,17 +33,17 @@
     - plugins.vim
   tags: nvim
 
-- name: "Setting alias 'nvim' for nvim"
+- name: "Setting alias for nvim"
   lineinfile:
-    path: '{{ansible_env.HOME}}/.bash_aliases'
-    line: 'alias nvim=~/apps/nvim/nvim.appimage '
+    path: "{{ansible_env.HOME}}/.bash_aliases"
+    line: "alias nvim=~/apps/nvim/nvim.appimage "
     create: yes
   tags: nvim
 
-- name: "Setting alias 'vim' for nvim"
+- name: "Setting alias for nvim"
   lineinfile:
-    path: '{{ansible_env.HOME}}/.bash_aliases'
-    line: 'alias vim=~/apps/nvim/nvim.appimage '
+    path: "{{ansible_env.HOME}}/.bash_aliases"
+    line: "alias vimdiff='nvim -d'"
     create: yes
   tags: nvim
 
@@ -58,3 +58,4 @@
       #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
       stty -ixon
   tags: nvim
+

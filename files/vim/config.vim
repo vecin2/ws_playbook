@@ -48,6 +48,10 @@ augroup END
 	let g:xml_syntax_folding=1
 	au FileType xml setlocal foldmethod=syntax
 " }}}
+"
+" json {{{
+	au FileType json setlocal foldmethod=syntax
+" }}}
 
 	"Searching {{{
 	set wildmode=longest,list "search by files completing like sh

@@ -3,7 +3,6 @@ local status_ok, npairs = pcall(require, "nvim-autopairs")
 if not status_ok then
   return
 end
-
 npairs.setup {
   check_ts = true,
   ts_config = {
@@ -24,7 +23,17 @@ npairs.setup {
     highlight_grey = "LineNr",
   },
 }
-
+-- for sqltask jinja templates
+local Rule = require('nvim-autopairs.rule')
+local cond = require('nvim-autopairs.conds')
+npairs.add_rules({
+	 Rule("#"," #","sql")
+		:with_pair(cond.before_regex("{",1)),
+	 Rule("%"," %","sql")
+		:with_pair(cond.before_regex("{",1)),
+  }
+)
+	 -- Rule("%"," %","sql")
 local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then

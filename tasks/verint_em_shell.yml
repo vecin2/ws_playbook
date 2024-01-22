@@ -1,10 +1,12 @@
 ---
-- name: EM environment variables
+- name: Configure EM environment variables bin folder
   blockinfile:
     path: '{{myshellrc}}'
     marker: '#{mark} Source em.sh and allow bat exec from WSL'
     block: |
       [ -s "$HOME/.em.sh" ] && source "$HOME/.em.sh"
+      export PATH="/mnt/c/em/bin:$EM_CORE_HOME/../bin/:$PATH"
+  tags: em
 
 - name: 'Adding alias to allow wsl run .bat'
   lineinfile:
@@ -18,9 +20,10 @@
     path: '{{ansible_env.HOME}}/.zshrc'
     line: alias run_bat='sudo sh -c "echo \":WindowsBatch:E::bat::/init:\" > /proc/sys/fs/binfmt_misc/register"'
     create: yes
-  tags: nvim
+  tags: em
 
 - name: Configure EM aliases
+  tags: em
   blockinfile:
     path: '{{myshellrc}}'
     marker: '#{mark} EM aliases'
@@ -42,12 +45,26 @@
     state: directory
     recurse: true
   register: autocompletion
+  tags: em
 
 - name: Link ccadmin_autocompletion
   file:
     src="{{ playbook_dir }}/files/verint/ccadmin.sh" dest="{{autocompletion.path}}ccadmin.sh"
     state=link force=yes
+  tags: em
 
 - name: Installing powershell EM scripts
   copy: src="{{ playbook_dir }}/files/verint/ps_scripts" dest="/mnt/c/ProgramData/Verint"
+  tags: em
+
+- name: Creates em/bin folder
+  file:
+    path: /mnt/c/em/bin
+    state: directory
+  tags: em
+
+- name: Installing python EM Scripts
+  file:
+    src="{{ playbook_dir }}/files/verint/create_patch.py" dest="/mnt/c/em/bin/create_patch"
+    state=link force=yes
   tags: em

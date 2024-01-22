@@ -73,6 +73,13 @@ return packer.startup(function(use)
 	use("christoomey/vim-tmux-navigator")
 	use("nelstrom/vim-visual-star-search")
 	use("nvim-telescope/telescope.nvim")
+	use({
+		"stevearc/aerial.nvim", -- summary method leader+a
+		config = function()
+			require("aerial").setup()
+		end,
+	})
+
 	-- use "folke/which-key.nvim"
 	--}}}
 
@@ -82,7 +89,7 @@ return packer.startup(function(use)
 	use("https://github.com/tommcdo/vim-exchange.git")
 	use("windwp/nvim-autopairs") -- integrates with both cmp and treesitter
 	use("numToStr/Comment.nvim") -- Easily comment stuff
-	use("JoosepAlviste/nvim-ts-context-commentstring")
+	-- use("JoosepAlviste/nvim-ts-context-commentstring")
 	use("L3MON4D3/LuaSnip") --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	--}}}

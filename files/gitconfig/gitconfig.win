@@ -1,0 +1,19 @@
+[includeIf "gitdir/i:c:/Users/dgarcia/"]
+	path = .gitconfig-personal
+[includeIf "gitdir/i:c:/em/"]
+	path = .gitconfig-work
+
+[init]
+	templatedir = $HOME/.git_template
+[alias]
+	ctags = !.git/hooks/ctags
+	co = commit
+	st = status
+[core]
+	editor = C:/Windows/vim.bat
+[diff]
+	tool = windiff
+[difftool]
+	prompt = false
+[difftool "windiff"]
+	cmd = C:/Windows/vimdiff.bat \"$LOCAL\" \"$REMOTE\"
