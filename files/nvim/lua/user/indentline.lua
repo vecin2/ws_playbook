@@ -58,8 +58,10 @@ vim.wo.colorcolumn = "99999"
 vim.opt.listchars:append("eol:↴")
 
 indent_blankline.setup(
-   {
-       debounce = 100,
-       whitespace = { highlight = { "Whitespace", "NonText" } },
-   }
+	{
+		debounce = 100,
+		whitespace = { highlight = { "Whitespace", "NonText" } },
+		scope = { show_start= false,show_end = false}
+
+	}
 )
