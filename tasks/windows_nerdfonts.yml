@@ -1,0 +1,23 @@
+- name: ensure fonts directory
+  file:
+    path: "{{fonts_installation_path}}"
+    state: directory
+
+- name: Check FiraCode exists
+  shell: "ls {{fonts_installation_path}}/FiraCode*Nerd*Font*"
+  register: firacode_exists
+  ignore_errors: yes
+
+- name: Download FiraCode Font
+  when: firacode_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
+    dest: "{{fonts_installation_path}}"
+    remote_src: yes
+
+# - name: Install FiraCode Font on Windows
+#   when: firacode_exists is failed
+#   ansible.builtin.unarchive:
+#     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
+#     dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+#     remote_src: yes

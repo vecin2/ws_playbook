@@ -26,6 +26,8 @@
     # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - import_tasks: tasks/dircolors.yml
     - import_tasks: tasks/starship.yml
+    - import_tasks: tasks/windows_nerdfonts.yml
+      tags: nerdfonts
     - import_tasks: tasks/windows_terminal.yml
       when: "'WSL' in wsl_version"
     - import_tasks: tasks/wsl_display.yml
