@@ -24,9 +24,21 @@
     dest=~/.zshrc
   when: not stat_rc_result.stat.exists
 
+- name: Clear ZSH plugins
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    regexp: '^plugins='
+    line: plugins=()
+
+- name: Install ZSH
+  become: true
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
 - name: "Source bash_aliases from zsh"
   lineinfile:
     path: "{{ansible_env.HOME}}/.zshrc"
     line: ". ~/.bash_aliases"
     create: yes
-  tags: nvim
+

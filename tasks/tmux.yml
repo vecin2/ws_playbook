@@ -18,8 +18,42 @@
   git: repo="https://github.com/tmux-plugins/tpm" dest={{ansible_env.HOME}}/.tmux/plugins/tpm
     update=no
   tags: tmux
+
 - name: Link tmux.conf
   file: src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf"
     state=link force=yes
   tags: tmux
 
+- name: 'Configure shell on .tmux'
+  blockinfile:
+    marker: '#{mark} tmux shell'
+    path: '{{ansible_env.HOME }}/.tmux.conf'
+    content: |
+      set-option -g default-shell /bin/{{myshell}}
+    create: true
+  tags: tmux
+
+
+- name: Setting alias for tmux new session start  with zsh
+  lineinfile:
+    path: '{{ansible_env.HOME}}/.zshrc'
+    line: alias tnew="tmux new-session /bin/zsh \;"
+    create: true
+  when: myshell == 'zsh'
+
+- name: Auto-open Tmux on zsh - install tmux plugin (1/2)
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    regexp: '^plugins=\((.*)\)'
+    line: 'plugins=(\1 tmux)'
+    backrefs: yes 
+  tags: tmux
+
+- name: Auto-open Tmux on zsh - configure tmux plugin (2/2)
+  ansible.builtin.blockinfile:
+    path: ~/.zshrc
+    marker: "#{mark} Configure TMUX plugin"
+    insertafter: 'plugins=(.*)'
+    block: |
+      ZSH_TMUX_AUTOSTART=true
+  tags: tmux

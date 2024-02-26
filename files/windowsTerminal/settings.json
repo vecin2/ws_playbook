@@ -36,8 +36,9 @@
   "profiles": {
     "defaults": {
       "font": {
-        "face": "CaskaydiaCove NF"
-      }
+        "face": "FiraCode Nerd Font"
+      },
+			"historySize": 90001
     },
     "list": [
       {
