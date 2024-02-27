@@ -1,3 +1,9 @@
+- name: Add Python repository into sources list
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: ppa:deadsnakes/ppa
+    state: present
+
 - name: "Installing python packages"
   become: yes
   apt:
@@ -5,8 +11,6 @@
       - python3-pip
       - python3.8-venv #require by pylsp
       - python3.10
-  tags: python
 
 - import_tasks: tasks/pythondev/virtualenvwrapper.yml
 - import_tasks: tasks/pythondev/pythonvim_IDE.yml
-  tags: python
