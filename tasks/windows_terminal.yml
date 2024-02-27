@@ -4,12 +4,17 @@
   template:
     src: "{{playbook_dir}}/files/windowsTerminal/myUbuntu20_04.json"
     dest: "/mnt/c/Users/{{win_username}}/AppData/Local/Microsoft/Windows\ Terminal/Fragments/Windows.Terminal.Wsl/"
+  tags: terminal
 
 - name: "Find Windows Terminal folder" 
   find: paths="/mnt/c/Users/{{win_username}}/AppData/Local/Packages/" patterns="Microsoft.WindowsTerminal*" file_type=directory
   register: windows_terminal_folder
   tags:
     - terminal
+- debug:
+    msg: "{{windows_terminal_folder.files[0].path}}/LocalState"
+  tags: terminal
+
 - name: Update Windows Terminal Settings
   template:
     src: "{{playbook_dir}}/files/windowsTerminal/settings.json"
