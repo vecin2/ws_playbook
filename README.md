@@ -2,7 +2,7 @@
 
 This repository intends to help setting my wsl environment within a Windows 10 machine.
 
-The first step will be to wsl on windows 10 so git is available. To do that run the following commands:
+The first step will be to install wsl on windows 10 so git is available. To do that run the following commands:
 
 wsl --list --online #will return the list of available distrution names
 
@@ -10,7 +10,30 @@ wsl --install -d <<distribution_name>>
 
 \*\* In a corporate laptop make sure to run it as an admin from `cmd` and not powershell. Powershell gives a priviledges error.
 
+# Upgrading WSL
+
+Every so ofter run wsl --update to make sure we are running latest
+
 # Steps
+
+## Installing Ansible
+
+After installing WSL we need to install Ansible on WSL. 
+Ansible can run against different python versions.
+
+Installing ansible from python. It will make ansible using the python version that was installed from
+```python3 -m pip ansible```
+
+Installing ansible with apt:
+```
+sudo apt update
+sudo apt install software-properties-common
+#No need to add repostory in ubuntu 20.04
+#sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+```
+Installing ansible using apt, makes ansible use the python3 versionthat is configured. If `python3` points to 3.8 will use 3.8, if it points to 3.10 it will use 3.10
+
 
 ## Set-up ssh key
 
@@ -76,6 +99,8 @@ Also because it a external address the xlaunch configuration needs to have check
 # NerdFonts
 
 Copy ./files/Caskadia Cove Nerd Font Complete Windows Compatible.tff into your desktop. Open it and install it.
+Copying nerdfonts into `c:\windows\Fonts` might give permission issues.
+Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
 Current windows terminal `files/settings.json` is pointing to the font so web-devicons are working on the terminal.
 
 # ws_playbook
