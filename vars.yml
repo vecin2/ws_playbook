@@ -3,4 +3,7 @@ myshellfile: zshrc #either bashrc or zshrc
 
 
 # Windows for WSL
-fonts_installation_path: "/mnt/c/Windows/fonts"
+#Copying nerdfonts into `c:\windows\Fonts` might give permission issues.
+#Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
+# fonts_installation_path: "/mnt/c/Windows/fonts"
+fonts_installation_path: "{{ansible_env.HOME}}/.fonts"
