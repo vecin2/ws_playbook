@@ -78,6 +78,7 @@ Also because it a external address the xlaunch configuration needs to have check
 Copy ./files/Caskadia Cove Nerd Font Complete Windows Compatible.tff into your desktop. Open it and install it.
 Current windows terminal `files/settings.json` is pointing to the font so web-devicons are working on the terminal.
 
+Fira Code: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
 # ws_playbook
 
 Ansible playbook to confire my dev work station.
@@ -88,6 +89,8 @@ Make sure this var is exported: export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_p
 ag silver searcher so FZF Ctrl+t works
 
 # Manual Steps on Windows
+
+
 
 # Configuring a Windows 10 Vagrant box on Windows 10 Host
 
@@ -188,8 +191,7 @@ export LD_LIBRARY_PATH=/usr/lib/oracle/<version>/client(64)/lib/${LD_LIBRARY_PAT
 
 # Conect to windows host from WSL2
 
-Runnign ipconfig on windows will give a wsl ethernet adapter get ip from there e.g 172.24.128.1
+Running ipconfig on windows will give a wsl ethernet adapter get ip from there e.g 172.24.128.1
 
 # Tmux
-
 Install tmux plugin by running Ctrl+a+I
