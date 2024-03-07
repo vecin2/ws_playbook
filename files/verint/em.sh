@@ -1,9 +1,9 @@
-export EM_CORE_HOME=/mnt/c/em/projects/DU/du
+export EM_CORE_HOME=/mnt/c/em/projects/DUO/trunk
 # export EM_CORE_HOME=/mnt/c/em/projects/DTO/trunk
 # export SQL_TEMPLATES_PATH=/mnt/c/Users/dgarcia/dev/python/sqltask-templates/prj_config/templates
 export SQL_TEMPLATES_PATH=C:\\ProgramData\\Verint\\sqltask_templates\\templates
 
-export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_2023R1-HFR_9.1.8
+export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R4-HFR_7.4.4
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){
@@ -50,11 +50,11 @@ scanlogs(){
 }
 
 ccadmin(){
-	#cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
-	cwd=$(pwd)
-	cd "${EM_CORE_HOME}/bin"
-	./ccadmin.bat "$@" | cat
-	cd $cwd
+	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
+	# cwd=$(pwd)
+	# cd "${EM_CORE_HOME}/bin"
+	# ./ccadmin.bat "$@" | cat
+	# cd $cwd
 }
 ad_kill(){
 	dir='C:\ProgramData\Verint\ps_scripts\kill_ad_java.ps1'
@@ -133,4 +133,80 @@ install_ccadmin_autocompletion(){
 		echo "If you want to recreate completions, remove file ${completion_file_location} and run this command again."
 	fi
 }
+snapshot_db(){
+	dst=$(realpath $EM_CORE_HOME/../docker/snapshots)
+	if [ $# -ne 2 ]; then
+		echo "Usage:"
+		echo "snapshot_db <<container_name>> <<snapshot_file_name>> (extension will be appended, do not include)"
+		echo -e "\nWhere container_name must be one of these: "
+		echo $(ls /opt/docker/oracle)
+		echo -e "\nFile will be created under "${dst}" and \".tar.gz\" will be appended"
+		echo 'current files under that folder'
+		echo $(ls ${dst})
+		return 1
+	fi
+	container_name=$1
+	snapshot_file_name=$2
+	echo "Stopping container ${container_name}"
+	docker container stop ${container_name}
+	dest_file="${dst}"/"${snapshot_file_name}".tar.gz
+	if test -f "$dest_file"; then
+		echo "$dest_file exists creating a backup"
+		cp $dest_file $dest_file".backup"
+	else
+		echo "File did not exist - will create one"
+	fi
+	current_path=$(pwd)
+	cd /opt/docker/oracle
+	sudo tar -czvf ${dest_file} ${container_name}
+	echo "${dst}/${2}.tar.gz" has been created
+	echo "Starting container ${container_name}"
+	docker container start ${container_name}
+	cd $current_path
+}
 
+restore_db_snapshot_and_upgrade_db(){
+	sudo echo "" #so we dont to wait for authentication
+	restore_db_snapshot "$@"
+	echo Waiting for DB to start before running upgrade-database
+	sleep 10 
+	ccadmin upgrade-database
+	#ccadmin  import-data -Dcontainer.name=ad -DimportLocation=c:\\em\\projects\\DUO\\trunk\\migration\\migration-2024_03_04_14_44_33_016.jar
+}
+
+restore_db_snapshot(){
+
+	snapshots_path=$(realpath $EM_CORE_HOME/../docker/snapshots)
+	if [ $# -ne 3 ]; then
+		echo "Usage:"
+		echo "restore_snapshot <<container_name>> <<file_name>> <<portname>>"
+		echo -e "\nWhere container_name must be one of these: "
+		echo $(ls /opt/docker/oracle)
+		echo -e "\nFile will be created under \"${snapshots_path}\""
+		echo 'current files under that folder'
+		echo $(ls ${snapshots_path})
+		echo -e "\nAnd Port is typically 1521,1522..."
+		return 1
+	fi
+	container_name=$1
+	snapshot_file_name=$2
+	port=$3
+
+
+
+	echo "Stopping docker container"
+	docker container stop $container_name
+
+	echo "Deleting docker container"
+	docker container rm $container_name
+
+	echo "Remove container data /opt/docker/oracle/$container_name"
+	sudo rm -rf /opt/docker/oracle/$container_name
+
+
+#create container with backup data
+echo "ReCreating container $container_name from image $snapshot_file_name"
+/home/dgarcia/docker/oracle19/create-docker-database.sh $container_name $port ${snapshots_path}/${snapshot_file_name}
+echo "Starting container " $container_name
+docker start $container_name
+}
