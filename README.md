@@ -14,6 +14,28 @@ wsl --install -d <<distribution_name>>
 
 Every so ofter run wsl --update to make sure we are running latest
 
+## Installing a new Ubuntu distribution
+
+For example to upgrade the Ubuntu version from 20.04 to 22.04. Using the wsl commands described in the official microsoft [docs](https://learn.microsoft.com/en-us/windows/wsl/basic-commands):
+```bash
+wsl list #to display the current installed distributions
+wsl --install -d Ubuntu22.04
+wsl --distribution Ubuntu22.04 # to run it
+```
+
+### Setup Windows Terminal For new Distribution
+A new Terminal Seems to be automatically installed when run Ubuntu for the first time. Here is the config that was created within the `setting.json`:
+```json
+{
+  "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
+  "hidden": false,
+  "name": "Ubuntu 22.04.3 LTS",
+  "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
+}
+Because our playbook overrides the settings.json we will need to add this profile to the [settings.json](#files/windowsTerminal/settings.json)
+
+```
+
 # Steps
 
 ## Installing Ansible
@@ -32,7 +54,7 @@ sudo apt install software-properties-common
 #sudo apt-add-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ```
-Installing ansible using apt, makes ansible use the python3 versionthat is configured. If `python3` points to 3.8 will use 3.8, if it points to 3.10 it will use 3.10
+Installing ansible using apt, makes ansible use the python3 version that is configured. If `python3` points to 3.8 will use 3.8, if it points to 3.10 it will use 3.10
 
 
 ## Set-up ssh key
@@ -45,16 +67,26 @@ notepad.exe ~/.ssh/id_ed25519_vecin2.pub
 
 - Start ssh-agent and add key. Run [setup_ssh_key.sh](./setup_ssh_key.sh) passing file name.
 
-- [Install ansible](./install_ansible.sh)
-- Open playbook [linux_ws.yml](./linux_ws.yml) and review the tasks that will be installed
-- Run [wsl-playbook](./run_linux_playbook.sh)
-
 ## Windows
 
 - Install chocolatey if not installed
 - From an admin cmd install the following choco packages:
 
 ```
+# Run ws_playbook
+
+Ansible playbook to confire my dev work station.
+Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.
+Make sure this var is exported: export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_password.txt
+
+- [Install ansible](./install_ansible.sh)
+- Open playbook [linux_ws.yml](./linux_ws.yml) and review the tasks that will be installed
+- Review [vars.yml](./vars.yml)
+- Configure vault_password.txt file
+- Run the playbook with either:
+	- [wsl-playbook](./run_linux_playbook.sh) - use this one for the first time
+	- `ansible-playbook linux_ws.yml -i inventor.yml
+
 # For EM development
 
 choco install -y tortoisesvn virtualbox vagrant
@@ -104,11 +136,6 @@ Change nerdfonts path to something that does ont give pemisission error and then
 Current windows terminal `files/settings.json` is pointing to the font so web-devicons are working on the terminal.
 
 Fira Code: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
-# ws_playbook
-
-Ansible playbook to confire my dev work station.
-Run it with `ansible-playbook local.yml -K` and enter the WSL sudo password.
-Make sure this var is exported: export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_password.txt
 
 #Install on ubuntu
 ag silver searcher so FZF Ctrl+t works
@@ -163,10 +190,6 @@ WSL2 uses a different network so instead we should use:
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 
 Also because it a external address the xlaunch configuration needs to have checked Disable Access Control so it accepts conexions
-
-###Python
-Install python 3.5.7
-Install pip install virtualenvwrapper-win
 
 ##packages
 x - install vim
