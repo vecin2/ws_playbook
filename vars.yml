@@ -7,3 +7,16 @@ myshellfile: zshrc #either bashrc or zshrc
 #Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
 # fonts_installation_path: "/mnt/c/Windows/fonts"
 fonts_installation_path: "{{ansible_env.HOME}}/.fonts"
+shell_util_packages:
+  - unzip
+  - zip
+  - curl
+  - xclip
+  - python-is-python3 #symlink python to python3 so scripts starting with '/usr/bin/env python'
+  #- cmake #used by YouCompleteMe (vim plugin)
+python_packages:
+  #- python3.8-venv #require by pylsp
+  - python3.10
+  - python3-pip
+
+node_version: 21.x

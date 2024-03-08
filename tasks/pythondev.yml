@@ -7,10 +7,8 @@
 - name: "Installing python packages"
   become: yes
   apt:
-    name:
-      - python3-pip
-      - python3.8-venv #require by pylsp
-      - python3.10
+    name: "{{item}}"
+  with_items: "{{python_packages}}"
 
 - import_tasks: tasks/pythondev/virtualenvwrapper.yml
 - import_tasks: tasks/pythondev/pythonvim_IDE.yml
