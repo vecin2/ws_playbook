@@ -1,6 +1,6 @@
 - name: Configure my bash functions
   blockinfile:
-    path: "{{ansible_env.HOME}}/.bashrc"
+    path: "{{myshellrc}}"
     marker: "#{mark} mybash functions"
     content: |
       google() {
