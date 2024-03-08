@@ -2,10 +2,10 @@
 - hosts: wsl
   connection: local
   pre_tasks:
-    # - name: update repositories
-    #   apt: update_cache=yes
-    #   changed_when: false
-    #   become: true
+    - name: update repositories
+      apt: update_cache=yes
+      changed_when: false
+      become: true
     - import_tasks: tasks/facts.yml
   vars_files:
     - '{{playbook_dir}}/vars.yml'
@@ -16,13 +16,17 @@
   tasks:
     # Basic terminal
     - import_tasks: tasks/shell.yml
+      tags: shell
     - import_tasks: tasks/bashrcs.yml
       tags: bashrcs
-    - import_tasks: tasks/mybash_functions.yml
-      tags: bashrcs
-    # ZSH terminal
     - import_tasks: tasks/zsh.yml
       tags: zsh
+    - import_tasks: tasks/mybash_functions.yml
+      tags: shell
+    - import_tasks: tasks/ansible.yml
+    - import_tasks: tasks/nodejs.yml
+      become: true
+      tags: node
     # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - import_tasks: tasks/dircolors.yml
     - import_tasks: tasks/starship.yml
@@ -37,8 +41,6 @@
     - import_tasks: tasks/searchers.yml
     - import_tasks: tasks/git.yml
       tags: git
-    # - import_tasks: tasks/nodejs.yml
-    - import_tasks: tasks/other_packages.yml
     #    - import_tasks: tasks/vim.yml
     - import_tasks: tasks/neovim.yml
     # Cmd line tools
@@ -65,6 +67,5 @@
 
     # Virtualization server
     - import_tasks: tasks/pywinrm.yml
-    - import_tasks: tasks/ansible.yml
 # - import_tasks: tasks/vagrant.yml needs to be install from website to get the
 # latest version
