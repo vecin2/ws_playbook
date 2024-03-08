@@ -1,0 +1,10 @@
+Host github.com-verint
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa
+
+Host github.com-vecin
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa_vecin2
+

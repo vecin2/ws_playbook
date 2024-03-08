@@ -1,5 +1,5 @@
 - name: 'Installing git'
-  become: yes
+  become: true
   apt: name=git
 
 - name: 'Setting gitconfig on wsl2'
@@ -51,3 +51,9 @@
         fi
       }
     create: true
+
+
+- name: Setup SSH Config for Git
+  file: src="{{ playbook_dir }}/files/git/ssh_config" dest="{{ ansible_env.HOME}}/.ssh/config" state=link force=yes
+  tags: git
+
