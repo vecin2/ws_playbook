@@ -1,17 +1,7 @@
 ---
-- name: Configuring ansible in bash
+- name: Configuring ansible vault password file
   blockinfile:
-    path: '{{ansible_env.HOME}}/.profile'
-    create: true
-    marker: '#{mark} Custom Configuration'
-    block: |
-      #password for unlock ansible vault encryption
-      export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_password.txt
-  tags:
-    - ansible
-- name: Configuring ansible in zsh
-  blockinfile:
-    path: '{{ansible_env.HOME}}/.zshrc'
+    path: '{{myshellrc}}'
     create: true
     marker: '#{mark} Custom Configuration'
     block: |
