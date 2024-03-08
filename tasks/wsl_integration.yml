@@ -26,3 +26,18 @@
       export WHOME="/mnt/c/Users/$USER"
       export DOWNLOADS=/mnt/c/Users/dgarcia/Downloads
   tags: wsl_integration
+
+- name: Install "wsl-open" node.js package.
+  become: true
+  npm:
+    name: wsl-open
+    path: '{{ansible_env.HOME}}/.local/'
+    state: present
+    global: true
+  tags: wsl-open
+
+- name: Setting alias 'wo' for wsl-open
+  lineinfile:
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    line: alias wo="wsl-open"
+    create: true

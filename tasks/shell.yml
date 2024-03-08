@@ -1,16 +1,4 @@
 ---
-- name: Setting basic bash environment vars on bashrc
-  blockinfile:
-    path: '{{ansible_env.HOME}}/.bashrc'
-    marker: '#{mark} Setting bash base environment variables'
-    block: |
-      # After each command, append to the history file and reread it
-      export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r; history -n"
-      export EDITOR=vim
-      #Remove user name, hostname and full CWD. Only show the last CWD
-      export PS1="\[\033[01;34m\]\W\[\033[00m\]\$"
-  tags: shell
-
 - name: Set shell
   shell: echo $SHELL
   register: shell_output
@@ -30,3 +18,10 @@
   tags: shell
 - debug: var=usermod_output
   tags: shell
+
+- name: Installing General Util Packages
+  become: true
+  package:
+    name: "{{item}}"
+  with_items: "{{shell_util_packages}}"
+
