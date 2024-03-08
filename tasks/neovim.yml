@@ -11,6 +11,11 @@
     mode: u+x
   tags: nvim
 
+- name: Install Fuse For Running nvim image
+  apt:
+    name: fuse
+    state: present
+
 - name: Create nvim configfolder
   file:
     path: '{{ ansible_env.HOME}}/.config/nvim'
@@ -18,35 +23,29 @@
   tags: nvim
 
 - name: Creating nvim symlinks
-  file: src="{{ playbook_dir }}/files/nvim/{{ item }}" dest="{{ ansible_env.HOME
-    }}/.config/nvim/{{ item }}" state=link force=yes
+  file: src='{{ playbook_dir }}/files/nvim/{{ item }}' dest='{{ ansible_env.HOME }}/.config/nvim/{{ item }}' state=link force=yes
   with_items:
     - init.lua
     - lua
   tags: nvim
 
 - name: Creating common nvim symlinks -config and plugins
-  file: src="{{ playbook_dir }}/files/vim/{{ item }}" dest="{{ ansible_env.HOME
-    }}/.config/nvim/{{ item }}" state=link force=yes
+  file: src='{{ playbook_dir }}/files/vim/{{ item }}' dest='{{ ansible_env.HOME }}/.config/nvim/{{ item }}' state=link force=yes
   with_items:
     - config.vim
     - plugins.vim
   tags: nvim
 
-- name: "Setting alias for nvim"
-  lineinfile:
-    path: "{{ansible_env.HOME}}/.bash_aliases"
-    line: "alias nvim=~/apps/nvim/nvim.appimage "
+- name: Setting aliases for nvim
+  blockinfile:
+    marker: '#{mark} nvim aliases'
+    path: '{{ansible_env.HOME}}/.bash_aliases'
+    content: |
+      alias nvim=~/apps/nvim/nvim.appimage 
+      alias vimdiff='nvim -d'
+      alias vim='nvim'
     create: yes
   tags: nvim
-
-- name: "Setting alias for nvim"
-  lineinfile:
-    path: "{{ansible_env.HOME}}/.bash_aliases"
-    line: "alias vimdiff='nvim -d'"
-    create: yes
-  tags: nvim
-
 - name: Bash configuration for Vim
   blockinfile:
     path: '{{myshellrc}}'
