@@ -70,6 +70,12 @@
         "hidden": false,
         "name": "My Ubuntu 20.04",
         "source": "Windows.Terminal.Wsl"
+      },
+      {
+        "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
+        "hidden": false,
+        "name": "Ubuntu 22.04.3 LTS",
+        "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
       }
     ]
   },
