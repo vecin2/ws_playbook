@@ -206,7 +206,7 @@ restore_db_snapshot(){
 
 #create container with backup data
 echo "ReCreating container $container_name from image $snapshot_file_name"
-/home/dgarcia/docker/oracle19/create-docker-database.sh $container_name $port ${snapshots_path}/${snapshot_file_name}
+/home/dgarcia/dev/docker/mydocker-cmds/oracle19/create-docker-database.sh $container_name $port ${snapshots_path}/${snapshot_file_name}
 echo "Starting container " $container_name
 docker start $container_name
 }
