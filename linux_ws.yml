@@ -66,6 +66,9 @@
     - import_tasks: tasks/luadev.yml
 
     # Virtualization server
+    - import_tasks: tasks/docker.yml
+      become: true
+      tags: docker
     - import_tasks: tasks/pywinrm.yml
 # - import_tasks: tasks/vagrant.yml needs to be install from website to get the
 # latest version

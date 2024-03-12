@@ -25,11 +25,12 @@
 - name: Configure EM aliases
   tags: em
   blockinfile:
-    path: '{{myshellrc}}'
+    path: '{{ansible_env.HOME}}/.bash_aliases'
     marker: '#{mark} EM aliases'
     content: |
       alias tad="cd $EM_CORE_HOME"
       alias ced='wstart ccadmin ced'
+      alias sqltask='sqltask.exe'
       alias rsql='sqltask run-sql'
       alias csql='sqltask create-sql'
       alias tsql='sqltask create-sql'

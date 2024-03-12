@@ -21,12 +21,15 @@
     marker: '#{mark} ssh configuration'
     path: '{{myshellrc}}'
     content: |
-      if ps -p $SSH_AGENT_PID > /dev/null
+      if ! [ -z "${SSH_AGENT_PID}" ]
       then
-        echo "ssh-agent is already running" > /dev/null
-      else
-        eval "$(ssh-agent -s)"
-        ssh-add ~/.ssh/id_ed25519_vecin2
+        if ps -p $SSH_AGENT_PID > /dev/null
+        then
+          echo "ssh-agent is already running" > /dev/null
+        else
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519_vecin2
+        fi
       fi
     create: true
 - name: 'Apply wsl2 git performance workaround'
@@ -54,6 +57,6 @@
 
 
 - name: Setup SSH Config for Git
-  file: src="{{ playbook_dir }}/files/git/ssh_config" dest="{{ ansible_env.HOME}}/.ssh/config" state=link force=yes
+  file: src="{{ playbook_dir }}/files/gitconfig/ssh_config" dest="{{ ansible_env.HOME}}/.ssh/config" state=link force=yes
   tags: git
 

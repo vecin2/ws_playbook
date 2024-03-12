@@ -1,9 +1,10 @@
-export EM_CORE_HOME=/mnt/c/em/projects/DUO/trunk
-# export EM_CORE_HOME=/mnt/c/em/projects/DTO/trunk
-# export SQL_TEMPLATES_PATH=/mnt/c/Users/dgarcia/dev/python/sqltask-templates/prj_config/templates
+#configurable vars
+export EM_CORE_HOME=/mnt/c/em/projects/sgroup/2024_Upgrade/
 export SQL_TEMPLATES_PATH=C:\\ProgramData\\Verint\\sqltask_templates\\templates
-
 export PRODUCT_HOME=/mnt/c/em/products/agent-desktop_15.3-2021R4-HFR_7.4.4
+dbtype=sqlserver #oracle
+
+#Start EM functions
 export AD=$EM_CORE_HOME
 
 last_process_log_path(){
@@ -50,7 +51,7 @@ scanlogs(){
 }
 
 ccadmin(){
-	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" &
+	cmd.exe wslpath -w "${EM_CORE_HOME}/bin/ccadmin.bat" "$@" | cat
 	# cwd=$(pwd)
 	# cd "${EM_CORE_HOME}/bin"
 	# ./ccadmin.bat "$@" | cat
@@ -139,7 +140,7 @@ snapshot_db(){
 		echo "Usage:"
 		echo "snapshot_db <<container_name>> <<snapshot_file_name>> (extension will be appended, do not include)"
 		echo -e "\nWhere container_name must be one of these: "
-		echo $(ls /opt/docker/oracle)
+		echo $(ls /opt/docker/$dbtype)
 		echo -e "\nFile will be created under "${dst}" and \".tar.gz\" will be appended"
 		echo 'current files under that folder'
 		echo $(ls ${dst})
@@ -157,7 +158,7 @@ snapshot_db(){
 		echo "File did not exist - will create one"
 	fi
 	current_path=$(pwd)
-	cd /opt/docker/oracle
+	cd /opt/docker/$dbtype
 	sudo tar -czvf ${dest_file} ${container_name}
 	echo "${dst}/${2}.tar.gz" has been created
 	echo "Starting container ${container_name}"
@@ -181,7 +182,7 @@ restore_db_snapshot(){
 		echo "Usage:"
 		echo "restore_snapshot <<container_name>> <<file_name>> <<portname>>"
 		echo -e "\nWhere container_name must be one of these: "
-		echo $(ls /opt/docker/oracle)
+		echo $(ls /opt/docker/$dbtype)
 		echo -e "\nFile will be created under \"${snapshots_path}\""
 		echo 'current files under that folder'
 		echo $(ls ${snapshots_path})
@@ -200,13 +201,13 @@ restore_db_snapshot(){
 	echo "Deleting docker container"
 	docker container rm $container_name
 
-	echo "Remove container data /opt/docker/oracle/$container_name"
-	sudo rm -rf /opt/docker/oracle/$container_name
+	echo "Remove container data /opt/docker/$dbtype/$container_name"
+	sudo rm -rf /opt/docker/$dbtype/$container_name
 
 
 #create container with backup data
 echo "ReCreating container $container_name from image $snapshot_file_name"
-/home/dgarcia/dev/docker/mydocker-cmds/oracle19/create-docker-database.sh $container_name $port ${snapshots_path}/${snapshot_file_name}
+/home/dgarcia/dev/docker/mydocker-cmds/${dbtype}19/create-docker-database.sh $container_name $port ${snapshots_path}/${snapshot_file_name}
 echo "Starting container " $container_name
 docker start $container_name
 }

@@ -13,7 +13,6 @@ if exists('+termguicolors')
 	highlight Comment cterm=italic
 endif
 "}}}
-"w gf to open non-existing files
 
 " Folding {{{
 "Cheatsheet
@@ -84,8 +83,8 @@ augroup END
 	set number
 	set cursorline
   set signcolumn=yes:1
-	
-	map gf :edit <cfile><cr> "Allow gf to open non-" existing files
+	"Allow gf to open non-existing files"
+	map gf :edit <cfile><cr> 
 	"}}}
 	
 	"Navigating quick list{{{

@@ -4,17 +4,22 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
-
 vim.cmd [[
 nnoremap <leader>t <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>ag <cmd>lua require('telescope.builtin').grep_string()<cr>
-
 nnoremap <leader>r <cmd>lua require('telescope.builtin').command_history()<cr>
-nnoremap <leader>e <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>md <cmd>lua require('dgarcia.telescope').search_dotfiles()<cr>
 ]]
+local builtin = require "telescope.builtin"
+
+vim.keymap.set('n','<leader>md', function()
+	builtin.find_files {cwd = "$DOT_FILES_LOC", prompt_title = "<MYVIMRC>"}
+end, {desc = '[Search] [M]y [D]ot Files'} )
+local builtin = require "telescope.builtin"
+vim.keymap.set('n','<leader>ss', builtin.builtin, {desc = '[Search] [S]elect Telescope' })
+vim.keymap.set('n','<leader>sh', builtin.help_tags, {desc = '[Search] [H]elp' })
+vim.keymap.set('n','<leader>sd', builtin.diagnostics, {desc = '[Search] [D]iagnostics' })
 
 telescope.setup {
   defaults = {
@@ -30,6 +35,10 @@ telescope.setup {
 
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<C-h>"] = actions.preview_scrolling_left,
+        ["<C-l>"] = actions.preview_scrolling_right,
+        ["<M-h>"] = actions.results_scrolling_left,
+        ["<M-l>"] = actions.results_scrolling_right,
 
         ["<C-c>"] = actions.close,
         ["jk"] = actions.close,
@@ -48,12 +57,14 @@ telescope.setup {
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
 
+
         ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["<C-l>"] = actions.complete_tag,
+        ["<C-f>"] = actions.complete_tag,
         ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+
       },
 
       n = {
@@ -84,7 +95,6 @@ telescope.setup {
 
         ["<PageUp>"] = actions.results_scrolling_up,
         ["<PageDown>"] = actions.results_scrolling_down,
-
         ["?"] = actions.which_key,
       },
     },
@@ -107,11 +117,5 @@ telescope.setup {
   },
 }
 local M = {}
-M.search_dotfiles = function()
-	require("telescope.builtin").find_files({
-		prompt_title = "< MYVIMRC >",
-		cwd = "$DOT_FILES_LOC",
-	})
-end
 
 return M

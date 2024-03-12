@@ -10,13 +10,21 @@ fonts_installation_path: "{{ansible_env.HOME}}/.fonts"
 shell_util_packages:
   - unzip
   - zip
+  - tar
   - curl
   - xclip
   - python-is-python3 #symlink python to python3 so scripts starting with '/usr/bin/env python'
   #- cmake #used by YouCompleteMe (vim plugin)
-python_packages:
+python_apt_packages:
   #- python3.8-venv #require by pylsp
   - python3.10
   - python3-pip
+  #Failure when installing poetry in an venv environment
+  - python3.10-venv
+python_pip_packages:
+  - pipx
 
 node_version: 21.x
+
+# Docker
+docker_sqlserver_image: mcr.microsoft.com/mssql/server:2019-latest
