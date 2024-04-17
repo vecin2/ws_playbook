@@ -162,6 +162,8 @@ augroup END
 	nnoremap <silent> <Leader>c :nohl<CR><C-l>
 	"change pwd to current parent folder
 	nnoremap cd. :lcd %:p:h<CR>:pwd<CR>
+	"Only for WSL open File Explorer in windows of parent directory
+	nnoremap <Leader>wo :!wsl-open %:p:h<CR>
 	"}}}
 
 	" Ctrl+S {{{
