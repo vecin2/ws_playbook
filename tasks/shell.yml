@@ -25,3 +25,25 @@
     name: "{{item}}"
   with_items: "{{shell_util_packages}}"
 
+- name: Create NAS mnt Folder
+  win_file:
+    path: '/et/fstab/nas'
+    state: directory
+    recurse: true
+  tags: shell
+
+- name: Add NAS network Drive to Mount drive file
+  become: true
+  lineinfile:
+    path: '/etc/fstab'
+    regexp: ^N
+    line: "N: /mnt/nas drvfs defaults 0 0"
+    create: true
+  when:  "'WSL' in wsl_version"
+  register: mount_nas
+  tags: shell
+
+- name: Run mount command 
+  become: true
+  shell: mount -a
+  when: mount_nas.changed
