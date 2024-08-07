@@ -27,4 +27,4 @@ python_pip_packages:
 node_version: 21.x
 
 # Docker
-docker_sqlserver_image: mcr.microsoft.com/mssql/server:2019-latest
+#docker_sqlserver_image: mcr.microsoft.com/mssql/server:2019-latest

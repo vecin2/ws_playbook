@@ -28,3 +28,4 @@
   community.docker.docker_image:
     name: "{{ docker_sqlserver_image }}"
     source: pull
+  when: docker_sqlserver_image is defined
