@@ -3,15 +3,15 @@
 "if filereadable(expand("~/.vimrc_background"))
 "	    source ~/.vimrc_background
 "endif
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[49;2;%lu;%lu;%lum"
-  set termguicolors
-  set background=dark
-  let g:gruvbox_italic=1
-  colorscheme darkplus
-	highlight Comment cterm=italic
-endif
+"if exists('+termguicolors')
+"  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"  let &t_8b = "\<Esc>[49;2;%lu;%lu;%lum"
+"  set termguicolors
+"  set background=dark
+"  let g:gruvbox_italic=1
+"  "colorscheme darkplus
+"	highlight Comment cterm=italic
+"endif
 "}}}
 
 " Folding {{{
@@ -39,7 +39,7 @@ augroup END
 "lua file setting ----- {{{
 augroup filetype_lua
 	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
+	autocmd FileType lua setlocal foldmethod=marker
 augroup END
 " }}}
 
@@ -58,10 +58,7 @@ augroup END
 	set hlsearch " hilight searched term
 	set smartcase "only applies when ignorecase is set
 	set ignorecase 
-	set smartindent
-	"Allows vim to use ag with ack plugin
-	let g:ackprg = 'ag --nogroup --nocolor --column'
-	nnoremap <leader>a <Esc>:Ack!
+	set smartindent 
 	"}}}
 
 	"Clipboard settings {{{
@@ -148,7 +145,7 @@ augroup END
 	"Mouse config {{{
 	set mouse=a  "enable mouse
 	if !has ('nvim')
-		set ttymouse=sgr
+		set ttymouse=sgr "enable advanced mouse for vim like scrolling
 	endif
 	" }}}
 
@@ -203,7 +200,7 @@ set splitbelow  "force all horizontal splits to go below current window
 se noswapfile
 set undofile "persistent save
 set tabstop=2 shiftwidth=2 softtabstop=2 "generic tabwidth
-let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL 
+" let g:netrw_browsex_viewer="cmd.exe /C start" "for gx to work on WSL 
 "}}}
 
 	"Setting tabs Set tabstop, softtabstop and shiftwidth to the same value {{{
