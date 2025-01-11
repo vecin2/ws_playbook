@@ -1,0 +1,12 @@
+- name: Add Libreoffice repository into sources list
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: ppa:libreoffice/ppa
+    state: present
+
+- name: "Installing  Libreoffice"
+  become: yes
+  apt:
+    name: "{{item}}"
+  with_items: "{{desktop_packages}}"
+
