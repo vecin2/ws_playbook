@@ -9,6 +9,8 @@ myshellfile: zshrc #either bashrc or zshrc
 fonts_installation_path: "{{ansible_env.HOME}}/.fonts"
 shell_util_packages:
   - unzip
+  - gcc #c compiler require to install tmux from source
+  - make #require to install tmux from tar.gz file
   - zip
   - tar
   - curl
@@ -16,15 +18,33 @@ shell_util_packages:
   - python-is-python3 #symlink python to python3 so scripts starting with '/usr/bin/env python'
   #- cmake #used by YouCompleteMe (vim plugin)
 python_apt_packages:
+  - pipx #to install the global python packages
   #- python3.8-venv #require by pylsp
-  - python3.10
+  - python3
   - python3-pip
   #Failure when installing poetry in an venv environment
   - python3.10-venv
-python_pip_packages:
-  - pipx
+# python_pip_packages:
+#   - pipx
 
-node_version: 21.x
+desktop_packages:
+  - libreoffice
+  - nautilus
+
+node_version: "22.x"
 
 # Docker
 #docker_sqlserver_image: mcr.microsoft.com/mssql/server:2019-latest
+
+
+# host_roles:
+#   java_developer:
+#      - role: eclipse
+#        path: /usr/local
+#      - role: java
+#        type: jre
+#   python_developer:
+#      - role: python
+#        version: 3.12
+#   role_testing:
+#     - name: test-role

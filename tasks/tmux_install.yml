@@ -8,7 +8,7 @@
   tags: tmux
 
 
-- name: Installing require packages
+- name: Installing tmux require packages
   become: true
   apt:
     name:  # require to build tmux from tar file

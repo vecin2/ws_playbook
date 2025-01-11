@@ -12,8 +12,9 @@
   tags: nvim
 
 - name: Install Fuse For Running nvim image
+  become: true
   apt:
-    name: fuse
+    name: libfuse2t64 #fuse conflicts with fuse3
     state: present
 
 - name: Create nvim configfolder

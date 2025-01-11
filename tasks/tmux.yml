@@ -47,6 +47,7 @@
     regexp: '^plugins=\((.*)\)'
     line: 'plugins=(\1 tmux)'
     backrefs: yes 
+    state: absent
   tags: tmux
 
 - name: Auto-open Tmux on zsh - configure tmux plugin (2/2)

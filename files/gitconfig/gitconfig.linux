@@ -1,7 +1,9 @@
-[includeIf "gitdir/i:~/"]
-	path = .gitconfig-personal
-#[includeIf "gitdir/i:~/dev/python/em-task/"]
-#	path = .gitconfig-work
+# [includeIf "gitdir/i:~/"]
+# 	path = .gitconfig-personal
+
+[user]
+	email = vecin2@gmail.com
+	name = vecin2
 
 [init]
 	templatedir = $HOME/.git_template

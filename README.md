@@ -1,5 +1,9 @@
 # Introduction
 
+This repository intends to configure my work stations.
+
+I primarily work with 
+
 This repository intends to help setting my wsl environment within a Windows 10 machine.
 
 The first step will be to install wsl on windows 10 so git is available. To do that run the following commands:
@@ -38,6 +42,10 @@ Because our playbook overrides the settings.json we will need to add this profil
 
 # Steps
 
+- Install WSL (only for windows)
+- Installing ansible
+- Setup ssh key
+
 ## Installing Ansible
 
 After installing WSL we need to install Ansible on WSL. 
@@ -70,9 +78,7 @@ notepad.exe ~/.ssh/id_ed25519_vecin2.pub
 ## Windows
 
 - Install chocolatey if not installed
-- From an admin cmd install the following choco packages:
 
-```
 # Run ws_playbook
 
 Ansible playbook to confire my dev work station.

@@ -6,7 +6,7 @@
     elif [[ {{ansible_kernel}} == *'Microsoft'* ]]; then
         echo "WSL1"
     else
-        echo "NO_WSL"
+        echo ""
     fi
   args:
     executable: "/bin/bash"
@@ -17,13 +17,13 @@
     wsl_version: "{{wsl_version_checker.stdout}}"
   tags: always
 
-- name: Setting Windows username
-  shell: |
-    powershell.exe '$env:UserName'
-  args:
-    executable: "/bin/bash"
-  tags: always
-  register: wsl_version_checker
+#- name: Setting Windows username
+#  shell: |
+#    powershell.exe '$env:UserName'
+#  args:
+#    executable: "/bin/bash"
+#  tags: always
+#  register: wsl_version_checker
 
 - set_fact:
     win_username: "{{wsl_version_checker.stdout}}"

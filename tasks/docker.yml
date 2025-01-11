@@ -24,8 +24,8 @@
     state: latest
     update_cache: true
 
-- name: Pull SQL Server Docker Image
-  community.docker.docker_image:
-    name: "{{ docker_sqlserver_image }}"
-    source: pull
-  when: docker_sqlserver_image is defined
+#- name: Pull SQL Server Docker Image
+#  community.docker.docker_image:
+#    name: "{{ docker_sqlserver_image }}"
+#    source: pull
+#  when: docker_sqlserver_image is defined

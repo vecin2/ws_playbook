@@ -10,11 +10,12 @@
     name: "{{item}}"
   with_items: "{{python_apt_packages}}"
 
-- name: "Installing python pip packages"
-  become: yes
-  ansible.builtin.pip:
-    name: "{{item}}"
-  with_items: "{{python_pip_packages}}"
+# - name: "Installing python pip packages"
+#   become: yes
+#   ansible.builtin.pip:
+#     name: "{{item}}"
+#   with_items: "{{python_pip_packages}}"
 
+- import_tasks: tasks/pythondev/pyenv.yml
 - import_tasks: tasks/pythondev/virtualenvwrapper.yml
 - import_tasks: tasks/pythondev/pythonvim_IDE.yml
