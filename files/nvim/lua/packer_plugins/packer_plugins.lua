@@ -60,19 +60,23 @@ return packer.startup(function(use)
 	--  UI{{{
 	use("lunarvim/darkplus.nvim")
 	use("morhetz/gruvbox")
-	use("kyazdani42/nvim-web-devicons")
+	use("kyazdani42/nvim-web-devicons") --add devicons for telescope and for nvim-tree
 	use("nvim-lualine/lualine.nvim")
 	use("lukas-reineke/indent-blankline.nvim")
 	-- use "goolord/alpha-nvim"
 	-- }}}
 	-- Navigation{{{
-	use("tpope/vim-unimpaired")
-	use("kyazdani42/nvim-tree.lua")
-	use("ahmedkhalf/project.nvim")
-	use("terryma/vim-smooth-scroll")
-	use("christoomey/vim-tmux-navigator")
-	use("nelstrom/vim-visual-star-search")
-	use("nvim-telescope/telescope.nvim")
+	use{"tpope/vim-unimpaired"}
+	use{"kyazdani42/nvim-tree.lua"}
+	use{"ahmedkhalf/project.nvim"}
+	use{"terryma/vim-smooth-scroll"}
+	use{"christoomey/vim-tmux-navigator"}
+	use{"nelstrom/vim-visual-star-search"}
+	
+	use{"nvim-telescope/telescope.nvim",
+			 requires = {{'nvim-telescope/telescope-fzf-native.nvim',  run = 'make'}}
+	}
+
 	use({
 		"stevearc/aerial.nvim", -- summary method leader+a
 		config = function()
@@ -84,25 +88,20 @@ return packer.startup(function(use)
 	--}}}
 
 	--Editing{{{
-	use("https://github.com/tpope/vim-repeat.git")
-	use("https://github.com/tpope/vim-surround.git")
-	use("https://github.com/tommcdo/vim-exchange.git")
-	use("windwp/nvim-autopairs") -- integrates with both cmp and treesitter
-	use("numToStr/Comment.nvim") -- Easily comment stuff
+	use{"https://github.com/tpope/vim-repeat.git"}
+	use{"https://github.com/tpope/vim-surround.git"}
+	use{"https://github.com/tommcdo/vim-exchange.git"}
+	-- use("windwp/nvim-autopairs") -- integrates with both cmp and treesitter
+	use{"numToStr/Comment.nvim"} -- Easily comment stuff
 	-- use("JoosepAlviste/nvim-ts-context-commentstring")
-	use("L3MON4D3/LuaSnip") --snippet engine
-	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+	use{"L3MON4D3/LuaSnip"} --snippet engine
+	use{"rafamadriz/friendly-snippets"} -- a bunch of snippets to use
 	--}}}
 	--Javascript{{{{
 	-- use('mustache/vim-mustache-handlebars')
 	--}
 	-- cmp plugins{{{
-	use("hrsh7th/nvim-cmp") -- The completion plugin
-	use("hrsh7th/cmp-buffer") -- buffer completions
-	use("hrsh7th/cmp-path") -- path completions
-	use("hrsh7th/cmp-cmdline") -- cmdline completions
-	use("saadparwaiz1/cmp_luasnip") -- snippet completions
-	use("hrsh7th/cmp-nvim-lsp")
+	-- use{"hrsh7th/nvim-cmp", event = "InsertEnter", requires = {{'hrsh7th/cmp-buffer','hrsh7th/cmp-path','hrsh7th/cmp-cmdline','saadparwaiz1/cmp_luasnip','hrsh7th/cmp-nvim-lsp'}}}
 	--}}}
 
 	--	LSP{{{
@@ -112,14 +111,14 @@ return packer.startup(function(use)
 		"neovim/nvim-lspconfig",
 	})
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
-	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
-	use("frbor/python-lsp-autoimport") -- for formatters and linters
+	-- use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+	-- use("frbor/python-lsp-autoimport") -- for formatters and linters
 	use("pedro757/emmet") -- for emmet web-dev
 	--}}}
 
 	-- Git{{{
 	use("lewis6991/gitsigns.nvim")
-	use("tpope/vim-fugitive")
+	use{"tpope/vim-fugitive"}
 	--}}}
 
 	--Bootstrap packer{{{

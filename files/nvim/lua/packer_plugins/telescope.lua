@@ -4,22 +4,30 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
-vim.cmd [[
-nnoremap <leader>t <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>g <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>ag <cmd>lua require('telescope.builtin').grep_string()<cr>
-nnoremap <leader>r <cmd>lua require('telescope.builtin').command_history()<cr>
-]]
+
+local keymap = vim.keymap --for conciseness
 local builtin = require "telescope.builtin"
 
-vim.keymap.set('n','<leader>md', function()
+keymap.set("n", "<leader>t", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd"})
+keymap.set("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find buffers"})
+keymap.set('n', '<leader>b', function()
+  builtin.buffers({
+		ignore_current_buffer = true,
+    sort_mru = true,
+  })
+end)
+keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find previously open files"})
+keymap.set("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { desc = "Fuzzy string in cwd"})
+keymap.set("n", "<leader>ag", "<cmd>Telescope grep_string<cr>", { desc = "Fuzzy string under cursor in cwd"})
+keymap.set("n", "<leader>r", "<cmd>Telescope command_history<cr>", { desc = "Fuzzy tind files in cwd"})
+
+
+keymap.set('n','<leader>md', function()
 	builtin.find_files {cwd = "$DOT_FILES_LOC", prompt_title = "<MYVIMRC>"}
 end, {desc = '[Search] [M]y [D]ot Files'} )
-local builtin = require "telescope.builtin"
-vim.keymap.set('n','<leader>ss', builtin.builtin, {desc = '[Search] [S]elect Telescope' })
-vim.keymap.set('n','<leader>sh', builtin.help_tags, {desc = '[Search] [H]elp' })
-vim.keymap.set('n','<leader>sd', builtin.diagnostics, {desc = '[Search] [D]iagnostics' })
+keymap.set('n','<leader>ss', builtin.builtin, {desc = '[Search] [S]elect Telescope' })
+keymap.set('n','<leader>sh', builtin.help_tags, {desc = '[Search] [H]elp' })
+keymap.set('n','<leader>sd', builtin.diagnostics, {desc = '[Search] [D]iagnostics' })
 
 telescope.setup {
   defaults = {
@@ -116,6 +124,7 @@ telescope.setup {
     -- please take a look at the readme of the extension you want to configure
   },
 }
+telescope.load_extension('fzf')
 local M = {}
 
 return M
