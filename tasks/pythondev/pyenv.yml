@@ -1,0 +1,11 @@
+---
+- name: install pyenv
+  import_role:
+    name: staticdev.pyenv
+  vars:
+    pyenv_env: 'user' # ~/.pyenv
+    pyenv_enable_autocompletion: true
+    pyenv_update: true #update plugin to allow update pyenv with 'pyenv update'
+    pyenv_global: ["3.13.1"] #defines version available globally for each shell
+    pyenv_python_versions: ["3.13.1"] #install python version
+    pyenv_shellrc_file: "{{myshellrc}}" #points either to zsh or bash (role defaults to bashrc for user installation)
