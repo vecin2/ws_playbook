@@ -14,6 +14,8 @@
     ansible_become_pass: '{{sudo_pass}}'
 
   tasks:
+    - import_tasks: tasks/desktop.yml
+      tags: desktop
     # Basic terminal
     - import_tasks: tasks/shell.yml
       tags: shell
@@ -21,22 +23,16 @@
       tags: bashrcs
     - import_tasks: tasks/zsh.yml
       tags: zsh
-    - import_tasks: tasks/mybash_functions.yml
-      tags: shell
+    #- import_tasks: tasks/mybash_functions.yml
+    #  tags: shell
     - import_tasks: tasks/ansible.yml
     - import_tasks: tasks/nodejs.yml
       become: true
-      tags: node
+      tags: nodejs
     # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
     - import_tasks: tasks/dircolors.yml
     - import_tasks: tasks/starship.yml
-    - import_tasks: tasks/windows_nerdfonts.yml
-      tags: nerdfonts
-    - import_tasks: tasks/windows_terminal.yml
-      when: "'WSL' in wsl_version"
-    - import_tasks: tasks/wsl_display.yml
-      when: "'WSL' in wsl_version"
-    - import_tasks: tasks/wsl_integration.yml
+    - import_tasks: tasks/wsl_tasks.yml
       when: "'WSL' in wsl_version"
     - import_tasks: tasks/searchers.yml
     - import_tasks: tasks/git.yml
@@ -52,7 +48,7 @@
     # Other apps
     - import_tasks: tasks/tmux.yml
     - import_tasks: tasks/tmuxinator.yml
-    - import_tasks: tasks/verint_em_shell.yml
+    #- import_tasks: tasks/verint_em_shell.yml
 
     # Python
     - import_tasks: tasks/pythondev.yml
@@ -69,6 +65,6 @@
     - import_tasks: tasks/docker.yml
       become: true
       tags: docker
-    - import_tasks: tasks/pywinrm.yml
+    #- import_tasks: tasks/pywinrm.yml
 # - import_tasks: tasks/vagrant.yml needs to be install from website to get the
 # latest version
