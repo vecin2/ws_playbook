@@ -10,3 +10,7 @@
     name: "{{item}}"
   with_items: "{{desktop_packages}}"
 
+- name: Installing Synology Drive
+  import_tasks: tasks/desktop/synology_drive.yml
+  tags: synology
+

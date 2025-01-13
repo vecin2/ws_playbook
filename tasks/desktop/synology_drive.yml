@@ -1,0 +1,20 @@
+- name: Check if Synology Drive Exist
+  ansible.builtin.stat:
+    path: /usr/bin/synology-drive  # Replace with the file or binary that confirms package is installed
+  register: synology_drive_stat
+
+- name: Download synology-drive .deb package
+  ansible.builtin.get_url:
+    url: https://global.synologydownload.com/download/Utility/SynologyDriveClient/{{synology_drive_version}}/Ubuntu/Installer/synology-drive-client-{{synology_drive_minor_version}}.x86_64.{{synology_drive_package_type}}?model={{nas_model}}&dsm_version={{dsm_version}}&build_number={{build_number}}
+    dest: "{{synology_drive_download_path}}"
+  when: not synology_drive_stat.stat.exists
+
+- name: Install .deb package
+  become: true
+  ansible.builtin.apt:
+    deb: "{{synology_drive_download_path}}"
+
+# - name: Clean up synology drive .deb file
+#   ansible.builtin.file:
+#     path: "{{synology_drive_download_path}}"
+#     state: absent
