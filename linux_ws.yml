@@ -53,6 +53,9 @@
     # Python
     - import_tasks: tasks/pythondev.yml
       tags: python
+    # Java
+    - import_tasks: tasks/javadev.yml
+      tags: java
     # JavaScript
     - import_tasks: tasks/javascript.yml
       tags: javascript
