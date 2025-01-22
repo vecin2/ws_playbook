@@ -4,7 +4,7 @@
     repo: ppa:libreoffice/ppa
     state: present
 
-- name: "Installing  Libreoffice"
+- name: "Installing Desktop Packages"
   become: yes
   apt:
     name: "{{item}}"
