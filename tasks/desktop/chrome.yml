@@ -1,0 +1,21 @@
+- name: Download Google Chrome GPG key 
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ google_chrome_key_url }}"
+    dest: "{{ google_chrome_key_dest}}"
+
+- name: Add Google Chrome repository
+  become: true
+  ansible.builtin.deb822_repository:
+    name: google-chrome
+    uris: "{{ google_chrome_repo }}"
+    suites: "{{ google_chrome_suite }}"
+    components: "{{ google_chrome_components }}"
+    signed_by: "{{ google_chrome_key_dest }}"
+    state: present
+
+- name: Install Google Chrome
+  become: true
+  ansible.builtin.apt:
+    name: google-chrome-stable
+    state: present
