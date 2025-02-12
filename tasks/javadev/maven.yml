@@ -1,0 +1,8 @@
+---
+- name: Installing maven from galaxy role
+  become: true #if /opt folder is owned by root
+  import_role:
+    name: gantsign.maven
+  vars:
+    maven_version: '3.9.9'
+    maven_redis_sha256sum: '7a9cdf674fc1703d6382f5f330b3d110ea1b512b51f1652846d9e4e8a588d766'

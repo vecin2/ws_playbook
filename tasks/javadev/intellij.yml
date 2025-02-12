@@ -1,0 +1,11 @@
+---
+#the role keeps unzipping the intellij (no indempotentcy)
+- name: Check if IntelliJ is already installed
+  stat:
+    path: "/opt/intellij"  # Adjust to correct installation path
+  register: intellij_installed
+- name: Installing eclipse from galaxy role
+  become: true #if /opt folder is owned by root
+  import_role: 
+    name: jdauphant.intellij
+  when: not intellij_installed.stat.exists
