@@ -69,5 +69,7 @@
       become: true
       tags: docker
     #- import_tasks: tasks/pywinrm.yml
+    - import_tasks: tasks/homecloud.yml
+      tags: homecloud
 # - import_tasks: tasks/vagrant.yml needs to be install from website to get the
 # latest version

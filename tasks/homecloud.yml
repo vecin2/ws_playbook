@@ -1,0 +1,10 @@
+- name: Create mount folders
+  become: true
+  file:
+    path: "/mnt/{{ item }}"
+    state: absent
+    owner: root
+    group: root
+    mode: 777 #permission will be controlled from nas side
+  loop:
+    - PlexMedia
