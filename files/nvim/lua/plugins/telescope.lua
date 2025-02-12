@@ -1,38 +1,37 @@
-
 local config = function()
 	local telescope = require("telescope")
 	local actions = require ("telescope.actions")
 	telescope.setup({
-  defaults = {
-    prompt_prefix = " ",
-    selection_caret = " ",
-    path_display = { "smart" },
+		defaults = {
+			prompt_prefix = " ",
+			selection_caret = " ",
+			path_display = { "smart" },
 
-    mappings = {
-      i = {
+			mappings = {
+				i = {
 					--navigate telescope search history
-        ["<C-n>"] = actions.cycle_history_next,
-        ["<C-p>"] = actions.cycle_history_prev,
+					["<C-n>"] = actions.cycle_history_next,
+					["<C-p>"] = actions.cycle_history_prev,
 
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-h>"] = actions.preview_scrolling_left,
-        ["<C-l>"] = actions.preview_scrolling_right,
-        ["<M-h>"] = actions.results_scrolling_left,
-        ["<M-l>"] = actions.results_scrolling_right,
+					["<C-j>"] = actions.move_selection_next,
+					["<C-k>"] = actions.move_selection_previous,
+					["<C-h>"] = actions.preview_scrolling_left,
+					["<C-l>"] = actions.preview_scrolling_right,
+					["<M-h>"] = actions.results_scrolling_left,
+					["<M-l>"] = actions.results_scrolling_right,
 
-        ["jk"] = actions.close,
-        ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
-      },
+					["jk"] = actions.close,
+					["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+				},
 
-      n = {
-        ["?"] = actions.which_key,
-      },
-    },
-  },
-})
+				n = {
+					["?"] = actions.which_key,
+				},
+			},
+		},
+	})
 
-  telescope.load_extension("fzf")
+	telescope.load_extension("fzf")
 	-- See `:help telescope.builtin`
 	local builtin = require 'telescope.builtin'
 	vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -44,7 +43,9 @@ local config = function()
 	vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 	vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 	vim.keymap.set('n', '<leader>so', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-	vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+	vim.keymap.set('n', '<leader><leader>', function()
+		builtin.buffers({ ignore_current_buffer = true, sort_mru = true, })
+	end, {desc = '[ ] Find existing buffers' })
 
 	-- Slightly advanced example of overriding default behavior and theme
 	vim.keymap.set('n', '<leader>/', function()
