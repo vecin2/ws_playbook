@@ -1,0 +1,49 @@
+---
+- name: Ensure dependencies are installed
+  apt:
+    name: curl
+    state: present
+
+- name: Check if NordVPN is already installed
+  command: dpkg-query -W nordvpn
+  register: nordvpn_check
+  failed_when: nordvpn_check.rc > 1
+  changed_when: false
+
+- name: Download and install NordVPN repository
+  shell: curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh | sh
+  when: nordvpn_check.rc != 0  # Run only if NordVPN is not installed
+
+- name: Ensure NordVPN service is running
+  become: true
+  systemd:
+    name: nordvpnd
+    state: started
+    enabled: yes
+
+# - name: Enable auto-connect on startup
+#   shell: nordvpn set autoconnect on
+#   when: nordvpn_check.rc == 0  # Run only if NordVPN is installed
+
+# - name: Set NordVPN protocol to NordLynx (WireGuard)
+#   shell: nordvpn set technology nordlynx
+#   when: nordvpn_check.rc == 0
+
+# - name: Connect to NordVPN
+#   shell: nordvpn connect
+#   when: nordvpn_check.rc == 0
+
+- name: Ensure NordVPN group exists
+  group:
+    name: nordvpn
+    state: present
+
+- name: Add current user to NordVPN group
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: nordvpn
+    append: yes
+
+- name: Inform user to reboot
+  debug:
+    msg: "Please reboot the system for NordVPN permissions to take effect."
