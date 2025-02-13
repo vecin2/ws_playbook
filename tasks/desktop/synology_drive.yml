@@ -9,7 +9,7 @@
     dest: "{{synology_drive_download_path}}"
   when: not synology_drive_stat.stat.exists
 
-- name: Install .deb package
+- name: Install synology-drive .deb package
   become: true
   ansible.builtin.apt:
     deb: "{{synology_drive_download_path}}"
