@@ -1,10 +1,15 @@
 
 ## Ansible Project
+improve overall ansible experience, formatting linting, lsp
+
 Organize by aspects: Python dev should include vim, pip packages and everything to do with python 
 
 Install tssserver and css server  and possibly handle bars (already installed as a plugin)
 npm install -g typescript-language-server typescript
 npm install -g cssmodules-language-server
+
+### Lua
+- use an opinitionted formatting. For example format telescope.lua does not change the format on the buffers properties to have them like the current_buffer_fuzzy_find, telesope themes
 
 ## Vim
 git commit title highlight text after 50 chars
