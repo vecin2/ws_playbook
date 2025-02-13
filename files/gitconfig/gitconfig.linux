@@ -1,12 +1,12 @@
-# [includeIf "gitdir/i:~/"]
-# 	path = .gitconfig-personal
+[includeIf "gitdir/i:~/dev/"]
+	path = .gitconfig-personal
 
-[user]
-	email = vecin2@gmail.com
-	name = vecin2
+[includeIf "gitdir/i:~/roar/"]
+	path = .gitconfig-work
 
 [init]
-	templatedir = $HOME/.git_template
+	#templatedir = $HOME/.git_template
+	defaultBranch = main
 [alias]
 	ctags = !.git/hooks/ctags
 	co = commit
@@ -14,9 +14,14 @@
 [core]
 	excludesFile = /home/dgarcia/.gitignore_global
 	editor = vim
+	ignoreCase = false
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
 [difftool "vimdiff"]
-	path = /home/dgarcia//apps/nvim/nvim.appimage
+	path = /home/dgarcia/apps/nvim/nvim.appimage
+[fetch]
+    prune = true
+[pull]
+    rebase = true

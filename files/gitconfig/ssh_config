@@ -1,10 +1,13 @@
-Host github.com-verint
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/id_rsa
+# Personal GitHub
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
 
-Host github.com-vecin
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/id_rsa_vecin2
-
+# Azure DevOps (Company)
+Host azure
+    HostName vs-ssh.visualstudio.com
+    User roarinc
+    IdentityFile ~/.ssh/id_rsa_azure
+    IdentitiesOnly yes
