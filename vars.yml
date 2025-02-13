@@ -8,6 +8,7 @@ myshellfile: zshrc #either bashrc or zshrc
 # fonts_installation_path: "/mnt/c/Windows/fonts"
 fonts_installation_path: "{{ansible_env.HOME}}/.fonts"
 shell_util_packages:
+  - nfs-common #to mount nfs drive (access to nas)
   - unzip
   - unrar
   - gcc #c compiler require to install tmux from source
@@ -18,6 +19,8 @@ shell_util_packages:
   - xclip
   - python-is-python3 #symlink python to python3 so scripts starting with '/usr/bin/env python'
   #- cmake #used by YouCompleteMe (vim plugin)
+  - tree #get project structures visually
+  - htop #friend top to view memory
 python_apt_packages:
   - pipx #to install the global python packages
   #- python3.8-venv #require by pylsp
@@ -36,6 +39,19 @@ desktop_packages:
   - libreoffice
   - nautilus
   - evince
+  - transmission-gtk #torrent client
+  - qbittorrent
+  - thunderbird
+  - caffeine #to stay awake
+
+google_chrome_repo: "https://dl.google.com/linux/chrome/deb/"
+google_chrome_suite: "stable"
+google_chrome_components: "main"
+google_chrome_key_url: "https://dl.google.com/linux/linux_signing_key.pub"
+google_chrome_key_dest: "/usr/share/keyrings/google-archive-keyring.asc"
+
+install_nordvpn: true
+install_teams_for_linux: true
 
 node_version: "22.x"
 
