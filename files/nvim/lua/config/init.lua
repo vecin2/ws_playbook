@@ -40,35 +40,37 @@ end
 	vim.keymap.set('n', '<leader>,', 'zMzv', opts) -- Close all folds and re-evaluate
 
 	vim.opt.foldlevelstart = 0 --start file with all folds closed
+	vim.opt.foldexpr = 'v:lua.wincent.foldexpr(v:lnum)'
+	vim.opt.foldmethod = 'expr'
 -- }}}
 
--- Vimscript folding {{{
-local augroup = vim.api.nvim_create_augroup("filetype_vim", { clear = true })
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  pattern = "vim",
-  callback = function()
-    vim.opt_local.foldmethod = "marker"
-  end,
-})
--- }}}
-
--- Lua folding {{{
+-- -- Vimscript folding {{{
+-- local augroup = vim.api.nvim_create_augroup("filetype_vim", { clear = true })
 --
-local augroup = vim.api.nvim_create_augroup("filetype_lua", { clear = true })
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = augroup,
+--   pattern = "vim",
+--   callback = function()
+--     vim.opt_local.foldmethod = "marker"
+--   end,
+-- })
+-- -- }}}
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  pattern = "lua",
-  callback = function()
-    -- vim.opt_local.foldmethod = "marker"
-		opt.foldmethod = "expr"
-		opt.foldlevel = 3
-		opt.foldexpr = "nvim_treesitter#foldexpr()"
-  end,
-})
---}}}
+-- -- Lua folding {{{
+-- --
+-- local augroup = vim.api.nvim_create_augroup("filetype_lua", { clear = true })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = augroup,
+--   pattern = "lua",
+--   callback = function()
+--     -- vim.opt_local.foldmethod = "marker"
+-- 		opt.foldmethod = "expr"
+-- 		opt.foldlevel = 3
+-- 		opt.foldexpr = "nvim_treesitter#foldexpr()"
+--   end,
+-- })
+-- --}}}
 
 -- xml folding {{{
 local xml_augroup = vim.api.nvim_create_augroup("filetype_xml", { clear = true })
@@ -82,7 +84,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 -- }}}
 
--- {{{ Indenting and Formating
+-- Indenting and Formating {{{
 vim.opt.smartindent = true
 vim.opt.tabstop = 2         -- Number of spaces per tab
 vim.opt.shiftwidth = 2      -- Number of spaces for each auto-indent

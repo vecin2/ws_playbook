@@ -40,43 +40,45 @@ end
 	vim.keymap.set('n', '<leader>,', 'zMzv', opts) -- Close all folds and re-evaluate
 
 	vim.opt.foldlevelstart = 0 --start file with all folds closed
+
+	vim.opt.foldexpr = 'v:lua.wincent.foldexpr(v:lnum)' --function combines marker {{{ with indent folding
 -- }}}
 
--- Vimscript folding {{{
-local augroup = vim.api.nvim_create_augroup("filetype_vim", { clear = true })
+-- -- Vimscript folding {{{
+-- local augroup = vim.api.nvim_create_augroup("filetype_vim", { clear = true })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = augroup,
+--   pattern = "vim",
+--   callback = function()
+--     vim.opt_local.foldmethod = "marker"
+--   end,
+-- })
+-- -- }}}
+--
+-- -- Lua folding {{{
+-- local augroup = vim.api.nvim_create_augroup("filetype_lua", { clear = true })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = augroup,
+--   pattern = "lua",
+--   callback = function()
+--     vim.opt_local.foldmethod = "marker"
+--   end,
+-- })
+-- --}}}
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  pattern = "vim",
-  callback = function()
-    vim.opt_local.foldmethod = "marker"
-  end,
-})
--- }}}
-
--- Lua folding {{{
-local augroup = vim.api.nvim_create_augroup("filetype_lua", { clear = true })
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup,
-  pattern = "lua",
-  callback = function()
-    vim.opt_local.foldmethod = "marker"
-  end,
-})
---}}}
-
--- xml folding {{{
-local xml_augroup = vim.api.nvim_create_augroup("filetype_xml", { clear = true })
-vim.g.xml_syntax_folding = 1
-vim.api.nvim_create_autocmd("FileType", {
-  group = xml_augroup,
-  pattern = "xml",
-  callback = function()
-    vim.opt_local.foldmethod = "syntax"
-  end,
-})
--- }}}
+-- -- xml folding {{{
+-- local xml_augroup = vim.api.nvim_create_augroup("filetype_xml", { clear = true })
+-- vim.g.xml_syntax_folding = 1
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = xml_augroup,
+--   pattern = "xml",
+--   callback = function()
+--     vim.opt_local.foldmethod = "syntax"
+--   end,
+-- })
+-- -- }}}
 
 -- {{{ Indenting and Formating
 vim.opt.smartindent = true

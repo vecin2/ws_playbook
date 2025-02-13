@@ -3,6 +3,7 @@ vim.g.maplocalleader = ' '
 
 
 
+require('wincent') --contains folding expr
 require("config")
 
 --{{{ Bootstrap lazy.nvim
