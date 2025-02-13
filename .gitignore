@@ -2,3 +2,4 @@
 *.zip
 *.un~
 .pytest_cache
+roles/
