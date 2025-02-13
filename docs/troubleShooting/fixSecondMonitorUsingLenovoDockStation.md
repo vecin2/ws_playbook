@@ -50,3 +50,11 @@ xrandr --query
 Conclusion
 
 By installing the proper drivers and enrolling the MOK key, the external monitor connected via the docking station was successfully detected on Ubuntu.
+
+### After Upgrading Ubuntu
+
+After upgrading Ubuntu, the external monitor stopped working. To resolve this issue, I had to reinstall the DisplayLink driver by running the following command:
+
+`sudo apt install --reinstall displaylink-driver`
+
+That made work the external monitor without even restarting.

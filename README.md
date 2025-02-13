@@ -2,7 +2,7 @@
 
 This repository intends to configure my work stations.
 
-I primarily work with 
+Some tools are [installed manually](docs/manual_installed_tools.md).
 
 This repository intends to help setting my wsl environment within a Windows 10 machine.
 
