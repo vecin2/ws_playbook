@@ -1,0 +1,5 @@
+#This could be deleted as it doesnt seem to be required
+- name: Install Teams for Linux using Snap
+  become: true
+  community.general.snap:
+    name: teams-for-linux
