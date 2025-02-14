@@ -8,10 +8,10 @@
       become: true
     - import_tasks: tasks/facts.yml
   vars_files:
-    - '{{playbook_dir}}/vars.yml'
-    - '{{playbook_dir}}/passwords.yml'
+    - "{{playbook_dir}}/vars.yml"
+    - "{{playbook_dir}}/passwords.yml"
   vars:
-    ansible_become_pass: '{{sudo_pass}}'
+    ansible_become_pass: "{{sudo_pass}}"
 
   tasks:
     - import_tasks: tasks/desktop.yml
@@ -46,7 +46,8 @@
     - import_tasks: tasks/zoxide.yml
 
     # Other apps
-    - import_tasks: tasks/tmux.yml
+    - import_tasks: tasks/tmux.yml #3.4 can now be install with apt
+      tags: tmux
     - import_tasks: tasks/tmuxinator.yml
     #- import_tasks: tasks/verint_em_shell.yml
 

@@ -1,7 +1,6 @@
 myshell: zsh #either zsh or bash
 myshellfile: zshrc #either bashrc or zshrc
 
-
 # Windows for WSL
 #Copying nerdfonts into `c:\windows\Fonts` might give permission issues.
 #Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
@@ -30,7 +29,7 @@ python_apt_packages:
   - python3.10-venv
 # python_pip_packages:
 #   - pipx
-  #
+#
 #java_apt_packages:
 kse_version: 5.5.3 #key store explorer
 jd_version: 1.6.6 #java decompiler
@@ -62,10 +61,8 @@ synology_drive_download_path: "{{ansible_env.HOME}}/.ansible/tmp/synology-drive-
 nas_model: "DS423%2B&bays=4"
 dsm_version: 7.2
 build_number: 72806
-
 # Docker
 #docker_sqlserver_image: mcr.microsoft.com/mssql/server:2019-latest
-
 
 # host_roles:
 #   java_developer:
