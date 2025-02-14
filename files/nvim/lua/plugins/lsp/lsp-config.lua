@@ -30,6 +30,7 @@ return {
 		local lspconfig = require("lspconfig")
 		lspconfig.pyright.setup({})
 		lspconfig.lua_ls.setup({})
+		lspconfig.angularls.setup({})
 		require("mason-lspconfig").setup()
 		require("mason-lspconfig").setup_handlers({
 			-- The first entry (without a key) will be the default handler
@@ -39,7 +40,8 @@ return {
 				require("lspconfig")[server_name].setup({})
 			end,
 		})
-		local servers = { "pyright", "lua_ls", "typescript-language-server", "prettierd", "prettier", "eslint_d" }
+		local servers = { "pyright", "lua_ls", "typescript-language-server", "ansiblels", "ansible-lint" }
+		-- , "prettierd", "prettier", "eslint_d" they are too new for tsc 4.7.4
 		require("mason-tool-installer").setup({ ensure_installed = servers })
 
 		vim.api.nvim_create_autocmd("LspAttach", {

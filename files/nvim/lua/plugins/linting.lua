@@ -5,11 +5,11 @@ return { -- Linting
 		local lint = require("lint")
 		lint.linters_by_ft = {
 			markdown = { "markdownlint" },
-			javascript = { "eslint_d" },
-			typescript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
+			javascript = { "eslint" },
+			typescript = { "eslint" },
+			javascriptreact = { "eslint" },
 			typescriptreact = { "eslint_d" },
-			svelte = { "eslint_d" },
+			svelte = { "eslint" },
 			python = { "pylint" },
 		}
 

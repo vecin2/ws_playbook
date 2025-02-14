@@ -293,3 +293,5 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = "setlocal spell",
 })
 -- }}}
+
+require("config/ansible")
