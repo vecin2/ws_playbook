@@ -1,7 +1,8 @@
+---
 - name: Install "prettier" node.js package.
   become: true
   npm:
     name: prettier
-    path: '{{ansible_env.HOME}}/.local/'
+    path: "{{ ansible_env.HOME }}/.local/"
     state: present
     global: true

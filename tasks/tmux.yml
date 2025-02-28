@@ -5,23 +5,25 @@
     name: tmux
 
 - name: Link tmux.conf
-  file:
-    src="{{ playbook_dir }}/files/tmux.conf" dest="{{ ansible_env.HOME }}/.tmux.conf"
-    state=link force=yes
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+    state: link
+    force: "yes"
   tags: tmux
 
 - name: "Configure shell on .tmux"
-  blockinfile:
+  ansible.builtin.blockinfile:
     marker: "#{mark} tmux shell"
-    path: "{{ansible_env.HOME }}/.tmux.conf"
+    path: "{{ ansible_env.HOME }}/.tmux.conf"
     content: |
-      set-option -g default-shell /bin/{{myshell}}
+      set-option -g default-shell /bin/{{ myshell }}
     create: true
   tags: tmux
 
 - name: Setting alias for tmux new session start  with zsh
-  lineinfile:
-    path: "{{ansible_env.HOME}}/.zshrc"
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
     line: alias tnew="tmux new-session /bin/zsh \;"
     create: true
   when: myshell == 'zsh'

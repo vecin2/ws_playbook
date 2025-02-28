@@ -1,7 +1,7 @@
 ---
 - name: Install yamllint
   become: true
-  apt:
+  ansible.builtin.apt:
     name: yamllint
 # found an error with a yamlfix 'ruyaml' dependecy. It does not have module ruamel.yml which is  by yamlfix
 # It can be fix by installing 'ruyaml' separately: pip install ruyaml==0.19.2
@@ -9,4 +9,3 @@
 - name: Install yamlfix
   community.general.pipx:
     name: yamlfix
-

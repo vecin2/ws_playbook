@@ -1,3 +1,4 @@
+---
 myshell: zsh #either zsh or bash
 myshellfile: zshrc #either bashrc or zshrc
 
@@ -49,10 +50,11 @@ google_chrome_components: "main"
 google_chrome_key_url: "https://dl.google.com/linux/linux_signing_key.pub"
 google_chrome_key_dest: "/usr/share/keyrings/google-archive-keyring.asc"
 
+install_firefox: true
 install_nordvpn: true
 install_teams_for_linux: true
 
-node_version: "22.x"
+node_version: "20.x"
 
 synology_drive_package_type: deb
 synology_drive_version: 3.5.1-{{synology_drive_minor_version}}

@@ -1,22 +1,22 @@
 ---
 - name: Installing tmuxinator
   become: true
-  apt:
+  ansible.builtin.apt:
     name:
       - git
       - tmuxinator
 
 - name: Setting alias for tmuxinator
-  lineinfile:
-    path: '{{ansible_env.HOME}}/.bash_aliases'
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
     line: alias mux=tmuxinator
     create: true
 
 - name: Adding custom tmuxinator functions
 
-  blockinfile:
-    path: '{{ansible_env.HOME}}/.profile'
-    marker: '#{mark} tmuxinator'
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.profile"
+    marker: "#{mark} tmuxinator"
     content: |-
       muxworkon(){
         tmux kill-session  -t "dummy"

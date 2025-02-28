@@ -1,12 +1,12 @@
 ---
 - name: Install packages
   win_chocolatey:
-    name: '{{ item }}'
+    name: "{{ item }}"
     state: present
   loop:
-# developement
+    # developement
     - dbeaver
-# wsl
+    # wsl
     - VcXsrv
-# Editors
+    # Editors
     - notepadplusplus

@@ -1,6 +1,7 @@
+---
 - name: Installing ack, ag and ripgrep
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     name:
       - ack
       - silversearcher-ag
@@ -8,13 +9,17 @@
       - fd-find
 
 - name: "Setting alias for silversearcher"
-  lineinfile:
-    path: "{{ansible_env.HOME}}/.bash_aliases"
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
     line: "alias ag=\"ag --color-path '36;1' --color-line-number '1;35'\""
-    create: yes
+    create: true
 - name: Ensures ~/.local/bin dir exists
-  file: path=~/.local/bin state=directory
+  ansible.builtin.file:
+    path: ~/.local/bin
+    state: directory
 - name: "Setting fd alias for fdfind"
-  file: src=/usr/bin/fdfind dest=~/.local/bin/fd state=link force=yes
-#
-
+  ansible.builtin.file:
+    src: /usr/bin/fdfind
+    dest: ~/.local/bin/fd
+    state: link
+    force: "yes"

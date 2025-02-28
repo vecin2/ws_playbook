@@ -2,11 +2,12 @@
 - hosts: wsl
   connection: local
   pre_tasks:
-    - name: update repositories
-      apt: update_cache=yes
+    - name: Update repositories
+      ansible.builtin.apt:
+        update_cache: "yes"
       changed_when: false
       become: true
-    - import_tasks: tasks/facts.yml
+    - ansible.builtin.import_tasks: tasks/facts.yml
   vars_files:
     - "{{playbook_dir}}/vars.yml"
     - "{{playbook_dir}}/passwords.yml"
@@ -14,63 +15,50 @@
     ansible_become_pass: "{{sudo_pass}}"
 
   tasks:
-    - import_tasks: tasks/desktop.yml
+    - ansible.builtin.import_tasks: tasks/desktop.yml
       tags: desktop
     # Basic terminal
-    - import_tasks: tasks/shell.yml
+    - ansible.builtin.import_tasks: tasks/shell.yml
       tags: shell
-    - import_tasks: tasks/bashrcs.yml
+    - ansible.builtin.import_tasks: tasks/bashrcs.yml
       tags: bashrcs
-    - import_tasks: tasks/zsh.yml
+    - ansible.builtin.import_tasks: tasks/zsh.yml
       tags: zsh
     #- import_tasks: tasks/mybash_functions.yml
     #  tags: shell
-    - import_tasks: tasks/ansible.yml
-    - import_tasks: tasks/nodejs.yml
+    - ansible.builtin.import_tasks: tasks/ansible.yml
+    - ansible.builtin.import_tasks: tasks/nodejs.yml
       become: true
       tags: nodejs
     # - import_tasks: tasks/shell_colors/gruvbox_theme_for_mintty.yml
-    - import_tasks: tasks/dircolors.yml
-    - import_tasks: tasks/starship.yml
-    - import_tasks: tasks/wsl_tasks.yml
+    - ansible.builtin.import_tasks: tasks/dircolors.yml
+    - ansible.builtin.import_tasks: tasks/starship.yml
+    - ansible.builtin.import_tasks: tasks/wsl_tasks.yml
       when: "'WSL' in wsl_version"
-    - import_tasks: tasks/searchers.yml
-    - import_tasks: tasks/git.yml
+    - ansible.builtin.import_tasks: tasks/searchers.yml
+    - ansible.builtin.import_tasks: tasks/git.yml
       tags: git
     #    - import_tasks: tasks/vim.yml
-    - import_tasks: tasks/neovim.yml
-    # Cmd line tools
-    #    - import_tasks: tasks/bashmarks.yml
-    - import_tasks: tasks/fzf.yml
-      #- import_tasks: tasks/fasd.yml
-    - import_tasks: tasks/zoxide.yml
-
-    # Other apps
-    - import_tasks: tasks/tmux.yml #3.4 can now be install with apt
+    - ansible.builtin.import_tasks: tasks/neovim.yml
+    - ansible.builtin.import_tasks: tasks/fzf.yml
+    - ansible.builtin.import_tasks: tasks/zoxide.yml
+    - ansible.builtin.import_tasks: tasks/tmux.yml
       tags: tmux
-    - import_tasks: tasks/tmuxinator.yml
-    #- import_tasks: tasks/verint_em_shell.yml
-
-    # Python
-    - import_tasks: tasks/pythondev.yml
+    - ansible.builtin.import_tasks: tasks/tmuxinator.yml
+    - ansible.builtin.import_tasks: tasks/pythondev.yml
       tags: python
     # Java
-    - import_tasks: tasks/javadev.yml
+    - ansible.builtin.import_tasks: tasks/javadev.yml
       tags: java
     # JavaScript
-    - import_tasks: tasks/javascript.yml
+    - ansible.builtin.import_tasks: tasks/javascript.yml
       tags: javascript
     # Yaml
-    - import_tasks: tasks/yamldev.yml
-    # lua
-    - import_tasks: tasks/luadev.yml
-
-    # Virtualization server
-    - import_tasks: tasks/docker.yml
+    - ansible.builtin.import_tasks: tasks/yamldev.yml
+    - ansible.builtin.import_tasks: tasks/luadev.yml
+    - ansible.builtin.import_tasks: tasks/docker.yml
       become: true
       tags: docker
     #- import_tasks: tasks/pywinrm.yml
-    - import_tasks: tasks/homecloud.yml
+    - ansible.builtin.import_tasks: tasks/homecloud.yml
       tags: homecloud
-# - import_tasks: tasks/vagrant.yml needs to be install from website to get the
-# latest version

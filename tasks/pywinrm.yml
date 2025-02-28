@@ -1,4 +1,5 @@
-- name: "pip installing pywinrm"
-  become: yes
-  pip:
+---
+- name: "Pip installing pywinrm"
+  become: true
+  ansible.builtin.pip:
     name: pywinrm

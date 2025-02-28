@@ -1,29 +1,30 @@
+---
 - name: Check if .zshrc exists
-  stat:
+  ansible.builtin.stat:
     path: ~/.zshrc
   register: stat_rc_result
 
 - name: Check if .oh-my-zsh exists
-  stat:
+  ansible.builtin.stat:
     path: ~/.oh-my-zsh
   register: stat_oh_my_zsh_result
 
 - name: Cloning  oh-my-zsh
-  git:
-    repo=https://github.com/robbyrussell/oh-my-zsh
-    dest=~/.oh-my-zsh
+  ansible.builtin.git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: ~/.oh-my-zsh
   when: not stat_oh_my_zsh_result.stat.exists
 
 - name: Creating new ~/.zshrc
-  copy:
-    src=~/.oh-my-zsh/templates/zshrc.zsh-template
-    dest=~/.zshrc
+  ansible.builtin.copy:
+    src: ~/.oh-my-zsh/templates/zshrc.zsh-template
+    dest: ~/.zshrc
   when: not stat_rc_result.stat.exists
 
 - name: Clear ZSH plugins
   ansible.builtin.lineinfile:
     path: ~/.zshrc
-    regexp: '^plugins='
+    regexp: "^plugins="
     line: plugins=()
 
 - name: Install ZSH
@@ -33,8 +34,7 @@
     state: present
 
 - name: "Source bash_aliases from zsh"
-  lineinfile:
-    path: "{{ansible_env.HOME}}/.zshrc"
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
     line: ". ~/.bash_aliases"
-    create: yes
-
+    create: true

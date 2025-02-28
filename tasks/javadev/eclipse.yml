@@ -1,11 +1,11 @@
 ---
 - name: Installing eclipse from galaxy role
   become: true #if /opt folder is owned by root
-  import_role: 
+  ansible.builtin.import_role:
     name: buluma.eclipse
   vars:
     eclipse_release: 2024-12
     eclipse_lombok_version: 1.18.36
     eclipse_install_path: /opt/eclipse-{{ eclipse_release }}
-    eclipse_link_paths: 
+    eclipse_link_paths:
       - /opt/eclipse

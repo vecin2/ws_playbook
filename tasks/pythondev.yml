@@ -1,13 +1,14 @@
+---
 - name: Add Python repository into sources list
-  become: yes
+  become: true
   ansible.builtin.apt_repository:
     repo: ppa:deadsnakes/ppa
     state: present
 
 - name: "Installing python apt packages"
-  become: yes
-  apt:
-    name: "{{item}}"
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
   with_items: "{{python_apt_packages}}"
 
 # - name: "Installing python pip packages"
@@ -16,6 +17,6 @@
 #     name: "{{item}}"
 #   with_items: "{{python_pip_packages}}"
 
-- import_tasks: tasks/pythondev/pyenv.yml
-- import_tasks: tasks/pythondev/virtualenvwrapper.yml
-- import_tasks: tasks/pythondev/pythonvim_IDE.yml
+- ansible.builtin.import_tasks: tasks/pythondev/pyenv.yml
+- ansible.builtin.import_tasks: tasks/pythondev/virtualenvwrapper.yml
+- ansible.builtin.import_tasks: tasks/pythondev/pythonvim_IDE.yml

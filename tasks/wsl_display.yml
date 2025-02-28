@@ -3,14 +3,9 @@
   vars:
     wsl1_display: localhost:0
     wsl2_display: $(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-    display: "{% if wsl_version == 'WSL1' %}
-                {{wsl1_display}} 
-              {%else%} 
-                {{wsl2_display}}
-              {% endif %}"
-  lineinfile:
-    path: '{{myshellrc}}'
-    regexp: '^export DISPLAY='
-    line: export DISPLAY={{display.strip()}}
+    display: "{% if wsl_version == 'WSL1' %} {{ wsl1_display }} {%else %} {{ wsl2_display }} {% endif %}"
+  ansible.builtin.lineinfile:
+    path: "{{ myshellrc }}"
+    regexp: "^export DISPLAY="
+    line: export DISPLAY={{ display.strip() }}
   tags: wsl_clipboard
-

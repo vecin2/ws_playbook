@@ -1,29 +1,44 @@
-- name: 'Installing git'
+---
+- name: "Installing git"
   become: true
-  apt: name=git
-
-- name: 'Setting up personal gitconfig'
-  file: src="{{ playbook_dir }}/files/gitconfig/{{item}}" dest="{{ ansible_env.HOME }}/.{{item.split('.')[0]}}" state=link force=yes
+  ansible.builtin.apt:
+    name: git
+- name: "Setting up personal gitconfig"
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/gitconfig/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item.split('.')[0] }}"
+    state: link
+    force: "yes"
   with_items:
-   - gitconfig.linux
+    - gitconfig.linux
 
-- name: 'Setting multiple gitconfigs'
-  file: src="{{ playbook_dir }}/files/gitconfig/{{item}}" dest="{{ ansible_env.HOME }}/.{{item.split('.')[0]}}" state=link force=yes
+- name: "Setting multiple gitconfigs"
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/gitconfig/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item.split('.')[0] }}"
+    state: link
+    force: "yes"
   with_items:
-     # - gitconfig.linux # this is useful for wsl to distinguish btw windows and wsl
-     - gitconfig-personal
-     - gitconfig-work
+    # - gitconfig.linux # this is useful for wsl to distinguish btw windows and wsl
+    - gitconfig-personal
+    - gitconfig-work
     #
-- name: 'Linking multiple gitconfig files on Windows host (WSL)'
-  copy: src="{{ playbook_dir }}/files/gitconfig/{{item}}" dest="/mnt/c/Users/{{win_username}}/.{{item.split('.')[0]}}"
+- name: "Linking multiple gitconfig files on Windows host (WSL)"
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/gitconfig/{{ item }}"
+    dest: "/mnt/c/Users/{{ win_username }}/.{{ item.split('.')[0] }}"
   with_items:
-   # - gitconfig.win
-   - gitconfig-personal
-   - gitconfig-work
+    # - gitconfig.win
+    - gitconfig-personal
+    - gitconfig-work
   when: "'WSL' in wsl_version"
 
 - name: Setup SSH Config for Git
-  file: src="{{ playbook_dir }}/files/gitconfig/ssh_config" dest="{{ ansible_env.HOME}}/.ssh/config" state=link force=yes
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/gitconfig/ssh_config"
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    state: link
+    force: "yes"
   tags: git
 
 #- name: 'Start ssh agent on start'
@@ -64,5 +79,3 @@
 #        fi
 #      }
 #    create: true
-
-

@@ -1,61 +1,69 @@
+---
 - name: Create nvim app folder
-  file:
-    path: "{{ansible_env.HOME}}/apps/nvim"
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/apps/nvim"
     state: directory
   tags: nvim
 
 - name: Download nightly nvim
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    dest: "{{ansible_env.HOME}}/apps/nvim"
+    dest: "{{ ansible_env.HOME }}/apps/nvim"
     mode: u+x
   tags: nvim
 
 - name: Install Fuse For Running nvim image
   become: true
-  apt:
+  ansible.builtin.apt:
     name: libfuse2t64 #fuse conflicts with fuse3
     state: present
 
 - name: Create nvim configfolder
-  file:
-    path: '{{ ansible_env.HOME}}/.config/nvim'
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
     state: directory
   tags: nvim
 
 - name: Creating nvim symlinks
-  file: src='{{ playbook_dir }}/files/nvim/{{ item }}' dest='{{ ansible_env.HOME }}/.config/nvim/{{ item }}' state=link force=yes
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/nvim/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/{{ item }}"
+    state: link
+    force: "yes"
   with_items:
     - init.lua
     - lua
   tags: nvim
 
 - name: Creating common nvim symlinks -config and plugins
-  file: src='{{ playbook_dir }}/files/vim/{{ item }}' dest='{{ ansible_env.HOME }}/.config/nvim/{{ item }}' state=link force=yes
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/vim/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/{{ item }}"
+    state: link
+    force: "yes"
   with_items:
     - config.vim
     - plugins.vim
   tags: nvim
 
 - name: Setting aliases for nvim
-  blockinfile:
-    marker: '#{mark} nvim aliases'
-    path: '{{ansible_env.HOME}}/.bash_aliases'
+  ansible.builtin.blockinfile:
+    marker: "#{mark} nvim aliases"
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
     content: |
-      alias nvim=~/apps/nvim/nvim.appimage 
+      alias nvim=~/apps/nvim/nvim.appimage
       alias vimdiff='nvim -d'
       alias vim='nvim'
-    create: yes
+    create: true
   tags: nvim
 - name: Bash configuration for Vim
-  blockinfile:
-    path: '{{myshellrc}}'
-    marker: '#{mark} Vim vars'
+  ansible.builtin.blockinfile:
+    path: "{{ myshellrc }}"
+    marker: "#{mark} Vim vars"
     block: |
       #This var is use in VIM mapping which opens docs in CLOUD folder
       export CLOUD_LOC=$HOME/gdrive
-      export DOT_FILES_LOC={{playbook_dir}}
+      export DOT_FILES_LOC={{ playbook_dir }}
       #Free Ctrl-s and Ctrl-q so it can be used in terminal apps (vim)
       stty -ixon
   tags: nvim
-

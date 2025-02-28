@@ -1,3 +1,4 @@
+---
 # - name: "Installing python3 virtualenvwrapper for user"
 #   pip:
 #     name: virtualenvwrapper
@@ -5,18 +6,16 @@
 #   tags: python
 
 - name: "Installing apt python3-virtualenvwrapper packages"
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     name: python3-virtualenvwrapper #install it as pip package fails with error: externally-managed-environment
   tags: python
-  
-
 
 - name: "Configuring virtualenvwrapper"
-  blockinfile:
-    path : "{{myshellrc}}"
+  ansible.builtin.blockinfile:
+    path: "{{ myshellrc }}"
     marker: "#{mark} virtualwrapper"
-    create: yes
+    create: true
     block: |
       export WORKON_HOME=$HOME/.virtualenvs
       export PROJECT_HOME=$HOME/dev/python

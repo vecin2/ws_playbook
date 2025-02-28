@@ -28,21 +28,122 @@ return {
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
-		lspconfig.pyright.setup({})
-		lspconfig.lua_ls.setup({})
-		lspconfig.angularls.setup({})
-		require("mason-lspconfig").setup()
-		require("mason-lspconfig").setup_handlers({
-			-- The first entry (without a key) will be the default handler
-			-- and will be called for each installed server that doesn't have
-			-- a dedicated handler.
-			function(server_name) -- default handler (optional)
-				require("lspconfig")[server_name].setup({})
-			end,
+
+		-- lspconfig.pyright.setup({})
+		-- lspconfig.lua_ls.setup({})
+		-- LSP servers and clients are able to communicate to each other what features they support.
+		--  By default, Neovim doesn't support everything that is in the LSP specification.
+		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+		local project_library_path = "./node_modules"
+		-- local cmd = {
+		-- 	-- "npx",
+		-- 	-- "@angular/language-server",
+		-- 	"node",
+		-- 	"/home/dgarcia/dev/angular/angular-course/node_modules/@angular/language-server",
+		-- 	"--stdio",
+		-- 	"--tsProbeLocations",
+		-- 	project_library_path,
+		-- 	"--ngProbeLocations",
+		-- 	project_library_path,
+		-- 	"--tsServerPath",
+		-- 	"/home/dgarcia/dev/angular/angular-course/node_modules/typescript/lib/tsserver.js",
+		-- }
+		-- local cmd = {
+		-- 	"node",
+		-- 	"/home/dgarcia/dev/angular/pepe/node_modules/@angular/language-server",
+		-- 	"--stdio",
+		-- 	"--tsProbeLocations",
+		-- 	"./node_modules",
+		-- 	"--ngProbeLocations",
+		-- 	"./node_modules",
+		-- 	"--tsServerPath",
+		-- 	"/home/dgarcia/dev/angular/pepe/node_modules/typescript/lib/tsserver.js",
+		-- 	"--config",
+		-- 	"./src/tsconfig.app.json",
+		-- 	"--logFile",
+		-- 	"/home/dgarcia/pepe-debug2.log",
+		-- 	"--logVerbosity",
+		-- 	"verbose",
+		-- }
+
+		vim.lsp.set_log_level("debug")
+		local servers = {
+			-- eslint = {
+			-- 	cmd = { "npx", "eslint" },
+			-- 	root_dir = require("lspconfig.util").root_pattern(".eslintrc.json", "package.json"),
+			-- },
+			-- ts_ls = {},
+			-- angularls = {},
+			--
+			lua_ls = {
+				-- cmd = { ... },
+				-- filetypes = { ... },
+				-- capabilities = {},
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+						-- diagnostics = { disable = { 'missing-fields' } },
+					},
+				},
+			},
+		}
+
+		local ensure_installed = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed, {
+			"stylua", -- Used to format Lua code
+			"pyright",
+			"ansiblels",
+			"ansible-lint",
 		})
-		local servers = { "pyright", "lua_ls", "typescript-language-server", "ansiblels", "ansible-lint" }
 		-- , "prettierd", "prettier", "eslint_d" they are too new for tsc 4.7.4
-		require("mason-tool-installer").setup({ ensure_installed = servers })
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+		require("mason-lspconfig").setup({
+			handlers = {
+				function(server_name)
+					local server = servers[server_name] or {}
+					-- This handles overriding only values explicitly passed
+					-- by the server configuration above. Useful when disabling
+					-- certain features of an LSP (for example, turning off formatting for ts_ls)
+					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					require("lspconfig")[server_name].setup(server)
+				end,
+			},
+		})
+
+		-- require("lspconfig").angularls.setup({
+		-- 	cmd = cmd,
+		-- 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+		-- 	on_new_config = function(new_config, _)
+		-- 		new_config.cmd = cmd
+		-- 		-- if not vim.tbl_contains(new_config.cmd, "--config") then
+		-- 		-- 	table.insert(new_config.cmd, "--config")
+		-- 		-- 	table.insert(new_config.cmd, "./src/tsconfig.app.json")
+		-- 		-- end
+		-- 	end,
+		-- 	init_options = {
+		-- 		logFile = "/home/dgarcia/angularls.log",
+		-- 		logVerbosity = "verbose",
+		-- 	},
+		-- })
+		--
+		-- require("lspconfig").eslint.setup({
+		-- 	cmd = { "npx", "eslint" }, -- Runs the project version
+		-- 	root_dir = require("lspconfig.util").root_pattern(".eslintrc.json", "package.json"),
+		-- })
+
+		-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		-- local capabilities = cmp_nvim_lsp.default_capabilities()
+		--
+		--
+		-- local ensure_installed = vim.tbl_keys(servers or {})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),

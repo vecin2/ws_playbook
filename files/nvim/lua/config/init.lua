@@ -62,7 +62,7 @@ vim.opt.smartcase = true
 vim.keymap.set("n", ",", "za", opts) -- Toggle current fold open/close
 vim.keymap.set("n", "<leader>,", "zMzv", opts) -- Close all folds and re-evaluate
 
-vim.opt.foldlevelstart = 0 --start file with all folds closed
+vim.opt.foldlevelstart = 999 --start file with all folds closed
 vim.opt.foldexpr = "v:lua.wincent.foldexpr(v:lnum)"
 vim.opt.foldmethod = "expr"
 -- }}}

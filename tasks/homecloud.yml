@@ -1,6 +1,7 @@
+---
 - name: Create mount folders
   become: true
-  file:
+  ansible.builtin.file:
     path: "/mnt/{{ item }}"
     state: absent
     owner: root

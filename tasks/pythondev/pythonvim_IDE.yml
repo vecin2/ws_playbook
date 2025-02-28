@@ -1,11 +1,11 @@
+---
 #fixing ALE cursor issue:
 #sudo apt-get install software-properties-common
 #sudo add-apt-repository ppa:jonathonf/vim
 #sudo apt install vim
-- include_tasks: tasks/pythondev/flake8.yml
-
-- name: 'pip installing packages for VIM python IDE experience'
-  become: yes
+- ansible.builtin.include_tasks: tasks/pythondev/flake8.yml
+- name: "Pip installing packages for VIM python IDE experience"
+  become: true
   vars:
     pipx_packages:
       - black
@@ -15,5 +15,5 @@
   community.general.pipx:
     name: "{{ item }}"
   with_items: "{{ pipx_packages }}"
-      
+
       #- software-properties-common # Part of the fix for ALE not highlighting cursor when error line

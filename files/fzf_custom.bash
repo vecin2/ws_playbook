@@ -121,3 +121,6 @@ fssh(){
 fif() { 
 	vim $(rg . | fzf | awk -F: '{print $1}')
 }
+fdiff(){
+	git diff --name-only | fzf --preview "git diff --color=always {}" --prompt="Select file: " --height=90% --border --reverse
+}

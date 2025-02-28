@@ -1,6 +1,7 @@
-- import_tasks: tasks/javadev/kse.yml
-- import_tasks: tasks/javadev/jd_gui.yml
-- import_tasks: tasks/javadev/eclipse.yml
-- import_tasks: tasks/javadev/intellij.yml
-- import_tasks: tasks/javadev/sdkman.yml
-- import_tasks: tasks/javadev/maven.yml
+---
+- ansible.builtin.import_tasks: tasks/javadev/kse.yml
+- ansible.builtin.import_tasks: tasks/javadev/jd_gui.yml
+- ansible.builtin.import_tasks: tasks/javadev/eclipse.yml
+- ansible.builtin.import_tasks: tasks/javadev/intellij.yml
+- ansible.builtin.import_tasks: tasks/javadev/sdkman.yml
+- ansible.builtin.import_tasks: tasks/javadev/maven.yml

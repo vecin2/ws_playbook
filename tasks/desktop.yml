@@ -1,29 +1,28 @@
+---
 - name: Add Libreoffice repository into sources list
   become: true
   ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present
-  loop: 
+  loop:
     - ppa:libreoffice/ppa
     - ppa:qbittorrent-team/qbittorrent-stable
 
 - name: "Installing Desktop Packages"
   become: true
-  apt:
-    name: "{{item}}"
+  ansible.builtin.apt:
+    name: "{{ item }}"
   with_items: "{{desktop_packages}}"
 
 - name: Installing Synology Drive
-  import_tasks: tasks/desktop/synology_drive.yml
-
+  ansible.builtin.import_tasks: tasks/desktop/synology_drive.yml
 - name: Installing Chrome
-  import_tasks: tasks/desktop/chrome.yml
-  when: "'google-chrome-stable' in desktop_packages"
+  ansible.builtin.import_tasks: tasks/desktop/chrome.yml
+  when: google_chrome_repo
 
 - name: Importing NordVPN installation task
-  import_tasks: tasks/desktop/nordvpn.yml
+  ansible.builtin.import_tasks: tasks/desktop/nordvpn.yml
   when: install_nordvpn
 - name: Importing eams-for-linux installation task
-  import_tasks: tasks/desktop/teams_for_linux.yml
+  ansible.builtin.import_tasks: tasks/desktop/teams_for_linux.yml
   when: install_teams_for_linux
-

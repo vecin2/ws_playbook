@@ -1,9 +1,9 @@
 ---
 - name: Configuring ansible vault password file
-  blockinfile:
-    path: '{{myshellrc}}'
+  ansible.builtin.blockinfile:
+    path: "{{ myshellrc }}"
     create: true
-    marker: '#{mark} Custom Configuration'
+    marker: "#{mark} Custom Configuration"
     block: |
       #password for unlock ansible vault encryption
       export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_password.txt

@@ -1,3 +1,4 @@
+---
 - name: Check if Keystore Explorer is installed
   ansible.builtin.apt:
     name: kse
@@ -7,18 +8,18 @@
 
 - name: Download the Keystore Explorer .deb file if not installed
   ansible.builtin.get_url:
-    url: https://github.com/kaikramer/keystore-explorer/releases/download/v{{kse_version}}/kse_{{kse_version}}_all.deb
-    dest: /tmp/kse_{{kse_version}}_all.deb
+    url: https://github.com/kaikramer/keystore-explorer/releases/download/v{{ kse_version }}/kse_{{ kse_version }}_all.deb
+    dest: /tmp/kse_{{ kse_version }}_all.deb
   when: kse_check.failed
 
 - name: Install the Keystore Explorer package
   become: true
   ansible.builtin.apt:
-    deb: /tmp/kse_{{kse_version}}_all.deb
+    deb: /tmp/kse_{{ kse_version }}_all.deb
   when: kse_check.failed
 
 - name: Clean up the .deb file
   ansible.builtin.file:
-    path: /tmp/kse_{{kse_version}}_all.deb
+    path: /tmp/kse_{{ kse_version }}_all.deb
     state: absent
   when: kse_check.failed

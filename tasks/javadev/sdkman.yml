@@ -1,20 +1,19 @@
 
 ---
 - name: Check if SDKMAN is already installed
-  stat:
+  ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh"
   register: sdkman_check
 
 - name: Install SDKMAN
-  shell: >
+  ansible.builtin.shell: >
     curl -s "https://get.sdkman.io" | bash
   args:
     creates: "{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh"
   when: not sdkman_check.stat.exists
 
 - name: Ensure SDKMAN environment is loaded in shell
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ myshellrc }}"
     #this also ensure java is added to the path JAVA_HOME is set 
     line: '[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"'
-

@@ -3,8 +3,8 @@
   gather_facts: false
 
   tasks:
-  - name: Ensure Chocolatey installed from internal repo
-    win_chocolatey:
-      name: chocolatey
-      state: present
-      source: file:///C:/Users/Dgarcia/dev/ansible/ChocolateyInstall.ps1
+    - name: Ensure Chocolatey installed from internal repo
+      win_chocolatey:
+        name: chocolatey
+        state: present
+        source: file:///C:/Users/Dgarcia/dev/ansible/ChocolateyInstall.ps1

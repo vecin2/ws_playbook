@@ -14,7 +14,7 @@
   register: wsl_version_checker
 
 - set_fact:
-    wsl_version: "{{wsl_version_checker.stdout}}"
+    wsl_version: "{{ wsl_version_checker.stdout }}"
   tags: always
 
 #- name: Setting Windows username
@@ -26,13 +26,13 @@
 #  register: wsl_version_checker
 
 - set_fact:
-    win_username: "{{wsl_version_checker.stdout}}"
+    win_username: "{{ wsl_version_checker.stdout }}"
   tags: always
 
 - block:
-  - name: Setting shellrc file
-    shell: grep "^$USER" /etc/passwd
-    register: shell_used #determine if bash or zsh
-  - set_fact:
-      myshellrc: "{{ansible_env.HOME}}/.{{myshellfile}}"
+    - name: Setting shellrc file
+      shell: grep "^$USER" /etc/passwd
+      register: shell_used #determine if bash or zsh
+    - set_fact:
+        myshellrc: "{{ ansible_env.HOME }}/.{{ myshellfile }}"
   tags: always

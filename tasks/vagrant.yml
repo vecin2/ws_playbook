@@ -1,5 +1,6 @@
-    - name: Intall Vagrant
-      become: yes
-      apt:
-        name:
-          - vagrant
+---
+- name: Intall Vagrant
+  become: true
+  ansible.builtin.apt:
+    name:
+      - vagrant

@@ -1,8 +1,9 @@
-- name: Download Google Chrome GPG key 
+---
+- name: Download Google Chrome GPG key
   become: true
   ansible.builtin.get_url:
     url: "{{ google_chrome_key_url }}"
-    dest: "{{ google_chrome_key_dest}}"
+    dest: "{{ google_chrome_key_dest }}"
 
 - name: Add Google Chrome repository
   become: true

@@ -1,19 +1,19 @@
 ---
 - name: Adding fasd apt repository
   become: true
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: ppa:aacebedo/fasd
     state: present
 
 - name: Install fasd
   become: true
-  apt:
+  ansible.builtin.apt:
     name: fasd
 
 - name: Source fasd on rc files
-  blockinfile:
-    path: '{{myshellrc}}'
-    marker: '#{mark} fasd config'
+  ansible.builtin.blockinfile:
+    path: "{{ myshellrc }}"
+    marker: "#{mark} fasd config"
     block: |
       #It caches the initialization for minimal overhead
       fasd_cache="$HOME/.fasd-init-bash"

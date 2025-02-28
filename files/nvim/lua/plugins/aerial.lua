@@ -16,5 +16,5 @@ return { 'stevearc/aerial.nvim', config= function()
 		end,
 	})
 	-- You probably also want to set a keymap to toggle aerial
-	vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle<CR>")
+	-- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle<CR>")
 end }

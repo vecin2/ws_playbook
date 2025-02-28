@@ -1,10 +1,11 @@
+---
 - name: Get starship install script
   ansible.builtin.get_url:
     url: https://starship.rs/install.sh
     dest: /tmp/starship_install.sh
-    mode: '0755'
+    mode: "0755"
   register: starship_installation_script
- 
+
 - name: Install starship with installation script
   become: true
   ansible.builtin.shell:
@@ -15,19 +16,19 @@
 # and we have already installed starship
 # we check this to satisfy idempotence
 
-- name: 'Install starship for bash'
-  lineinfile:
+- name: "Install starship for bash"
+  ansible.builtin.lineinfile:
     path: ~/.bashrc
-    line: eval "$(starship init bash)"  
+    line: eval "$(starship init bash)"
   tags: starship
-  when: myshell == 'bash' 
+  when: myshell == 'bash'
 
-  # we use the starhip plugin which unsets ZSH_THEM on top of sourcing starhip
+# we use the starhip plugin which unsets ZSH_THEM on top of sourcing starhip
 - name: Add starship ZSH plugin
   ansible.builtin.lineinfile:
     path: ~/.zshrc
-    regexp: '^plugins=\((.*)\)'
-    line: 'plugins=(\1 starship)'
-    backrefs: yes 
+    regexp: "^plugins=\\((.*)\\)"
+    line: "plugins=(\\1 starship)"
+    backrefs: true
   tags: starship
-  when: myshell == 'zsh' 
+  when: myshell == 'zsh'

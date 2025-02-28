@@ -1,15 +1,16 @@
+---
 #The key here is to identify the distribution available versions
 #which are different from the versions in the nodejs page.
 #Check https://github.com/nodesource/distributions
 
 - name: Install Node.js dependencies
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: present
   loop:
     - software-properties-common
 - name: Install the gpg key for nodejs LTS
-  apt_key:
+  ansible.builtin.apt_key:
     url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
     state: absent
 - name: Download NodeSource's signing key.
@@ -20,7 +21,7 @@
     dest: /etc/apt/signing-key-nodesource-repo.asc
     owner: root
     group: root
-    mode: '0444'
+    mode: "0444"
   register: node_signing_key
 - name: Add NodeSource repositories for Node.js.
   ansible.builtin.deb822_repository:
@@ -34,11 +35,11 @@
   register: node_repo
 
 - name: "Install nodejs"
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: nodejs
     state: present
-      
+
       #- name: Install build-essential
       #  apt:
       #    name: build-essential

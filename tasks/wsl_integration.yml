@@ -1,27 +1,29 @@
 ---
 - name: Link wsl.sh
-  file:
-    src="{{ playbook_dir }}/files/wsl/wsl.sh" dest="{{ ansible_env.HOME }}/.wsl.sh"
-    state=link force=yes
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/wsl/wsl.sh"
+    dest: "{{ ansible_env.HOME }}/.wsl.sh"
+    state: link
+    force: "yes"
   tags: wsl_integration
 
 - name: Sourcing on shellrc file
-  lineinfile:
-    path: '{{myshellrc}}'
+  ansible.builtin.lineinfile:
+    path: "{{ myshellrc }}"
     line: '[ -s "$HOME/.wsl.sh" ] && source "$HOME/.wsl.sh"'
   tags: wsl_integration
 
 - name: Setting alias 'chrome' for opening chrome
-  lineinfile:
-    path: '{{ansible_env.HOME}}/.bash_aliases'
-    line: alias chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe" 
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
+    line: alias chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe"
     create: true
   tags: wsl_integration
 
-- name: Configure windows env vars 
-  blockinfile:
-    path: '{{myshellrc}}'
-    marker: '#{mark} Add Windows Env Vars'
+- name: Configure windows env vars
+  ansible.builtin.blockinfile:
+    path: "{{ myshellrc }}"
+    marker: "#{mark} Add Windows Env Vars"
     block: |
       export WHOME="/mnt/c/Users/$USER"
       export DOWNLOADS=/mnt/c/Users/dgarcia/Downloads
@@ -31,13 +33,13 @@
   become: true
   npm:
     name: wsl-open
-    path: '{{ansible_env.HOME}}/.local/'
+    path: "{{ ansible_env.HOME }}/.local/"
     state: present
     global: true
   tags: wsl-open
 
 - name: Setting alias 'wo' for wsl-open
-  lineinfile:
-    path: '{{ansible_env.HOME}}/.bash_aliases'
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
     line: alias wo="wsl-open"
     create: true

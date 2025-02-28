@@ -1,6 +1,7 @@
+---
 - name: Check if JD GUI is installed
   ansible.builtin.apt:
-    name: jd-gui 
+    name: jd-gui
     state: present
   register: jd_check
   ignore_errors: true
@@ -12,11 +13,11 @@
 - name: Install the JD GUI package
   become: true
   ansible.builtin.apt:
-    deb: /tmp/jd-gui_{{jd_version}}_all.deb
+    deb: /tmp/jd-gui_{{ jd_version }}_all.deb
   when: jd_check.failed
 
 - name: Clean up the .deb file
   ansible.builtin.file:
-    path: /tmp/jd-gui_{{jd_version}}_all.deb
+    path: /tmp/jd-gui_{{ jd_version }}_all.deb
     state: absent
   when: jd_check.failed

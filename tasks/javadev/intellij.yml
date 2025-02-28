@@ -1,8 +1,8 @@
 ---
 - name: Installing eclipse from galaxy role
   become: true #if /opt folder is owned by root
-  import_role: 
+  ansible.builtin.import_role:
     name: gantsign.intellij
   vars:
-    intellij_version: '2024.3.2.2'
+    intellij_version: "2024.3.2.2"
     intellij_redis_sha256sum: d73fd631943c300d55729bd33e06e193751478a83477153807cfa941e4bf12e5
