@@ -41,6 +41,8 @@
     force: "yes"
   tags: git
 
+- ansible.builtin.import_tasks: tasks/lazygit.yml
+  tags: git
 #- name: 'Start ssh agent on start'
 #  blockinfile:
 #    marker: '#{mark} ssh configuration'
