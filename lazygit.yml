@@ -1,0 +1,59 @@
+---
+- name: Check if LazyGit is installed
+  ansible.builtin.command: "which lazygit"
+  register: lazygit_check
+  changed_when: false
+  ignore_errors: true
+
+- name: Get the latest LazyGit version using jq
+  shell: >
+    curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .tag_name
+  register: lazygit_version
+  changed_when: false
+  when: lazygit_check.rc != 0
+
+- name: Set LazyGit download URL
+  # version comes like v12.2.3, need to remove 'v' for the second version use
+  ansible.builtin.set_fact:
+    lazygit_url: "https://github.com/jesseduffield/lazygit/releases/download/{{ lazygit_version.stdout }}/lazygit_{{ lazygit_version.stdout | regex_replace('^v', '') }}_Linux_x86_64.tar.gz"
+  when: lazygit_check.rc != 0
+
+- name: Define LazyGit temp directory
+  ansible.builtin.set_fact:
+    lazygit_tmp_dir: "{{ ansible_env.HOME }}/.ansible/tmp/lazygit"
+
+- name: Create temporary directory for LazyGit
+  ansible.builtin.file:
+    path: "{{ lazygit_tmp_dir }}"
+    state: directory
+    mode: '0755'
+  when: lazygit_check.rc != 0
+
+- name: Download LazyGit binary
+  ansible.builtin.get_url:
+    url: "{{ lazygit_url }}"
+    dest: "{{ lazygit_tmp_dir }}/lazygit.tar.gz"
+    mode: '0644'
+  when: lazygit_check.rc != 0
+
+- name: Extract LazyGit binary
+  ansible.builtin.unarchive:
+    src: "{{ lazygit_tmp_dir }}/lazygit.tar.gz"
+    dest: "{{ lazygit_tmp_dir }}"
+    remote_src: true
+  when: lazygit_check.rc != 0
+
+- name: Move LazyGit binary to /usr/local/bin
+  become: true
+  ansible.builtin.copy:
+    src: "{{ lazygit_tmp_dir }}/lazygit"
+    dest: "/usr/local/bin/lazygit"
+    mode: '0755'
+    remote_src: true
+  when: lazygit_check.rc != 0
+
+- name: Remove LazyGit temporary directory
+  ansible.builtin.file:
+    path: "{{ lazygit_tmp_dir }}"
+    state: absent
+  when: lazygit_check.rc != 0

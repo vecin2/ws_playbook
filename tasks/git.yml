@@ -41,6 +41,13 @@
     force: "yes"
   tags: git
 
+- name: Adding git Aliases
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
+    line: source "{{ playbook_dir }}/files/gitconfig/git_aliases.sh"
+    create: true
+    regexp: '^source "{{ playbook_dir }}/files/gitconfig/git_aliases.sh"$'
+
 - ansible.builtin.import_tasks: tasks/lazygit.yml
   tags: git
 #- name: 'Start ssh agent on start'

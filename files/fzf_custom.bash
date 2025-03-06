@@ -122,5 +122,18 @@ fif() {
 	vim $(rg . | fzf | awk -F: '{print $1}')
 }
 fdiff(){
-	git diff --name-only | fzf --preview "git diff --color=always {}" --prompt="Select file: " --height=90% --border --reverse
+	git diff --name-only | fzf --preview "git diff --color=always {}" --prompt="Select file: " --height=90% --border --reverse --preview-window=right:60%
 }
+
+mod_files() {
+  local files
+  files=$(git ls-files -m | fzf --multi --preview "git diff --color=always {}" --height=40% --border --reverse --preview-window=right:65% --prompt="Select modified file: ")
+  
+  if [[ -n "$files" ]]; then
+    LBUFFER="${LBUFFER} $(echo "$files" | tr '\n' ' ')"
+  fi
+}
+
+zle -N mod_files
+bindkey '^G' mod_files  # Bind Ctrl+G to insert modified files into the command line
+

@@ -19,8 +19,11 @@ shell_util_packages:
   - xclip
   - python-is-python3 #symlink python to python3 so scripts starting with '/usr/bin/env python'
   #- cmake #used by YouCompleteMe (vim plugin)
-  - tree #get project structures visually
-  - htop #friend top to view memory
+  - tree # get project structures visually
+  - htop # friend top to view memory
+  - jq # tool for processing JSON in command line, e.g. extract a value from it
+  - bat #syntax highlighting in fzf preview
+
 python_apt_packages:
   - pipx #to install the global python packages
   #- python3.8-venv #require by pylsp
@@ -54,7 +57,7 @@ install_firefox: true
 install_nordvpn: true
 install_teams_for_linux: true
 
-node_version: "20.x"
+node_version: "2-.x"
 
 synology_drive_package_type: deb
 synology_drive_version: 3.5.1-{{synology_drive_minor_version}}

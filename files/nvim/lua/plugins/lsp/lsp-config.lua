@@ -76,8 +76,14 @@ return {
 			-- 	cmd = { "npx", "eslint" },
 			-- 	root_dir = require("lspconfig.util").root_pattern(".eslintrc.json", "package.json"),
 			-- },
-			-- ts_ls = {},
-			-- angularls = {},
+			ts_ls = {
+				--tsls is required (i believe) by vtsls but should attach because it causes duplicates in gd
+				filetypes = { "jesus" },
+			},
+			angularls = {
+				filetypes = { "html", "htmlangular" },
+			},
+			vtsls = {},
 			--
 			lua_ls = {
 				-- cmd = { ... },
