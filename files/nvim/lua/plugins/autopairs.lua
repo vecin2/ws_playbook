@@ -33,6 +33,7 @@ return {
 		autopairs.add_rules({
 			Rule("#", " #", "sql"):with_pair(cond.before_regex("{", 1)),
 			Rule("%", " %", "sql"):with_pair(cond.before_regex("{", 1)),
+			Rule("<", ">"), --does not work if setup as fast_wrap char
 		})
 	end,
 }
