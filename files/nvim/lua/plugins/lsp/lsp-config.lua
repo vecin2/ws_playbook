@@ -69,8 +69,10 @@ return {
 		-- 	"--logVerbosity",
 		-- 	"verbose",
 		-- }
+		-- Disabled lsp logging to avoid file growing,can be reenabled when issues
+		-- vim.lsp.set_log_level("debug")
+		vim.lsp.set_log_level("OFF")
 
-		vim.lsp.set_log_level("debug")
 		local servers = {
 			-- eslint = {
 			-- 	cmd = { "npx", "eslint" },
