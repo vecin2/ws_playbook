@@ -4,8 +4,8 @@ return { -- Linting
 	config = function()
 		local lint = require("lint")
 		lint.linters_by_ft = {
-			markdown = { "markdownlint" },
-			javascript = { "eslint" },
+			-- markdown = { "markdownlint" },
+			-- javascript = { "eslint" },
 			-- typescript = { "eslint" },
 			-- javascriptreact = { "eslint" },
 			-- typescriptreact = { "eslint" },
