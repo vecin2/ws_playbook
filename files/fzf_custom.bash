@@ -16,7 +16,7 @@ fzf-binds() {
 #export FZF_DEFAULT_OPTS="--bind '$(fzf-binds)'"
 export FZF_DEFAULT_OPTS="
         --bind 'ctrl-v:execute(less -K {})'
-	--bind 'ctrl-e:execute(vim {} < /dev/tty > /dev/tty)+abort'
+				--bind 'ctrl-e:execute(vim {} < /dev/tty > /dev/tty)+abort'
         --bind 'ctrl-y:execute-silent(echo {} | xargs echo -n | xclip -selection clipboard)'
         --bind 'ctrl-r:execute-silent(realpath {} | xargs echo -n | xclip -selection clipboard)'"
 
@@ -118,7 +118,7 @@ fssh(){
 	fi
 }
 #find in file an open in vim
-fif() { 
+fo() { 
 	vim $(rg . | fzf | awk -F: '{print $1}')
 }
 fdiff(){
@@ -127,7 +127,7 @@ fdiff(){
 
 mod_files() {
   local files
-  files=$(git ls-files -m | fzf --multi --preview "git diff --color=always {}" --height=40% --border --reverse --preview-window=right:65% --prompt="Select modified file: ")
+  files=$(git ls-files -m | fzf --multi --preview "git diff --color=always {}" --height=75% --border --reverse --preview-window=right:65% --prompt="Select modified file: ")
   
   if [[ -n "$files" ]]; then
     LBUFFER="${LBUFFER} $(echo "$files" | tr '\n' ' ')"
