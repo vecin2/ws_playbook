@@ -22,6 +22,7 @@ alias gcl='git clone'
 alias gpr='git pull --rebase'
 alias gstash='git stash'
 alias gpop='git stash pop'
+alias lg='lazygit'
 
 ## GIT COMMANDS
 gsw() {
