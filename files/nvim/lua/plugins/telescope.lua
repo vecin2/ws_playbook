@@ -69,9 +69,33 @@ local config = function()
 	end, { desc = "[S]earch [/] in Open Files" })
 
 	-- Shortcut for searching your Neovim configuration files
+	local fs = require("util.fs")
 	vim.keymap.set("n", "<leader>sn", function()
 		builtin.find_files({ cwd = vim.fn.stdpath("config") })
 	end, { desc = "[S]earch [N]eovim files" })
+
+	-- <leader>mtt: open Telescope in the todos folder
+	vim.keymap.set("n", "<leader>mtt", function()
+		local base_path = fs.get_todo_base_path()
+		if not base_path then
+			return
+		end
+
+		builtin.find_files({
+			prompt_title = "My TODOs",
+			cwd = base_path,
+		})
+	end, { desc = "Telescope in TODO folder" })
+	-- <leader>mtd: open the todos markdown file
+	vim.keymap.set("n", "<leader>mtd", function()
+		local base_path = fs.get_todo_base_path()
+		if not base_path then
+			return
+		end
+
+		local full_path = base_path .. "/mytodos.md"
+		vim.cmd("edit " .. vim.fn.fnameescape(full_path))
+	end, { desc = "Open My TODOs" })
 end
 
 return {
