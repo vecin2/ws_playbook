@@ -25,8 +25,8 @@
     path: "{{ myshellrc }}"
     marker: "#{mark} Add Windows Env Vars"
     block: |
-      export WHOME="/mnt/c/Users/$USER"
-      export WDOWNLOADS=/mnt/c/Users/dgarcia/Downloads
+      export WHOME="/mnt/c/Users/{{win_username}}"
+      export WDOWNLOADS=/mnt/c/Users/{{win_username}}/Downloads
   tags: wsl_integration
 
 - name: Install "wsl-open" node.js package.
