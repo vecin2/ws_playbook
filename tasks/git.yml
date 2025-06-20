@@ -22,16 +22,33 @@
     # - gitconfig.linux # this is useful for wsl to distinguish btw windows and wsl
     - gitconfig-personal
     - gitconfig-work
-    #
-- name: "Linking multiple gitconfig files on Windows host (WSL)"
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/files/gitconfig/{{ item }}"
-    dest: "/mnt/c/Users/{{ win_username }}/.{{ item.split('.')[0] }}"
-  with_items:
-    # - gitconfig.win
+      
+- name: Check if Windows gitconfig file is up to date
+  ansible.builtin.command: >
+    diff "{{ playbook_dir }}/files/gitconfig/{{ item }}" "/mnt/c/Users/{{ win_username }}/.{{ item }}"
+  register: gitconfig_diff
+  ignore_errors: true
+  loop:
     - gitconfig-personal
     - gitconfig-work
-  when: "'WSL' in wsl_version"
+    - gitconfig.win
+  loop_control:
+    label: "{{ item }}"
+
+- name: Copy file only if changed
+  ansible.builtin.shell: >
+    cp "{{ playbook_dir }}/files/gitconfig/{{ item }}" "/mnt/c/Users/{{ win_username }}/.{{ item }}"
+  args:
+    executable: /bin/bash
+  when: >
+    (gitconfig_diff.results | selectattr('item', 'equalto', item) | first).rc != 0
+  loop:
+    - gitconfig-personal
+    - gitconfig-work
+    - gitconfig.win
+  loop_control:
+    label: "{{ item }}"
+
 
 - name: Setup SSH Config for Git
   ansible.builtin.file:
@@ -40,6 +57,48 @@
     state: link
     force: "yes"
   tags: git
+
+- name: 'Start ssh agent on start'
+  blockinfile:
+    marker: '#{mark} ssh configuration'
+    path: '{{myshellrc}}'
+    content: |
+      if ! [ -z "${SSH_AGENT_PID}" ]
+      then
+        if ps -p $SSH_AGENT_PID > /dev/null
+        then
+          echo "ssh-agent is already running" > /dev/null
+        else
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519_vecin2
+        fi
+      fi
+    create: true
+
+- name: 'Apply wsl2 git performance workaround'
+  blockinfile:
+    marker: '#{mark} git workaround on wsl2'
+    path: '{{myshellrc}}'
+    content: |
+      # checks to see if we are in a windows or linux dir
+      function isWinDir {
+        case $PWD/ in
+        /mnt/*) return $(true);;
+        *) return $(false);;
+        esac
+      }
+      # wrap the git command to either run windows git or linux
+      function git {
+        if isWinDir
+        then
+        git.exe "$@"
+        else
+        /usr/bin/git "$@"
+        fi
+      }
+    create: true
+  when: "'WSL' in wsl_version"
+
 
 - name: Adding git Aliases
   ansible.builtin.lineinfile:
@@ -50,41 +109,3 @@
 
 - ansible.builtin.import_tasks: tasks/lazygit.yml
   tags: git
-#- name: 'Start ssh agent on start'
-#  blockinfile:
-#    marker: '#{mark} ssh configuration'
-#    path: '{{myshellrc}}'
-#    content: |
-#      if ! [ -z "${SSH_AGENT_PID}" ]
-#      then
-#        if ps -p $SSH_AGENT_PID > /dev/null
-#        then
-#          echo "ssh-agent is already running" > /dev/null
-#        else
-#          eval "$(ssh-agent -s)"
-#          ssh-add ~/.ssh/id_ed25519_vecin2
-#        fi
-#      fi
-#    create: true
-#- name: 'Apply wsl2 git performance workaround'
-#  blockinfile:
-#    marker: '#{mark} git workaround on wsl2'
-#    path: '{{myshellrc}}'
-#    content: |
-#      # checks to see if we are in a windows or linux dir
-#      function isWinDir {
-#        case $PWD/ in
-#        /mnt/*) return $(true);;
-#        *) return $(false);;
-#        esac
-#      }
-#      # wrap the git command to either run windows git or linux
-#      function git {
-#        if isWinDir
-#        then
-#        git.exe "$@"
-#        else
-#        /usr/bin/git "$@"
-#        fi
-#      }
-#    create: true

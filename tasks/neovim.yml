@@ -62,9 +62,7 @@
     marker: "#{mark} nvim aliases"
     path: "{{ ansible_env.HOME }}/.bash_aliases"
     content: |
-      alias nvim=~/apps/nvim/nvim.appimage
       alias vimdiff='nvim -d'
-      alias vim='nvim'
     create: true
   tags: nvim
 - name: Bash configuration for Vim

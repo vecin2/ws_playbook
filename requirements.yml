@@ -3,3 +3,5 @@
 - name: buluma.eclipse
 - name: gantsign.maven
 - name: gantsign.intellij
+    
+- name: geerlingguy.nodejs

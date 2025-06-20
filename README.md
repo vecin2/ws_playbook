@@ -51,9 +51,33 @@ Because our playbook overrides the settings.json we will need to add this profil
 After installing WSL we need to install Ansible on WSL. 
 Ansible can run against different python versions.
 
+### Install as Python Module
+This is currently my prefer option. Install ansible as python module within a virtualenv. Main reasons are:
+- Get latest ansible version
+- Avoids conflicts with other packages 
+
+1. Make sure the following packages are installed:
+```
+sudo apt install python3 python3-venv python3-pip -y
+```
+2. Navigate to a folder where you want your venv. Then, create a venv, for now create one common ansible venv that will be used for all ansible projects:
+```
+cd ~/dev/personal/ansible
+python3 -m venv ~/.virtualenvs/ansible-venv
+```
+3. Activate virtualenv:
+```
+source ~/.virtualenvs/ansible-venv/bin/activate
+```
+4. Install ansible inside virutalenv:
+```
+python3 -m venv ~/.virtualenvs/ansible-venv
+```
+
 Installing ansible from python. It will make ansible using the python version that was installed from
 ```python3 -m pip ansible```
 
+### Install as Ubuntu package
 Installing ansible with apt:
 ```
 sudo apt update
@@ -89,9 +113,12 @@ Make sure this var is exported: export ANSIBLE_VAULT_PASSWORD_FILE=$HOME/vault_p
 - Open playbook [linux_ws.yml](./linux_ws.yml) and review the tasks that will be installed
 - Review [vars.yml](./vars.yml)
 - Configure vault_password.txt file
+- Install Galaxy roles:
+    - ansible-galaxy install -r requirements.yml -p roles 
 - Run the playbook with either:
+	- ansible-playbook linux_ws.yml -i inventor.yml --tags zsh
 	- [wsl-playbook](./run_linux_playbook.sh) - use this one for the first time
-	- `ansible-playbook linux_ws.yml -i inventor.yml
+	- ansible-playbook linux_ws.yml -i inventor.yml
 
 # For EM development
 
@@ -137,7 +164,7 @@ Also because it a external address the xlaunch configuration needs to have check
 # NerdFonts
 
 Copy ./files/Caskadia Cove Nerd Font Complete Windows Compatible.tff into your desktop. Open it and install it.
-Copying nerdfonts into `c:\windows\Fonts` might give permission issues.
+Copying nerdfonts into `c:\windows\Fonts` give permission issues.
 Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
 Current windows terminal `files/settings.json` is pointing to the font so web-devicons are working on the terminal.
 

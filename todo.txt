@@ -1,3 +1,17 @@
+### Current issues
+
+When running the playbook if the the ~/.local folder does not exist it creates as admin and throws a permission error when running another task
+
+### Generalize 
+
+[-] replace dgarcia with {{username}}
+[-] set facts should be checking for WSL
+[-] configure color schems in windows terminal
+[-] git ssh config is commented
+[-] Work config is commented - should be parametrized?
+[-] Parametrized verint_em_shell task -unlikely to install
+[-] review pythonvim_IDE
+
 
 ## Ansible Project
 improve overall ansible experience, formatting linting, lsp

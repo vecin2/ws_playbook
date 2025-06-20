@@ -1,4 +1,4 @@
-[includeIf "gitdir/i:~/dev/"]
+[includeIf "gitdir/i:~/dev/personal/"]
 	path = .gitconfig-personal
 
 [includeIf "gitdir/i:~/roar/"]
@@ -20,7 +20,7 @@
 [difftool]
 	prompt = false
 [difftool "vimdiff"]
-	path = /home/dgarcia/apps/nvim/nvim.appimage
+	path = /usr/local/bin/vim
 [fetch]
     prune = true
 [pull]

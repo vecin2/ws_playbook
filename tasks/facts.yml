@@ -17,16 +17,17 @@
     wsl_version: "{{ wsl_version_checker.stdout }}"
   tags: always
 
-#- name: Setting Windows username
-#  shell: |
-#    powershell.exe '$env:UserName'
-#  args:
-#    executable: "/bin/bash"
-#  tags: always
-#  register: wsl_version_checker
+- name: Setting Windows username
+  shell: |
+    powershell.exe '$env:UserName'
+  args:
+    executable: "/bin/bash"
+  when: "'WSL' in wsl_version"
+  tags: always
+  register: env_username
 
 - set_fact:
-    win_username: "{{ wsl_version_checker.stdout }}"
+    win_username: "{{ env_username.stdout }}"
   tags: always
 
 - block:

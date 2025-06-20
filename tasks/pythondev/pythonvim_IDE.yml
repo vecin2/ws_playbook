@@ -4,16 +4,16 @@
 #sudo add-apt-repository ppa:jonathonf/vim
 #sudo apt install vim
 - ansible.builtin.include_tasks: tasks/pythondev/flake8.yml
-- name: "Pip installing packages for VIM python IDE experience"
-  become: true
-  vars:
-    pipx_packages:
-      - black
-      - virtualenvwrapper
+  #- name: "Pip installing packages for VIM python IDE experience"
+  #become: true
+  #vars:
+  #pipx_packages:
+  #- black
+  #- virtualenvwrapper
       #- pyls-isort this is not command line app but a module withint pylsp app so it cannot be installe wit pipx
       # - ropevim
-  community.general.pipx:
-    name: "{{ item }}"
-  with_items: "{{ pipx_packages }}"
+      #community.general.pipx:
+      #name: "{{ item }}"
+      #with_items: "{{ pipx_packages }}"
 
-      #- software-properties-common # Part of the fix for ALE not highlighting cursor when error line
+

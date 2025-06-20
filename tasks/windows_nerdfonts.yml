@@ -16,9 +16,3 @@
     dest: "{{ fonts_installation_path }}"
     remote_src: true
 
-# - name: Install FiraCode Font on Windows
-#   when: firacode_exists is failed
-#   ansible.builtin.unarchive:
-#     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
-#     dest: "{{ lookup('env', 'HOME') }}/.fonts/"
-#     remote_src: yes

@@ -1,6 +1,6 @@
 ---
 - ansible.builtin.import_tasks: tasks/windows_nerdfonts.yml
   tags: nerdfonts
-- ansible.builtin.import_tasks: tasks/windows_terminal.yml
+    #- ansible.builtin.import_tasks: tasks/windows_terminal.yml
 - ansible.builtin.import_tasks: tasks/wsl_display.yml
 - ansible.builtin.import_tasks: tasks/wsl_integration.yml

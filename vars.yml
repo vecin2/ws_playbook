@@ -5,7 +5,7 @@ myshellfile: zshrc #either bashrc or zshrc
 # Windows for WSL
 #Copying nerdfonts into `c:\windows\Fonts` might give permission issues.
 #Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
-# fonts_installation_path: "/mnt/c/Windows/fonts"
+#fonts_installation_path: "/mnt/c/Windows/fonts"
 fonts_installation_path: "{{ansible_env.HOME}}/.fonts"
 shell_util_packages:
   - nfs-common #to mount nfs drive (access to nas)
@@ -30,9 +30,9 @@ python_apt_packages:
   - python3
   - python3-pip
   #Failure when installin  poetry in an venv environment
-  - python3.10-venv
-# python_pip_packages:
-#   - pipx
+  - python3.12-venv
+python_pip_packages:
+  - pipx
 #
 #java_apt_packages:
 kse_version: 5.5.3 #key store explorer
@@ -58,6 +58,9 @@ install_nordvpn: true
 install_teams_for_linux: true
 
 node_version: "2-.x"
+  
+#javadev_tools: ["eclipse", "intellij", "sdkman"]
+javadev_tools: [ "sdkman"]
 
 synology_drive_package_type: deb
 synology_drive_version: 3.5.1-{{synology_drive_minor_version}}

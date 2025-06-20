@@ -1,7 +1,10 @@
 ---
 - ansible.builtin.import_tasks: tasks/javadev/kse.yml
-- ansible.builtin.import_tasks: tasks/javadev/jd_gui.yml
+  #- ansible.builtin.import_tasks: tasks/javadev/jd_gui.yml
 - ansible.builtin.import_tasks: tasks/javadev/eclipse.yml
+  when: "'eclipse' in javadev_tools"
 - ansible.builtin.import_tasks: tasks/javadev/intellij.yml
+  when: "'intellij' in javadev_tools"
 - ansible.builtin.import_tasks: tasks/javadev/sdkman.yml
+  when: "'sdkman' in javadev_tools"
 - ansible.builtin.import_tasks: tasks/javadev/maven.yml
