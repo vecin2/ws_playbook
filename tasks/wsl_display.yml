@@ -1,4 +1,21 @@
 ---
+#If you're using modern WSL2 with WSLg (on Windows 11 or updated Windows 10). In this setup:
+# WSLg (Windows Subsystem for Linux GUI) provides a built-in Wayland/X11 server.
+# It automatically sets up the GUI bridge and listens on DISPLAY=:0.
+# You do not need to:
+  # Manually export DISPLAY=$(cat /etc/resolv.conf | grep nameserver)...
+  # Run VcXsrv, X410, or GWSL
+#DISPLAY=:0, default value, is now the recommended and correct setup for WSLg.
+- name: Detect if WSLg is active (via WAYLAND_DISPLAY)
+  ansible.builtin.shell: |
+    if printenv WAYLAND_DISPLAY &> /dev/null; then
+      echo "true"
+    else
+      echo "false"
+    fi
+  register: wslg_check
+  changed_when: false
+
 - name: Set DISPLAY var
   vars:
     wsl1_display: localhost:0
@@ -8,4 +25,5 @@
     path: "{{ myshellrc }}"
     regexp: "^export DISPLAY="
     line: export DISPLAY={{ display.strip() }}
+  when: wslg_check.stdout == "true"
   tags: wsl_clipboard
