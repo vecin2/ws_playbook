@@ -51,6 +51,34 @@ Because our playbook overrides the settings.json we will need to add this profil
 After installing WSL we need to install Ansible on WSL. 
 Ansible can run against different python versions.
 
+### Install pyenv
+Pyenv is a git repo that is downloaded typically to `~/.pyenv`
+- Install Dependencies
+```
+sudo apt update
+sudo apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+     libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev \
+     xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+```
+- git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+- git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+- Edit ~/.zshrc and add:
+```
+# SETUP PYENV
+# # Pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# For zsh users only
+autoload -Uz compinit
+compinit
+#END SETUP PYENV
+```
+
 ### Install as Python Module
 This is currently my prefer option. Install ansible as python module within a virtualenv. Main reasons are:
 - Get latest ansible version

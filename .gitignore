@@ -3,3 +3,4 @@
 *.un~
 .pytest_cache
 roles/
+.python-version

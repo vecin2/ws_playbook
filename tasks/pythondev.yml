@@ -17,6 +17,9 @@
     name: "{{item}}"
   with_items: "{{python_pip_packages}}"
 
-- ansible.builtin.import_tasks: tasks/pythondev/pyenv.yml
+# Do not auto install pyenv, because we prefer to install it manually so we can install ansible in virtualenv
+# also the role did not work well with zsh completions
+# - ansible.builtin.import_tasks: tasks/pythondev/pyenv.yml
+  # tags: pyenv
 - ansible.builtin.import_tasks: tasks/pythondev/virtualenvwrapper.yml
 - ansible.builtin.import_tasks: tasks/pythondev/pythonvim_IDE.yml

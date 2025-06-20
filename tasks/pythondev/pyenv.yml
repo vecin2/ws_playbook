@@ -4,8 +4,38 @@
     name: staticdev.pyenv
   vars:
     pyenv_env: "user" # ~/.pyenv
-    pyenv_enable_autocompletion: true
+    pyenv_enable_autocompletion: false #the roles sets it up for bash
     pyenv_update: true #update plugin to allow update pyenv with 'pyenv update'
     pyenv_global: ["3.13.1"] #defines version available globally for each shell
     pyenv_python_versions: ["3.13.1"] #install python version
     pyenv_shellrc_file: "{{ myshellrc }}" #points either to zsh or bash (role defaults to bashrc for user installation)
+
+- name: Add pyenv init to zsh
+  blockinfile:
+    path: "{{ myshellrc }}" 
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: pyenv setup"
+    block: |
+      # Zsh completion system
+      autoload -Uz compinit
+      compinit
+      # Pyenv setup
+      export PYENV_ROOT="$HOME/.pyenv"
+      export PATH="$PYENV_ROOT/bin:$PATH"
+      eval "$(pyenv init --path)"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+  when: ansible_env.SHELL.endswith("zsh")
+
+- name: Add pyenv init to bash
+  blockinfile:
+    path: "{{ myshellrc }}" 
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: pyenv setup"
+    block: |
+      # Zsh completion system
+      block: |
+        # Pyenv setup
+        export PYENV_ROOT="$HOME/.pyenv"
+        export PATH="$PYENV_ROOT/bin:$PATH"
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+  when: ansible_env.SHELL.endswith("bash")
