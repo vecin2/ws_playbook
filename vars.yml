@@ -3,6 +3,8 @@ myshell: zsh #either zsh or bash
 myshellfile: zshrc #either bashrc or zshrc
 
 # Windows for WSL
+# win_downloads_folder: Documents
+win_downloads_folder: "OneDrive - CGIAR/Documents" 
 #Copying nerdfonts into `c:\windows\Fonts` might give permission issues.
 #Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
 #fonts_installation_path: "/mnt/c/Windows/fonts"

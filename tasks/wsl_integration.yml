@@ -26,7 +26,7 @@
     marker: "#{mark} Add Windows Env Vars"
     block: |
       export WHOME="/mnt/c/Users/{{win_username}}"
-      export WDOWNLOADS=/mnt/c/Users/{{win_username}}/Downloads
+      export WDOCUMENTS="/mnt/c/Users/{{win_username}}/{{win_downloads_folder}}"
   tags: wsl_integration
 
 - name: Install "wsl-open" node.js package.
