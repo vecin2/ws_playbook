@@ -131,6 +131,36 @@ mapkey("<C-Right>", "vertical resize +2", "n")
 -- }}}
 
 -- Clipboard settings {{{
+-- WSL-Windows integration
+-- Auto-remove carriage returns (\r) before saving any file
+-- Remove carriage returns safely if present
+local function clean_carriage_returns()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local has_cr = false
+  for i, line in ipairs(lines) do
+    if line:find("\r") then
+      lines[i] = line:gsub("\r", "")
+      has_cr = true
+    end
+  end
+  if has_cr then
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+    print("🧹 Cleaned Windows line endings (\\r)")
+  end
+end
+-- Clean when saving (final safeguard)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = clean_carriage_returns,
+})
+
+-- Clean right after pasting from clipboard
+vim.api.nvim_create_autocmd("TextChanged", {
+  pattern = "*",
+  callback = clean_carriage_returns,
+})
+
 -- Allows to paste text copied from Vim after exit Vim
 vim.api.nvim_create_autocmd("VimLeave", {
 	callback = function()
