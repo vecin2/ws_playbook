@@ -44,3 +44,14 @@
 #     block: |
 #       ZSH_TMUX_AUTOSTART=true
 #   tags: tmux
+- name: Ensure tmux plugin directory exists
+  file:
+    path: ~/.tmux/plugins
+    state: directory
+    mode: '0755'
+
+- name: Clone TPM (Tmux Plugin Manager)
+  git:
+    repo: "https://github.com/tmux-plugins/tpm.git"
+    dest: "~/.tmux/plugins/tpm"
+    update: yes
