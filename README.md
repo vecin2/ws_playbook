@@ -191,7 +191,7 @@ Also because it a external address the xlaunch configuration needs to have check
 
 # NerdFonts
 
-Copy ./files/Caskadia Cove Nerd Font Complete Windows Compatible.tff into your desktop. Open it and install it.
+Copy ./files/fonts/Caskadia Cove Nerd Font Complete Windows Compatible.tff into your desktop. Open it and install it.
 Copying nerdfonts into `c:\windows\Fonts` give permission issues.
 Change nerdfonts path to something that does ont give pemisission error and then copy manually from windows
 Current windows terminal `files/settings.json` is pointing to the font so web-devicons are working on the terminal.
