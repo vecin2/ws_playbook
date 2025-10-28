@@ -1,7 +1,7 @@
 [includeIf "gitdir/i:~/dev/personal/"]
 	path = .gitconfig-personal
 
-[includeIf "gitdir/i:~/roar/"]
+[includeIf "gitdir/i:~/dev/work/"]
 	path = .gitconfig-work
 
 [init]
