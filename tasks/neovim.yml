@@ -2,26 +2,36 @@
 - name: Create nvim app folder
   become: true
   ansible.builtin.file:
-    path: "/opt/nvim"
+    path: "/opt"
     state: directory
   tags: nvim
 
 - name: Download nightly nvim
   become: true
   ansible.builtin.get_url:
-    url: https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage
+    url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage
     dest: "/opt/nvim"
     mode: '0755'
+  tags: nvim
+
+- name: Ensure nvim is linked
+  become: true
+  ansible.builtin.file:
+    src: "/opt/nvim"
+    dest: /usr/local/bin/nvim
+    state: link
+    force: true
   tags: nvim
 
 - name: Ensure nvim is linked as vim
   become: true
   ansible.builtin.file:
-    src: "/opt/nvim/nvim-linux-x86_64.appimage"
+    src: "/opt/nvim"
     dest: /usr/local/bin/vim
     state: link
     force: true
   tags: nvim
+
 
 - name: Install Fuse For Running nvim image
   become: true
