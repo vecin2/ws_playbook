@@ -39,11 +39,14 @@ return {
 		--  nvim-cmp does not ship with all sources by default. They are split
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
+		"github/copilot.vim",
 		"hrsh7th/cmp-path", -- source for file system paths
 		"hrsh7th/cmp-buffer", -- source for text in buffer
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 	},
 	config = function()
+		-- Disable Copilot by default
+			vim.g.copilot_enabled = 0
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
 		local luasnip = require("luasnip")

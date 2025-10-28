@@ -39,38 +39,6 @@ return {
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local project_library_path = "./node_modules"
-		-- local cmd = {
-		-- 	-- "npx",
-		-- 	-- "@angular/language-server",
-		-- 	"node",
-		-- 	"/home/dgarcia/dev/angular/angular-course/node_modules/@angular/language-server",
-		-- 	"--stdio",
-		-- 	"--tsProbeLocations",
-		-- 	project_library_path,
-		-- 	"--ngProbeLocations",
-		-- 	project_library_path,
-		-- 	"--tsServerPath",
-		-- 	"/home/dgarcia/dev/angular/angular-course/node_modules/typescript/lib/tsserver.js",
-		-- }
-		-- local cmd = {
-		-- 	"node",
-		-- 	"/home/dgarcia/dev/angular/pepe/node_modules/@angular/language-server",
-		-- 	"--stdio",
-		-- 	"--tsProbeLocations",
-		-- 	"./node_modules",
-		-- 	"--ngProbeLocations",
-		-- 	"./node_modules",
-		-- 	"--tsServerPath",
-		-- 	"/home/dgarcia/dev/angular/pepe/node_modules/typescript/lib/tsserver.js",
-		-- 	"--config",
-		-- 	"./src/tsconfig.app.json",
-		-- 	"--logFile",
-		-- 	"/home/dgarcia/pepe-debug2.log",
-		-- 	"--logVerbosity",
-		-- 	"verbose",
-		-- }
-		-- Disabled lsp logging to avoid file growing,can be reenabled when issues
-		-- vim.lsp.set_log_level("debug")
 		vim.lsp.set_log_level("OFF")
 
 		local servers = {
@@ -113,33 +81,6 @@ return {
 		-- , "prettierd", "prettier", "eslint_d" they are too new for tsc 4.7.4
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-
-		-- require("lspconfig").angularls.setup({
-		-- 	cmd = cmd,
-		-- 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
-		-- 	on_new_config = function(new_config, _)
-		-- 		new_config.cmd = cmd
-		-- 		-- if not vim.tbl_contains(new_config.cmd, "--config") then
-		-- 		-- 	table.insert(new_config.cmd, "--config")
-		-- 		-- 	table.insert(new_config.cmd, "./src/tsconfig.app.json")
-		-- 		-- end
-		-- 	end,
-		-- 	init_options = {
-		-- 		logFile = "/home/dgarcia/angularls.log",
-		-- 		logVerbosity = "verbose",
-		-- 	},
-		-- })
-		--
-		-- require("lspconfig").eslint.setup({
-		-- 	cmd = { "npx", "eslint" }, -- Runs the project version
-		-- 	root_dir = require("lspconfig.util").root_pattern(".eslintrc.json", "package.json"),
-		-- })
-
-		-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		-- local capabilities = cmp_nvim_lsp.default_capabilities()
-		--
-		--
-		-- local ensure_installed = vim.tbl_keys(servers or {})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),

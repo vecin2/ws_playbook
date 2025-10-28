@@ -325,3 +325,4 @@ vim.api.nvim_create_autocmd("FileType", {
 -- }}}
 
 require("config/ansible")
+require("config/lsp")
