@@ -1,0 +1,6 @@
+
+- name: Setting alias 'oc' for opencode --port 4096
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bash_aliases"
+    line: alias oc="opencode --port 4096"
+    create: true

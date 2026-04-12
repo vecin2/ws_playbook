@@ -38,6 +38,9 @@
       when: "'WSL' in wsl_version"
     - ansible.builtin.import_tasks: tasks/searchers.yml
     - ansible.builtin.import_tasks: tasks/git.yml
+      tags: git
+    - ansible.builtin.import_tasks: tasks/opencode.yml
+      tags: opencode
 
     #    - import_tasks: tasks/vim.yml
     - ansible.builtin.import_tasks: tasks/neovim.yml
