@@ -3,6 +3,25 @@
   become: true
   ansible.builtin.apt:
     name: git
+
+- name: "Add GitHub CLI apt key"
+  become: true
+  ansible.builtin.apt_key:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    state: present
+
+- name: "Add GitHub CLI apt repository"
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://cli.github.com/packages stable main
+    state: present
+
+- name: "Installing GitHub CLI"
+  become: true
+  ansible.builtin.apt:
+    name: gh
+    state: present
+    update_cache: true
 - name: "Setting up personal gitconfig"
   ansible.builtin.file:
     src: "{{ playbook_dir }}/files/gitconfig/{{ item }}"
@@ -56,7 +75,6 @@
     dest: "{{ ansible_env.HOME }}/.ssh/config"
     state: link
     force: "yes"
-  tags: git
 
 - name: 'Start ssh agent on start'
   blockinfile:
@@ -108,4 +126,3 @@
     regexp: '^source "{{ playbook_dir }}/files/gitconfig/git_aliases.sh"$'
 
 - ansible.builtin.import_tasks: tasks/lazygit.yml
-  tags: git
